@@ -59,6 +59,21 @@
 
 
 ;;-------------------------------------------------------------------------
+;; grep-mode
+;;-------------------------------------------------------------------------
+(use-package grep-mode
+  :no-require t
+  :init
+  (setq-default grep-highlight-matches t
+                grep-scroll-output t)
+
+  (with-eval-after-load 'grep
+    (dolist (key (list (kbd "C-c C-q") (kbd "w")))
+      (define-key grep-mode-map key 'wgrep-change-to-wgrep-mode))))
+
+
+
+;;-------------------------------------------------------------------------
 ;; hippie-expand
 ;;-------------------------------------------------------------------------
 (use-package hippie-expand
