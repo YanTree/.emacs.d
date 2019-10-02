@@ -88,7 +88,7 @@
          ("C-c s"         . counsel-grep)        ;;当前 buffer 里查找字符串
          ("C-c g"         . counsel-git-grep)    ;;在当前版本控制下的文件里搜索字符串
          ("C-c r"         . counsel-rg)          ;;使用rg,这是在当前目录下搜索
-         )
+         ("M-?"           . yantree/counsel-search-project))
   :hook (ivy-mode . counsel-mode)
   :init
   ;; 用counsel的功能覆盖初始变量
@@ -110,7 +110,30 @@
               :caller 'counsel-recentf))
   (advice-add #'counsel-recentf :override #'yantree-counsel-recentf)
 
-  )
+  (let ((search-function
+         (cond
+          ((executable-find "rg") 'counsel-rg)
+          ((executable-find "ag") 'counsel-ag)
+          ((executable-find "pt") 'counsel-pt)
+          ((executable-find "ack") 'counsel-ack))))
+    (when search-function
+      (defun yantree/counsel-search-project (initial-input &optional use-current-dir)
+        "Search using `counsel-rg' or similar from the project root for INITIAL-INPUT.
+If there is no project root, or if the prefix argument
+USE-CURRENT-DIR is set, then search from the current directory
+instead."
+        (interactive (list (thing-at-point 'symbol)
+                           current-prefix-arg))
+        (let ((current-prefix-arg)
+              (dir (if use-current-dir
+                       default-directory
+                     (condition-case err
+                         (projectile-project-root)
+                       (error default-directory)))))
+          (funcall search-function initial-input dir)))))
+
+  (with-eval-after-load 'ivy
+    (add-to-list 'ivy-height-alist (cons 'counsel-ag 20))))
 
 
 

@@ -196,31 +196,6 @@
   (setq-default projectile-mode-line-prefix " ProJ"
                 projectile-sort-order 'recentf
                 projectile-use-git-grep t)
-  :preface
-  (let ((search-function
-         (cond
-          ((executable-find "ag") 'counsel-ag)
-          ((executable-find "rg") 'counsel-rg)
-          ((executable-find "pt") 'counsel-pt)
-          ((executable-find "ack") 'counsel-ack))))
-    (when search-function
-      (defun yantree/counsel-search-project (initial-input &optional use-current-dir)
-        "Search using `counsel-rg' or similar from the project root for INITIAL-INPUT.
-If there is no project root, or if the prefix argument
-USE-CURRENT-DIR is set, then search from the current directory
-instead."
-        (interactive (list (thing-at-point 'symbol)
-                           current-prefix-arg))
-        (let ((current-prefix-arg)
-              (dir (if use-current-dir
-                       default-directory
-                     (condition-case err
-                         (projectile-project-root)
-                       (error default-directory)))))
-          (funcall search-function initial-input dir)))))
-
-  (with-eval-after-load 'ivy
-    (add-to-list 'ivy-height-alist (cons 'counsel-ag 20)))
   :config
   (projectile-mode 1))
 
