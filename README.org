@@ -7,6 +7,9 @@
 ** 配置思路
 
 Emacs 配置文件目录的构成
+
+#+BEGIN_EXAMPLE
+
 .emacs.d
 ├── auto-save-list            (放置所有因插件而生成的自动保存文件)
 │   ├── recentf
@@ -35,7 +38,6 @@ Emacs 配置文件目录的构成
 │   │       └── ...
 │   │   └── ...
 
-#+BEGIN_EXAMPLE
 |----> auto-save-list           (放置所有因插件而生成的自动保存文件)
   |
   |--> recentf
