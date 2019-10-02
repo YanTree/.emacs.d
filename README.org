@@ -8,6 +8,7 @@
 
 Emacs 配置文件目录的构成
 
+#+BEGIN_EXAMPLE
 |----> auto-save-list           (放置所有因插件而生成的自动保存文件)
   |
   |--> recentf
@@ -24,3 +25,5 @@ Emacs 配置文件目录的构成
   |--> sdcv-dict                (sdcv 的词典目录)
   |--> snippets                 (yasnippet 的模板文件目录)
   |...
+
+#+END_EXAMPLE
