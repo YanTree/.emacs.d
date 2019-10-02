@@ -10,7 +10,7 @@ Emacs 配置文件目录的构成
 
 #+BEGIN_EXAMPLE
 
-.emacs.d
+.emacs.d                      (整个配置文件目录)
 ├── auto-save-list            (放置所有因插件而生成的自动保存文件)
 │   ├── recentf
 │   ├── README
@@ -38,21 +38,5 @@ Emacs 配置文件目录的构成
 │   │       └── ...
 │   │   └── ...
 
-|----> auto-save-list           (放置所有因插件而生成的自动保存文件)
-  |
-  |--> recentf
-  |--> bookmarks
-  |--> custom.el
-  |...
-|----> early-init.el            (Emacs 27 新特性)
-|----> init.el                  (整个配置文件的入口)
-|----> init-test.el             (测试插件是否按预期工作的最小配置)
-|----> lisp                     (存放所有的配置文件)
-|----> site-lisp                (安装非 melpa 上的插件,以及其他插件需要的文件)
-  |
-  |--> extensions               (非 melpa 插件)
-  |--> sdcv-dict                (sdcv 的词典目录)
-  |--> snippets                 (yasnippet 的模板文件目录)
-  |...
 
 #+END_EXAMPLE
