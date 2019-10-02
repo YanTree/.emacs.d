@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: new-init
+# key: ni
+# --
+;;; -*- lexical-binding: t; -*-
+
+
+
+
+
+
+
+
+(provide '`(replace-regexp-in-string "\.el$" "" (buffer-name))`)
+;;; `(buffer-name)` ends here

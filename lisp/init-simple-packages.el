@@ -1,0 +1,284 @@
+;;; -*- lexical-binding: t; -*-
+;; 配置不超过十行代码的插件 or......我想把它放这儿
+
+;;-------------------------------------------------------------------------
+;; ag ( 电脑先安装 the_sliver_searcher ,已经内置在ivy里了,不用再次安装了)
+;;-------------------------------------------------------------------------
+;; (use-package ag
+;;   :ensure t
+;;   :defer t)
+
+
+
+;;-------------------------------------------------------------------------
+;; aggresive-indent ( 时时保持缩进 )
+;;-------------------------------------------------------------------------
+(use-package aggressive-indent
+  :ensure t
+  :diminish
+  :hook
+  ;; FIXME: Disable in big files due to the performance issues
+  (find-file .  (lambda ()
+                  (if (> (buffer-size) (* 3000 80))
+                      (aggressive-indent-mode -1))))
+  :config
+  (global-aggressive-indent-mode 1)
+  ;; Disable in some modes
+  (dolist (mode '(asm-mode web-mode html-mode css-mode robot-mode go-mode))
+    (push mode aggressive-indent-excluded-modes))
+
+  ;; Disable in some commands
+  (add-to-list 'aggressive-indent-protected-commands #'delete-trailing-whitespace t))
+
+
+
+;;-------------------------------------------------------------------------
+;; diff-hl 高亮显示未提交的change
+;;-------------------------------------------------------------------------
+(use-package diff-hl
+  :ensure t
+  :defines (diff-hl-margin-symbols-alist desktop-minor-mode-table)
+  :functions  my-diff-hl-fringe-bmp-function
+  :custom-face (diff-hl-change ((t (:foreground ,(face-background 'highlight)))))
+  :bind (:map diff-hl-command-map
+              ("SPC" . diff-hl-mark-hunk))
+  :hook ((dired-mode . diff-hl-dired-mode)
+         (after-init . global-diff-hl-mode))
+  :config
+  ;; Highlight on-the-fly
+  (diff-hl-flydiff-mode 1)
+
+  ;; Set fringe style
+  (setq-default fringes-outside-margins t)
+
+  (defun my-diff-hl-fringe-bmp-function (_type _pos)
+    "Fringe bitmap function for use as `diff-hl-fringe-bmp-function'."
+    (define-fringe-bitmap 'my-diff-hl-bmp
+      (vector #b11111100)
+      1 8
+      '(center t)))
+  (setq diff-hl-fringe-bmp-function #'my-diff-hl-fringe-bmp-function)
+
+  (unless (display-graphic-p)
+    (setq diff-hl-margin-symbols-alist
+          '((insert . " ") (delete . " ") (change . " ")
+            (unknown . " ") (ignored . " ")))
+    ;; Fall back to the display margin since the fringe is unavailable in tty
+    (diff-hl-margin-mode 1)
+    ;; Avoid restoring `diff-hl-margin-mode'
+    (with-eval-after-load 'desktop
+      (add-to-list 'desktop-minor-mode-table
+                   '(diff-hl-margin-mode nil)))))
+
+
+;;-------------------------------------------------------------------------
+;; exec-path-from-shell
+;;-------------------------------------------------------------------------
+(when (or (and (display-graphic-p) (eq system-type 'gnu/linux)) ;; 判断是否为 GNU/Linux 系统
+          (and (display-graphic-p) (eq system-type 'darwin)))   ;; 判断是否为 GNU/Linux 系统
+  (use-package exec-path-from-shell
+    :ensure t
+    :defer t
+    :init
+    (setq exec-path-from-shell-check-startup-files nil
+          exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH")
+          exec-path-from-shell-arguments '("-l")))
+  (exec-path-from-shell-initialize))
+
+
+
+;;-------------------------------------------------------------------------
+;; flycheck
+;;-------------------------------------------------------------------------
+(use-package flycheck
+  :ensure t
+  :commands (flycheck-mode)
+  :diminish flycheck-mode
+  :config
+  (defalias 'show-error-at-point-soon
+    'flycheck-show-error-at-point)
+
+  (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+
+  (defun magnars/adjust-flycheck-automatic-syntax-eagerness ()
+    "Adjust how often we check for errors based on if there are any.
+  This lets us fix any errors as quickly as possible, but in a
+  clean buffer we're an order of magnitude laxer about checking."
+    (setq flycheck-idle-change-delay
+          (if flycheck-current-errors 0.3 3.0)))
+
+  ;; Each buffer gets its own idle-change-delay because of the
+  ;; buffer-sensitive adjustment above.
+  (make-variable-buffer-local 'flycheck-idle-change-delay)
+
+  (add-hook 'flycheck-after-syntax-check-hook
+            'magnars/adjust-flycheck-automatic-syntax-eagerness)
+
+  ;; Remove newline checks, since they would trigger an immediate check
+  ;; when we want the idle-change-delay to be in effect while editing.
+  (setq-default flycheck-check-syntax-automatically '(save
+                                                      idle-change
+                                                      mode-enabled))
+
+;;; Display Flycheck errors in GUI tooltips
+  (if (display-graphic-p)
+      (if (>= emacs-major-version 26)
+          (use-package flycheck-posframe
+            :ensure t
+            :after (flycheck)
+            :hook (flycheck-mode . flycheck-posframe-mode)
+            :config
+            (add-to-list 'flycheck-posframe-inhibit-functions
+                         #'(lambda () (bound-and-true-p company-backend)))))))
+
+
+
+;;-------------------------------------------------------------------------
+;; hl-todo 在注释或者 string 里高亮 TODO 和类似的关键字
+;;-------------------------------------------------------------------------
+(use-package hl-todo
+  :ensure t
+  :hook ((prog-mode org-mode) . hl-todo-mode)
+  :config
+  (dolist (keyword '("BUG" "ISSUE" "PROMPT" "ATTENTION"))
+    (cl-pushnew `(,keyword . ,(face-foreground 'error)) hl-todo-keyword-faces))
+  (dolist (keyword '("HACK" "TRICK"))
+    (cl-pushnew `(,keyword . ,(face-foreground 'warning)) hl-todo-keyword-faces)))
+
+
+
+;;-------------------------------------------------------------------------
+;; macrostep 展开当前宏
+;;-------------------------------------------------------------------------
+(use-package macrostep
+  :ensure t
+  :custom-face
+  (macrostep-expansion-highlight-face ((t (:background ,(face-background 'tooltip)))))
+  :bind (:map emacs-lisp-mode-map
+              ("C-c e" . macrostep-expand)
+              :map lisp-interaction-mode-map
+              ("C-c e" . macrostep-expand))
+  :config
+  (add-hook 'after-load-theme-hook
+            (lambda ()
+              (set-face-background 'macrostep-expansion-highlight-face
+                                   (face-background 'tooltip)))))
+
+
+;;-------------------------------------------------------------------------
+;; Page break lines
+;;-------------------------------------------------------------------------
+(use-package page-break-lines
+  :ensure t
+  :diminish page-break-lines-mode
+  :hook (after-init . global-page-break-lines-mode))
+
+
+;;-------------------------------------------------------------------------
+;; projectile
+;;-------------------------------------------------------------------------
+(use-package projectile
+  :ensure t
+  :diminish
+  :bind* (("M-?" . yantree/counsel-search-project)
+          ("C-c TAB"  . projectile-find-file)
+          ;; ("C-c p" . (lambda () (interactive)
+          ;;              (projectile-cleanup-known-projects)
+          ;;              (projectile-discover-projects-in-search-path)))
+          )
+  :bind-keymap ("C-c p" . projectile-command-map)
+  :custom
+  (projectile-known-projects-file
+   "~/.emacs.d/auto-save-list/projectile-bookmarks.eld")
+  :init
+  ;;; Shorter modeline
+  (setq-default projectile-mode-line-prefix " ProJ"
+                projectile-sort-order 'recentf
+                projectile-use-git-grep t)
+  :preface
+  (let ((search-function
+         (cond
+          ((executable-find "ag") 'counsel-ag)
+          ((executable-find "rg") 'counsel-rg)
+          ((executable-find "pt") 'counsel-pt)
+          ((executable-find "ack") 'counsel-ack))))
+    (when search-function
+      (defun yantree/counsel-search-project (initial-input &optional use-current-dir)
+        "Search using `counsel-rg' or similar from the project root for INITIAL-INPUT.
+If there is no project root, or if the prefix argument
+USE-CURRENT-DIR is set, then search from the current directory
+instead."
+        (interactive (list (thing-at-point 'symbol)
+                           current-prefix-arg))
+        (let ((current-prefix-arg)
+              (dir (if use-current-dir
+                       default-directory
+                     (condition-case err
+                         (projectile-project-root)
+                       (error default-directory)))))
+          (funcall search-function initial-input dir)))))
+
+  (with-eval-after-load 'ivy
+    (add-to-list 'ivy-height-alist (cons 'counsel-ag 20)))
+  :config
+  (projectile-mode 1))
+
+
+;;-------------------------------------------------------------------------
+;; rainbow-delimiters 用不同的方法颜色高亮不同层次的括号 (彩虹括号)
+;;-------------------------------------------------------------------------
+(use-package rainbow-delimiters
+  :ensure t
+  :diminish rainbow-delimiters-mode
+  ;;; 在大多数编程语言(prog-mode-hook)中启动rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(if (fboundp 'global-prettify-symbols-mode)
+    (add-hook 'after-init-hook 'global-prettify-symbols-mode))
+
+
+
+;;-------------------------------------------------------------------------
+;; rainbow-mode 显示字符串对应的颜色(例如: red 显示为红色)
+;;-------------------------------------------------------------------------
+(use-package rainbow-mode
+  :ensure t
+  :diminish rainbow-mode
+  :hook ((css-mode html-mode sass-mode js-mode js2-mode) . rainbow-mode)
+  :init
+  (defun yantree/enable-rainbow-mode-if-theme ()
+    (when (and (buffer-file-name) (string-match-p "\\(color-theme-\\|-theme\\.el\\)" (buffer-file-name)))
+      (rainbow-mode)))
+  :hook ((emacs-lisp-mode . yantree/enable-rainbow-mode-if-theme)
+         (help-mode       . rainbow-mode)))
+
+
+
+;;-------------------------------------------------------------------------
+;; sicp 魔法书
+;;-------------------------------------------------------------------------
+(use-package sicp
+  :ensure t
+  :defer t)
+
+
+
+;;-------------------------------------------------------------------------
+;; which-key
+;;-------------------------------------------------------------------------
+(use-package which-key
+  :ensure t
+  :diminish
+  :hook (after-init . which-key-mode)
+  :init
+  (setq which-key-separator " ")
+  (setq which-key-prefix-prefix "+ ")
+  :bind (:map help-map
+              ("C-h" . which-key-C-h-dispatch)))
+
+
+
+
+(provide 'init-simple-packages)
+;;; init-simple-packages.el ends here

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: description
+# key: >des
+# --
+#+description: $0
