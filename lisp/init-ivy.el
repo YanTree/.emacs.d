@@ -12,8 +12,9 @@
               ("C-k"     . ivy-switch-buffer-kill)
 
               :map ivy-minibuffer-map
-              ("RET"     . ivy-alt-done))
-
+              ("RET"     . #'ivy-alt-done)
+              :map ivy-occur-mode-map
+              ("C-c C-q" . #'ivy-wgrep-change-to-wgrep-mode))
   :init
   ;; about ivy
   (setq-default ivy-use-virtual-buffers t ;;add recent files and bookmarks to `ivy-switch-buffer'
@@ -23,8 +24,8 @@
                 ivy-virtual-abbreviate 'fullpath
                 projectile-completion-system 'ivy
                 ivy-display-style 'fancy
-                ivy-magic-tilde nil
                 ivy-use-selectable-prompt t
+                ivy-on-del-error-function nil
                 ivy-initial-inputs-alist nil)
 
   ;;你可以查看 ivy-format-functions-alist，默认有三种选择，可以自己 hack 一下
@@ -75,7 +76,8 @@
             magit-completing-read-function recentf-list)
   :diminish ivy-mode counsel-mode
   :bind (("C-s"           . swiper-isearch)
-         ;;("s-f"         . swiper)
+         ("M-x"           . counsel-M-x)
+         ("C-x C-f"       . counsel-find-file)
          ("C-S-s"         . isearch-forward)
          ("C-S-r"         . isearch-backward)
 
@@ -85,9 +87,9 @@
          ("C-x C-r"       . counsel-recentf)     ;;打开 recentf 文件
          ("C-c b"         . counsel-bookmark)    ;;打开书签
          ("C-h k"         . counsel-descbinds)   ;;查找绑定快捷键
-         ("C-c s"         . counsel-grep)        ;;当前 buffer 里查找字符串
-         ("C-c g"         . counsel-git-grep)    ;;在当前版本控制下的文件里搜索字符串
-         ("C-c r"         . counsel-rg)          ;;使用rg,这是在当前目录下搜索
+         ;; ("C-c s"         . counsel-grep)        ;;当前 buffer 里查找字符串
+         ;; ("C-c g"         . counsel-git-grep)    ;;在当前版本控制下的文件里搜索字符串
+         ;; ("C-c r"         . counsel-rg)          ;;使用rg,这是在当前目录下搜索
          ("M-?"           . yantree/counsel-search-project))
   :hook (ivy-mode . counsel-mode)
   :init
@@ -109,7 +111,7 @@
               :require-match t
               :caller 'counsel-recentf))
   (advice-add #'counsel-recentf :override #'yantree-counsel-recentf)
-
+  :config
   (let ((search-function
          (cond
           ((executable-find "rg") 'counsel-rg)
@@ -133,7 +135,64 @@ instead."
           (funcall search-function initial-input dir)))))
 
   (with-eval-after-load 'ivy
-    (add-to-list 'ivy-height-alist (cons 'counsel-ag 20))))
+    (add-to-list 'ivy-height-alist (cons 'counsel-ag 20)))
+
+  ;; Pre-fill search keywords
+  (defvar my-ivy-fly-commands '(query-replace-regexp
+                                flush-lines
+                                keep-lines
+                                ivy-read
+                                swiper
+                                swiper-backward
+                                swiper-all
+                                swiper-isearch
+                                swiper-isearch-backward
+                                counsel-grep-or-swiper
+                                counsel-grep-or-swiper-backward
+                                counsel-grep
+                                counsel-ack
+                                counsel-ag
+                                counsel-rg
+                                counsel-pt))
+
+  (defun my-ivy-fly-back-to-present ()
+    (cond ((and (memq last-command my-ivy-fly-commands)
+                (equal (this-command-keys-vector) (kbd "M-p")))
+           ;; repeat one time to get straight to the first history item
+           (setq unread-command-events
+                 (append unread-command-events
+                         (listify-key-sequence (kbd "M-p")))))
+          ((or (memq this-command '(self-insert-command
+                                    yank
+                                    ivy-yank-word
+                                    counsel-yank-pop))
+               (equal (this-command-keys-vector) (kbd "M-n")))
+           (delete-region (point)
+                          (point-max)))))
+
+  (defun my-ivy-fly-time-travel ()
+    (when (memq this-command my-ivy-fly-commands)
+      (let* ((kbd (kbd "M-n"))
+             (cmd (key-binding kbd))
+             (future (and cmd
+                          (with-temp-buffer
+                            (when (ignore-errors
+                                    (call-interactively cmd) t)
+                              (buffer-string))))))
+        (when future
+          (save-excursion
+            (insert (propertize (replace-regexp-in-string
+                                 "\\\\_<" ""
+                                 (replace-regexp-in-string
+                                  "\\\\_>" ""
+                                  future))
+                                'face 'shadow)))
+          (add-hook 'pre-command-hook 'my-ivy-fly-back-to-present nil t)))))
+
+  (add-hook 'minibuffer-setup-hook #'my-ivy-fly-time-travel)
+  (add-hook 'minibuffer-exit-hook
+            (lambda ()
+              (remove-hook 'pre-command-hook 'my-ivy-fly-back-to-present t))))
 
 
 
