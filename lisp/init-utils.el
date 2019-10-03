@@ -188,12 +188,12 @@ Result is full path."
 ;;-------------------------------------------------------------------------
 (use-package sdcv
   :load-path "site-lisp/extensions/sdcv"
-  :init
+  :config
   ;; 词典链接 http://download.huzheng.org/zh_CN/
   ;; 根据懒猫的配置,下面一行要这样自定义启动目录
   (defvar yantree-sdcv-data-dir (file-truename "~/.emacs.d/site-lisp/sdcv-dict"))
 
-  (setq sdcv-say-word-p t)               ;;say word after translation
+  (setq sdcv-say-word-p t)               ;;打开语音功能
   (setq sdcv-dictionary-simple-list      ;;星际译王屏幕取词词典, 简单, 快速
         '("懒虫简明英汉词典"
           "懒虫简明汉英词典"
@@ -219,7 +219,7 @@ Result is full path."
           "quick_eng-zh_CN"
           ))
 
-  (setq sdcv-dictionary-data-dir yantree-sdcv-data-dir) ;setup directory of stardict dictionary
+  (setq sdcv-dictionary-data-dir yantree-sdcv-data-dir);;设置词典的路径
 
   :bind ("C-c t" . sdcv-search-pointer+))
 
