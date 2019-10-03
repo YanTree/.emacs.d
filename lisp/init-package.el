@@ -87,13 +87,12 @@
 (use-package async                     :ensure t :defer t)
 (use-package diminish                  :ensure t :demand t)
 (use-package epl                       :ensure t :defer t)
-;; Update GPG keyring for GNU ELPA
-;; (use-package gnu-elpa-keyring-update   :ensure t :defer t)
 (use-package pkg-info                  :ensure t :defer t)
 (use-package pos-tip                   :ensure t :defer t)
 (use-package posframe                  :ensure t :defer t)
 (use-package dash                      :ensure t :defer t)
-
+(use-package s                         :ensure t :defer t)
+(use-package simple-httpd              :ensure t :defer t)
 
 (provide 'init-package)
 ;;; init-package.el ends here
