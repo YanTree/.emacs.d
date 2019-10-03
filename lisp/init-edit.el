@@ -222,6 +222,7 @@
 ;;-------------------------------------------------------------------------
 ;; wgrep ( 直接编辑 ag 或 rg 的搜索结果 )
 ;;-------------------------------------------------------------------------
+;; ag 的安装
 (when (and (executable-find "ag")
            (use-package ag
              :ensure t
@@ -233,6 +234,16 @@
     (setq wgrep-auto-save-buffer t
           wgrep-change-readonly-file t)
     :bind ("M-?"    . ag-project)))
+
+;; rg 的安装
+;; (when (and (executable-find "rg")
+;;            (use-package rg
+;;              :ensure t
+;;              :config
+;;              (rg-enable-default-bindings)))
+;;   (use-package deadgrep
+;;     :ensure t
+;;     :bind ("M-?"    . rg-project)))
 
 
 
