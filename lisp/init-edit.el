@@ -226,6 +226,7 @@
 (when (and (executable-find "ag")
            (use-package ag
              :ensure t
+             :defer t
              :init
              (setq-default ag-highlight-search t)))
   (use-package wgrep
