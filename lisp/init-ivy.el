@@ -10,22 +10,19 @@
   :hook (after-init . ivy-mode)
   :bind (:map ivy-switch-buffer-map
               ("C-k"     . ivy-switch-buffer-kill)
-
               :map ivy-minibuffer-map
               ("RET"     . #'ivy-alt-done)
               :map ivy-occur-mode-map
               ("C-c C-q" . #'ivy-wgrep-change-to-wgrep-mode))
   :init
   ;; about ivy
-  (setq-default ivy-use-virtual-buffers t ;;add recent files and bookmarks to `ivy-switch-buffer'
-                enable-recursive-minibuffers t
-                ivy-count-format "(%d/%d) "
-                ivy-height 13
-                ivy-virtual-abbreviate 'fullpath
-                projectile-completion-system 'ivy
-                ivy-display-style 'fancy
+  (setq-default ivy-use-virtual-buffers t          ;;将最近打开的文件和书签放进 `ivy-switch-buffer'
+                enable-recursive-minibuffers t     ;;允许在 minibuffer 里使用命令(M-x:)
+                ivy-count-format "(%d/%d) "        ;;ivy 计数的样式
+                ivy-height 13                      ;;ivy 弹窗的高度(13行)
+                ivy-virtual-abbreviate 'fullpath   ;;用绝对路径显示未高亮的 buffer
+                ivy-display-style 'fancy           ;;在 ivy 里高粱显示匹配的字符
                 ivy-use-selectable-prompt t
-                ivy-on-del-error-function nil
                 ivy-initial-inputs-alist nil)
 
   ;;你可以查看 ivy-format-functions-alist，默认有三种选择，可以自己 hack 一下
@@ -58,14 +55,15 @@
     (interactive)
     (use-package flx :ensure t :defer t)
     (setq-default ivy-re-builders-alist
-                  '((swiper          . ivy--regex-plus)
-                    (swiper-all      . ivy--regex-plus)
-                    (swiper-isearch  . ivy--regex-plus)
-                    (counsel-ag      . ivy--regex-plus)
-                    (counsel-rg      . ivy--regex-plus)
-                    (counsel-pt      . ivy--regex-plus)
-                    (counsel-grep    . ivy--regex-plus)
-                    (t               . ivy--regex-fuzzy)))))
+                  '((swiper           . ivy--regex-plus)
+                    (swiper-all       . ivy--regex-plus)
+                    (swiper-isearch   . ivy--regex-plus)
+                    (counsel-ag       . ivy--regex-plus)
+                    (counsel-rg       . ivy--regex-plus)
+                    (counsel-pt       . ivy--regex-plus)
+                    (counsel-git-grep . ivy--regex-plus)
+                    (counsel-grep     . ivy--regex-plus)
+                    (t                . ivy--regex-fuzzy)))))
 
 
 
@@ -87,9 +85,9 @@
          ("C-x C-r"       . counsel-recentf)     ;;打开 recentf 文件
          ("C-c b"         . counsel-bookmark)    ;;打开书签
          ("C-h k"         . counsel-descbinds)   ;;查找绑定快捷键
-         ;; ("C-c s"         . counsel-grep)        ;;当前 buffer 里查找字符串
-         ;; ("C-c g"         . counsel-git-grep)    ;;在当前版本控制下的文件里搜索字符串
-         ;; ("C-c r"         . counsel-rg)          ;;使用rg,这是在当前目录下搜索
+         ("C-c g"         . counsel-git-grep)    ;;在当前版本控制下的文件里搜索字符串
+         ("C-c s"         . counsel-ag)          ;;使用ag,这是在当前目录下搜索
+         ("C-c r"         . counsel-rg)          ;;使用rg,这是在当前目录下搜索
          ("M-?"           . yantree/counsel-search-project))
   :hook (ivy-mode . counsel-mode)
   :init
@@ -124,8 +122,7 @@
 If there is no project root, or if the prefix argument
 USE-CURRENT-DIR is set, then search from the current directory
 instead."
-        (interactive (list (thing-at-point 'symbol)
-                           current-prefix-arg))
+        (interactive (list current-prefix-arg))
         (let ((current-prefix-arg)
               (dir (if use-current-dir
                        default-directory
@@ -148,12 +145,13 @@ instead."
                                 swiper-isearch
                                 swiper-isearch-backward
                                 counsel-grep-or-swiper
-                                counsel-grep-or-swiper-backward
                                 counsel-grep
                                 counsel-ack
                                 counsel-ag
                                 counsel-rg
-                                counsel-pt))
+                                counsel-pt
+                                counsel-git-grep
+                                yantree/counsel-search-project))
 
   (defun my-ivy-fly-back-to-present ()
     (cond ((and (memq last-command my-ivy-fly-commands)
@@ -198,14 +196,7 @@ instead."
 
 ;;-------------------------------------------------------------------------
 (use-package swiper
-  :ensure t
-  :init
-  (defun yantree/swiper-at-point (sym)
-    "Use `swiper' to search for the symbol at point."
-    (interactive (list (thing-at-point 'symbol)))
-    (swiper sym))
-  :bind (:map ivy-mode-map
-              ("M-s /" . yantree/swiper-at-point)))
+  :ensure t)
 
 
 
