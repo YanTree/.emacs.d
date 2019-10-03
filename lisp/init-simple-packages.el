@@ -197,7 +197,10 @@
                 projectile-sort-order 'recentf
                 projectile-use-git-grep t)
   :config
-  (projectile-mode 1))
+  (projectile-mode 1)
+  ;; Integration with `projectile' 将 projectile 的补全系统设置为 ivy
+  (with-eval-after-load 'projectile
+    (setq projectile-completion-system 'ivy)))
 
 
 ;;-------------------------------------------------------------------------

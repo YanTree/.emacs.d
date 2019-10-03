@@ -3,14 +3,18 @@
 
 (use-package magit
   :ensure t
-  :init
-  (setq magit-git-debug t)
-  (setq-default magit-diff-refine-hunk t)
   :bind (("C-x g" . magit-status)
          ("C-x M-g" . magit-dispatch))
   :bind (:map magit-mode-map
               ("U" . magit-unstage-all))
-  :hook (magit-mode . hl-line-mode))
+  :hook (magit-mode . hl-line-mode)
+  :config
+  (setq magit-git-debug t)
+  (setq-default magit-diff-refine-hunk t)
+
+  ;; Integration with `magit'
+  (with-eval-after-load 'magit
+    (setq magit-completing-read-function 'ivy-completing-read)))
 
 ;;-------------------------------------------------------------------------
 (use-package fullframe
