@@ -43,9 +43,9 @@
 
 使用 use-package 可以很方便的来进行配置，例如：配置 [[https://github.com/manateelazycat/lazycat-emacs][lazycat]] 师傅的 sdcv 插件
 
-- 使用这个插件要安装两个软件 stardict sdcv (我个人使用的 Manjaro -> sudo pacman -S stardict sdcv)
+- 使用这个插件要安装两个软件 stardict sdcv ( 我个人使用的 Manjaro -> sudo pacman -S stardict sdcv)
 - 将 sdcv 插件下载下来并解压至 .emacs.d/site-lisp/extensions 目录里
-- 在 lisp 目录里新建一个 init-sdcv.el 文件 (所有的配置文件放 lisp 文件夹里。不成文的规则，配置文件名= init-<插件名>.el)
+- 在 lisp 目录里新建一个 init-sdcv.el 文件 ( 所有的配置文件放 lisp 文件夹里。不成文的规则，配置文件名 = init-<插件名>.el)
 - 写入以下代码
 #+begin_src emacs-lisp
 
@@ -88,4 +88,4 @@
 
 #+end_src
 
-提一下 [[https://github.com/jwiegley/use-package/tree/4714d73b61bdb378f6e9e3f3838cae1abbf65ea0][use-package]] 的作者是 John Wiegley, 非常感谢作者的付出！带来了这样一款集中管理配置的插件。有关该插件更详细具体的的用法还是查看作者的 README.md 文档吧！里面作者举了很多例子，是不太可能看不懂的，耐着看看吧！
+[[https://github.com/jwiegley/use-package/tree/4714d73b61bdb378f6e9e3f3838cae1abbf65ea0][use-package]] 的作者是 John Wiegley, 非常感谢作者的付出！带来了这样一款集中管理配置的插件。有关该插件更详细具体的的用法还是查看作者的 README.md 文档吧！里面作者举了很多例子，是不太可能看不懂的，耐着看看吧！
