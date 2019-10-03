@@ -48,6 +48,7 @@
   :ensure nil
   :diminish
   :if (executable-find "aspell")
+  :hook ((text-mode org-mdoe markdown-mode) . flyspell-mode)
   :hook ((prog-mode . flyspell-prog-mode)
          (flyspell-mode . (lambda ()
                             (dolist (key '("C-;" "C-," "C-."))
