@@ -50,8 +50,8 @@
 #+begin_src emacs-lisp
 
 (use-package sdcv
-  :load-path "site-lisp/extensions/sdcv" ;;关键字 load-path 后面接加载插件的路劲(这是文件的目录路径)
-  :config                                ;;关键字 config 当一个插件加载之后才应用两个关键字之间的设置(延迟加载)
+  :load-path "site-lisp/extensions/sdcv" ;;关键字 load-path -> 后面接加载插件的路劲(这是文件的目录路径)
+  :config                                ;;关键字 config    -> 当一个插件加载之后才应用两个关键字之间的设置(延迟加载)
   ;; 词典链接 http://download.huzheng.org/zh_CN/
   ;; 根据懒猫的配置,下面一行要这样自定义启动目录
   (defvar my-sdcv-data-dir (file-truename "~/.emacs.d/site-lisp/sdcv-dict"))
@@ -84,6 +84,8 @@
 
   (setq sdcv-dictionary-data-dir my-sdcv-data-dir);;设置词典的路径
 
-  :bind ("C-c t" . sdcv-search-pointer+));;关键字 bind 绑定一个快捷键
+  :bind ("C-c t" . sdcv-search-pointer+));;关键字 bind      -> 绑定一个快捷键
 
 #+end_src
+
+提一下 [[https://github.com/jwiegley/use-package/tree/4714d73b61bdb378f6e9e3f3838cae1abbf65ea0][use-package]] 的作者是 John Wiegley, 非常感谢作者的付出！带来了这样一款集中管理配置的插件。有关该插件更详细具体的的用法还是查看作者的 README.md 文档吧！里面作者举了很多例子，是不太可能看不懂的，耐着看看吧！
