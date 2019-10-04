@@ -172,7 +172,7 @@ Result is full path."
          ("C-c w"                . kill-whole-word)
          ("C-S-d"                . delete-current-line)
          ("C-S-SPC"              . mark-line)
-         ("<f5>"                 . yantree/init-file)
+         ("ESC ESC c"            . yantree/init-file)
          ("<s-return>"           . eshell)
          ("C-c C-f"              . yantree/copy-file-path)
          ("C-c n"                . cleanup-buffer)
