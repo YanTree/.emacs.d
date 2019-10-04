@@ -34,7 +34,7 @@
 ;; ------------------------------ End ------------------------------
 
 ;; Load path
-;; 最优化: Force "lisp"" and "site-lisp" at the head to reduce the startup time.
+;; 最优化: Force "lisp" at the head to reduce the startup time.
 (defun update-load-path (&rest _)
   "Update `load-path'."
   (push (expand-file-name "lisp" user-emacs-directory) load-path))
