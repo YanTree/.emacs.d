@@ -83,7 +83,7 @@
          ([remap swiper]  . counsel-grep-or-swiper)
          ([remap dired]   . counsel-dired)
          ("C-x C-r"       . counsel-recentf)     ;;打开 recentf 文件
-         ("C-c b"         . counsel-bookmark)    ;;打开书签
+         ("C-c C-b"       . counsel-bookmark)    ;;打开书签
          ("C-h k"         . counsel-descbinds)   ;;查找绑定快捷键
          ("C-c g"         . counsel-git-grep)    ;;在当前版本控制下的文件里搜索字符串
          ("C-c s"         . counsel-ag)          ;;使用ag,这是在当前目录下搜索
