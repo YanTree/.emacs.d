@@ -7,8 +7,9 @@
   :hook ((org-indent-mode . (lambda() (diminish 'org-indent-mode)))
          ;;automaticly truncate
          (org-mode . (lambda () (setq truncate-lines nil))))
+  :bind ("C-c b" . org-switchb)        ;;打开书签
   :preface
-  (setenv "BROWSER" "chromium-browser") ;;google browser
+  (setenv "BROWSER" "chromium-browser");;google browser
   :config
   ;; Various preferences
   (setq-default
@@ -108,6 +109,14 @@
 (use-package toc-org
   :ensure t
   :hook (org-mode . toc-org-mode))
+
+
+;;-------------------------------------------------------------------------
+;; 预览 org 文件(html)
+;; (use-package org-preview-html
+;;   :ensure t
+;;   :diminish)
+
 
 
 ;;-------------------------------------------------------------------------
