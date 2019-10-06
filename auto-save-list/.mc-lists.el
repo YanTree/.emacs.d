@@ -11,6 +11,7 @@
         sp-backward-delete-char
         sp-delete-char
         sp-kill-word
+        sp-unwrap-sexp
         ))
 
 (setq mc/cmds-to-run-once
