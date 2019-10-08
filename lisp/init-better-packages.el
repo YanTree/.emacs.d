@@ -189,15 +189,15 @@
 
 
 ;;----------------------------------------------------------------------------
-;; 时间设置
-(use-package time
-  :no-require
-  :init
-  (setq display-time-24hr-format t)
-  (setq display-time-format " %H:%M - %d %B")                    ;;格式
-  (setq system-time-locale "C")                                  ;;英文显示日期
-  :config
-  (display-time-mode 1))
+;; 时间显示
+;; (use-package time
+;;   :no-require
+;;   :init
+;;   (setq display-time-24hr-format t)
+;;   (setq display-time-format " %H:%M - %d %B")                    ;;格式
+;;   (setq system-time-locale "C")                                  ;;英文显示日期
+;;   :config
+;;   (display-time-mode 1))
 
 
 ;;----------------------------------------------------------------------------
