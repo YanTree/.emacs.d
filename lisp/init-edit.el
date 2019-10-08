@@ -150,7 +150,7 @@
          ("C->"          . mc/mark-next-like-this)
          ("C-+"          . mc/mark-next-like-this)
          ("C-c C-<"      . mc/mark-all-like-this)
-         ("M-R"          . mc/mark-all-dwim)))
+         ("C-r"          . mc/mark-all-dwim)))
 
 
 

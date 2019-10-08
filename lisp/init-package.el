@@ -92,6 +92,7 @@
 (use-package posframe                  :ensure t :defer t)
 (use-package dash                      :ensure t :defer t)
 (use-package s                         :ensure t :defer t)
+(use-package f                         :ensure t :defer t)
 (use-package simple-httpd              :ensure t :defer t)
 
 (provide 'init-package)
