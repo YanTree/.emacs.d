@@ -2,21 +2,6 @@
 
 
 ;;-------------------------------------------------------------------------
-;; solarized-theme
-;;-------------------------------------------------------------------------
-;;(use-package solarized-theme
-;;:ensure t
-;;:config
-;;(load-theme 'solarized-dark t)
-;;(load-theme 'solarized-light t)
-
-;;:custom-face
-;;solarized-dark for modeline
-;;(mode-line ((t (:background "#073642" :foreground "#839496" :box (:line-width 1 :color "#073642" :style unspecified) :overline nil :underline nil))))
-;;(mode-line-inactive ((t (:background "#002b36" :foreground "#586e75" :box (:line-width 1 :color "#002b36" :style unspecified) :overline nil :underline nil)))))
-
-
-;;-------------------------------------------------------------------------
 ;; leuven-theme
 ;;-------------------------------------------------------------------------
 ;; (use-package leuven-theme
@@ -84,48 +69,6 @@
   (setq doom-modeline-buffer-file-name-style 'buffer-name)
   :config
   (doom-modeline-mode))
-
-
-
-;;--------------------------------------------------------
-;;       modeline
-;;以 modeline 闪烁代替 警报声音
-;; (setq ring-bell-function 'ignore)
-;; (setq ring-bell-function
-;;       (lambda ()
-;;         (let ((orig-fg (face-background 'mode-line)))
-;;           (set-face-background 'mode-line "#bf5150"
-;;                                )
-;;           (run-with-idle-timer 0.15 nil
-;;                                (lambda (fg) (set-face-background 'mode-line fg))
-;;                                orig-fg))))
-
-
-
-;; (setq-default mode-line-format
-;;            '("%e "
-;;              mode-line-front-space
-;;              mode-line-mule-info
-;;              mode-line-client
-;;              mode-line-modified
-;;              mode-line-remote
-;;              mode-line-frame-identification
-;;              mode-line-buffer-identification
-;;              " "
-;;                 mode-line-position
-;;              "(" ;;只显示主模式
-;;              (:eval (propertize "%m" 'help-echo buffer-file-coding-system))
-;;              ") " ;;其他信息
-;;              (vc-mode vc-mode)
-;;              " "
-;;                 (:eval (propertize (format-time-string "%H:%M "))) ;;显示时间
-
-;;              (:eval (propertize (format-time-string "- %a %d %b"))) ;;显示日期，并采用注释的颜色
-;;              "  "
-;;              mode-line-misc-info
-;;              mode-line-end-spaces
-;;              ))
-
 
 
 (provide 'init-theme)
