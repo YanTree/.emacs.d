@@ -77,6 +77,18 @@
 
 
 ;;--------------------------------------------------------
+;; doom-modeline
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :init
+  (setq doom-modeline-buffer-file-name-style 'buffer-name)
+  :config
+  (doom-modeline-mode))
+
+
+
+;;--------------------------------------------------------
 ;;       modeline
 ;;以 modeline 闪烁代替 警报声音
 ;; (setq ring-bell-function 'ignore)
