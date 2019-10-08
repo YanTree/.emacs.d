@@ -83,9 +83,6 @@
          ("C-x C-r"       . counsel-recentf)     ;;打开 recentf 文件
          ("C-c C-b"       . counsel-bookmark)    ;;打开书签
          ("C-h k"         . counsel-descbinds)   ;;查找绑定快捷键
-         ("C-c g"         . counsel-git-grep)    ;;在当前版本控制下的文件里搜索字符串
-         ("C-c s"         . counsel-ag)          ;;使用ag,这是在当前目录下搜索
-         ("C-c r"         . counsel-rg)          ;;使用rg,这是在当前目录下搜索
          ("M-?"           . yantree/counsel-search-project))
   :hook (ivy-mode . counsel-mode)
   :init
