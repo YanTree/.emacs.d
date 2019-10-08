@@ -160,8 +160,7 @@
 (use-package projectile
   :ensure t
   :diminish
-  :bind* (("M-?" . yantree/counsel-search-project)
-          ("C-c TAB"  . projectile-find-file)
+  :bind* (("C-c TAB"  . projectile-find-file)
           ;; ("C-c p" . (lambda () (interactive)
           ;;              (projectile-cleanup-known-projects)
           ;;              (projectile-discover-projects-in-search-path)))
