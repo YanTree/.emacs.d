@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-
-;;; js2-mode
+;;----------------------------------------------------------------------------
+;; js2-mode
 (use-package js2-mode
   :ensure t
   :defer t
@@ -20,8 +20,8 @@
         (js2-mode . yantree/enable-js2-checks-if-flycheck-inactive)))
 
 
-
-;;; HTML
+;;----------------------------------------------------------------------------
+;; HTML
 (use-package mhtml-mode
   :ensure nil
   :bind(:map html-mode-map
@@ -29,13 +29,11 @@
   :preface
   ;; 在删除一个 tag 之后, 缩进
   (defadvice sgml-delete-tag (after reindent activate)
-    (indent-region (point-min) (point-max)))
-  )
+    (indent-region (point-min) (point-max))))
 
 
-
-
-;;; 将 CSS 嵌入 html
+;;----------------------------------------------------------------------------
+;; 将 CSS 嵌入 html
 (use-package mmm-mode
   :ensure t
   :defer t
@@ -66,8 +64,7 @@
       (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?\\'" 'html-css))))
 
 
-
-
+;;----------------------------------------------------------------------------
 ;;; SCSS
 ;; (unless (fboundp 'scss-mode)
 ;;   (use-package scss-mode
@@ -77,7 +74,7 @@
 ;;     (setq-default scss-compile-at-save nil)))
 
 
-
+;;----------------------------------------------------------------------------
 ;; LESS
 ;; (unless (fboundp 'less-css-mode)
 ;;   (use-package less-css-mode
@@ -89,8 +86,8 @@
 ;;       :hook (less-css-mode . skewer-less-mode))))
 
 
-
-;;; skewer
+;;----------------------------------------------------------------------------
+;; skewer
 (use-package skewer-mode
   :ensure t
   :defer t
@@ -113,8 +110,9 @@
       (run-skewer)
       (skewer-repl))))
 
-
-;;; 使用 eldoc 语法提示
+
+;;----------------------------------------------------------------------------
+;; 使用 eldoc 语法提示
 (use-package css-eldoc
   :ensure t
   :defer t
@@ -123,23 +121,21 @@
   (add-hook 'css-mode-hook 'turn-on-css-eldoc))
 
 
-
-;;; web-mode
+;;----------------------------------------------------------------------------
+;; web-mode
 ;; (use-package web-mode
 ;;   :ensure t
 ;;   :defer t
 ;;   :mode "\\.\\(phtml\\|php|[gj]sp\\|as[cp]x\\|erb\\|djhtml\\|html?\\|hbs\\|ejs\\|jade\\|swig\\|tm?pl\\|vue\\)$")
 
 
-
-;;; emmet-mode 强劲的 html, css 模板插件
+;;----------------------------------------------------------------------------
+;; emmet-mode 强劲的 html, css 模板插件
 (use-package emmet-mode
   :ensure t
   :hook ((sgml-mode . emmet-mode)
          (css-mode  . emmet-mode))
   :bind ())
-
-
 
 (provide 'init-web)
 ;;; init-web.el ends here

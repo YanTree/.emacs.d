@@ -1,9 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-
-;;-------------------------------------------------------------------------
+;;----------------------------------------------------------------------------
 ;; leuven-theme
-;;-------------------------------------------------------------------------
 ;; (use-package leuven-theme
 ;;   :ensure t
 ;;   :init
@@ -12,9 +10,8 @@
 ;;   (load-theme 'leuven t))
 
 
-;;-------------------------------------------------------------------------
+;;----------------------------------------------------------------------------
 ;; doom-theme
-;;-------------------------------------------------------------------------
 (use-package doom-themes
   :ensure t
   :init
@@ -46,8 +43,7 @@
   )
 
 
-
-;;--------------------------------------------------------
+;;----------------------------------------------------------------------------
 ;; 让当前的buffer突出显出
 (use-package dimmer
   :ensure t
@@ -56,12 +52,10 @@
   ;; TODO: file upstream as a PR
   (setq-default dimmer-fraction 0.15)
   (with-eval-after-load 'dimmer
-    (advice-add 'frame-set-background-mode :after (lambda (&rest args) (dimmer-process-all))))
-  )
+    (advice-add 'frame-set-background-mode :after (lambda (&rest args) (dimmer-process-all)))))
 
 
-
-;;--------------------------------------------------------
+;;----------------------------------------------------------------------------
 ;; doom-modeline
 (use-package doom-modeline
   :ensure t
@@ -69,7 +63,6 @@
   (setq doom-modeline-buffer-file-name-style 'buffer-name)
   :config
   (doom-modeline-mode))
-
 
 (provide 'init-theme)
 ;;; init-theme.el ends here

@@ -1,17 +1,18 @@
 ;;; -*- lexical-binding: t; -*-
 
-
-;;; Initialize packages
+;;----------------------------------------------------------------------------
+;; Initialize packages
 (unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
   (setq package-enable-at-startup nil)          ; To prevent initializing twice
   (package-initialize))
 
 
+;;----------------------------------------------------------------------------
+;; set package archives
 (defvar yantree-package-archives 'tuna
   "Set package archives from which to fetch, you can choice melpa, melpa-mirror, emacs-china, netease, or tuna")
 
-
-;;增加额外的package repositories
+;; 增加额外的package repositories
 (defun set-package-archives (archives)
   "Set specific package ARCHIVES repository. Currently, there are 5 repository"
   (interactive
@@ -54,9 +55,9 @@
 (set-package-archives yantree-package-archives)
 
 
+;;----------------------------------------------------------------------------
 ;; keep the installed packages in .emacs.d
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
-
 
 ;; Always load newest byte code
 (setq load-prefer-newer t)
@@ -82,7 +83,7 @@
 (bind-key "C-z" nil)
 (bind-key "C-x C-z" nil)
 
-;;; Libraries
+;; Libraries
 (use-package all-the-icons             :ensure t :defer t)
 (use-package async                     :ensure t :defer t)
 (use-package diminish                  :ensure t :demand t)

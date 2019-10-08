@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-
+;;----------------------------------------------------------------------------
+;; fullframe
 (use-package fullframe
   :ensure t
   :after (ibuffer)
@@ -9,7 +10,8 @@
   :config
   (fullframe ibuffer ibuffer-quit))
 
-;;-------------------------------------------------------------------------
+;;----------------------------------------------------------------------------
+;; ibuffer
 (use-package ibuffer
   :ensure nil
   :functions (all-the-icons-icon-for-file
@@ -97,7 +99,7 @@
   ;;   :hook (ibuffer . ibuffer-set-up-preferred-filters))
   )
 
-
+;;----------------------------------------------------------------------------
 ;; Group ibuffer's list by project root
 (use-package ibuffer-projectile
   :ensure t
@@ -117,9 +119,6 @@
                                     :height 1.25)
              " ")
           "Project: ")))
-
-
-
 
 (provide 'init-ibuffer)
 ;;; init-ibuffer.el ends here

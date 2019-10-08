@@ -1,9 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-
-;;-------------------------------------------------------
+;;----------------------------------------------------------------------------
 ;; dired
-;;-------------------------------------------------------
 (use-package dired
   :ensure nil
   :defer t
@@ -102,9 +100,6 @@
 
   ;; Extra Dired functionality
   (use-package dired-x   :ensure nil  :after dired))
-
-
-
 
 (provide 'init-dired)
 ;;; init-dired.el ends here

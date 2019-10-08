@@ -69,7 +69,6 @@
 (require 'init-theme)
 (require 'init-edit)
 (require 'init-magit)
-(require 'init-scheme)
 (require 'init-org)
 (require 'init-web)
 (require 'init-markdown)

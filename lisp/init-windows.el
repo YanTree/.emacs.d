@@ -1,14 +1,15 @@
 ;;; -*- lexical-binding: t; -*-
 
-
+;;----------------------------------------------------------------------------
+;; popwin
 (use-package popwin
   :ensure t
   :diminish popwin-mode
   :hook (after-init . popwin-mode))
 
-;;-------------------------------------------------------------------------
+
+;;----------------------------------------------------------------------------
 ;; Navigate window layouts with "C-c <left>" and "C-c <right>"
-;;-------------------------------------------------------------------------
 (use-package winner
   :ensure nil
   :hook (after-init . winner-mode)
@@ -26,15 +27,15 @@
           "*esh command on file*")))
 
 
-;;-------------------------------------------------------------------------
+;;----------------------------------------------------------------------------
+;; Shift <left> <right> <up> <down> move cursor
 (use-package windmove
   :ensure nil
   :hook (after-init . windmove-default-keybindings))
 
-;;-------------------------------------------------------------------------
 
-
-
+;;----------------------------------------------------------------------------
+;; personal configuration
 (defun sanityinc/set-tabulated-list-column-width (col-name width)
   "Set any column with name COL-NAME to the given WIDTH."
   (when (> width (length col-name))
@@ -61,8 +62,6 @@
       (set-window-buffer target-window (other-buffer))
       (unless arg
         (select-window target-window)))))
-
-
 
 (global-set-key (kbd "C-x 2") (split-window-func-with-other-buffer 'split-window-vertically))
 (global-set-key (kbd "C-x 3") (split-window-func-with-other-buffer 'split-window-horizontally))
@@ -105,9 +104,8 @@
              (buffer-name))))
 
 
-
-
-;;-------------------------------------------------------------------------
+;;----------------------------------------------------------------------------
+;; autoload bindings
 (use-package windows
   :ensure nil
   ;;;下面快捷键的设置是上面自定义的快捷键,为了lazy-load
@@ -117,9 +115,8 @@
          ("C-c <down>" . sanityinc/toggle-current-window-dedication)))
 
 
-;;-------------------------------------------------------------------------
+;;----------------------------------------------------------------------------
 ;; ace-window(快速切换窗口)
-;;-------------------------------------------------------------------------
 (use-package ace-window
   :ensure t
   :bind ([remap other-window] . ace-window)
@@ -130,8 +127,6 @@
   ;; 在modeline里显示window的个数
   ;; (aw-mode-line-face ((t (:inherit mode-line-emphasis :bold t))))
   )
-
-
 
 (provide 'init-windows)
 ;;; init-windows.el ends here

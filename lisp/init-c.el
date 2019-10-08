@@ -1,5 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
+;;----------------------------------------------------------------------------
 ;; C/C++ Mode
 (use-package cc-mode
   :ensure nil
@@ -14,7 +15,6 @@
   ;;   :diminish
   ;;   :init (modern-c++-font-lock-global-mode t))
   )
-
 
 (provide 'init-c)
 ;;; init-c.el ends here
