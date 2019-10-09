@@ -5,13 +5,16 @@
       '(
         hungry-delete-backward
         hungry-delete-forward
+        org-end-of-line
         org-metaright
         org-self-insert-command
         org-shiftright
+        org-yank
         sp-backward-delete-char
         sp-delete-char
         sp-kill-word
         sp-unwrap-sexp
+        yas-expand
         ))
 
 (setq mc/cmds-to-run-once
