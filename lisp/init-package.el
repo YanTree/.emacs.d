@@ -84,17 +84,17 @@
 (bind-key "C-x C-z" nil)
 
 ;; Libraries
-(use-package all-the-icons             :ensure t :defer t)
-(use-package async                     :ensure t :defer t)
-(use-package diminish                  :ensure t :demand t)
-(use-package epl                       :ensure t :defer t)
-(use-package pkg-info                  :ensure t :defer t)
-(use-package pos-tip                   :ensure t :defer t)
-(use-package posframe                  :ensure t :defer t)
-(use-package dash                      :ensure t :defer t)
-(use-package s                         :ensure t :defer t)
-(use-package f                         :ensure t :defer t)
-(use-package simple-httpd              :ensure t :defer t)
+(use-package all-the-icons    :ensure t :defer t)  ;; icons
+(use-package async            :ensure t :defer t)  ;; Asynchronous processing in Emacs
+(use-package diminish         :ensure t :demand t) ;; Diminished modes are minor modes with no modeline display
+(use-package epl              :ensure t :defer t)  ;; Emacs Package Library
+(use-package pkg-info         :ensure t :defer t)  ;; Information about packages
+(use-package pos-tip          :ensure t :defer t)  ;; Show tooltip at point
+(use-package posframe         :ensure t :defer t)  ;; Pop a posframe (just a frame) at point
+(use-package dash             :ensure t :defer t)  ;; A modern list library for Emacs
+(use-package s                :ensure t :defer t)  ;; The long lost Emacs string manipulation library
+(use-package f                :ensure t :defer t)  ;; Modern API for working with files and directories
+(use-package simple-httpd     :ensure t :defer t)  ;; pure elisp HTTP server
 
 (provide 'init-package)
 ;;; init-package.el ends here
