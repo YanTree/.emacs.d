@@ -9,7 +9,6 @@
   :bind (:map company-mode-map
               ("M-/"   . company-complete)
               ("<backtab>" . company-yasnippet)
-              ([remap indent-for-tab-command] . #'company-indent-or-complete-common)
               :map company-active-map
               ("M-/"   . company-other-backend)
               ("<backtab>" . yantree-company-yasnippet)
@@ -25,21 +24,14 @@
   (setq-default
    company-dabbrev-other-buffers 'all                    ;;在所有 buffer 里搜索补全候选项
    company-tooltip-align-annotations t
-   company-begin-commands '(self-insert-command)
    company-require-match nil
    company-global-modes '(not shell-mode eshell-mode)
    company-echo-delay (if (display-graphic-p) nil 0)
    company-show-numbers t
-   company-idle-delay 0
-   company-tooltip-limit 10
-   company-minimum-prefix-length 2
-   company-tooltip-flip-when-above t
-   )
-  :config
-  (add-to-list 'completion-styles 'initials t)
-  (with-eval-after-load 'company
-    (dolist (backend '(company-eclim company-semantic))
-      (delq backend company-backends))))
+   company-idle-delay 0.2
+   company-minimum-prefix-length 2))
+
+
 
 ;; Suspend page-break-lines-mode while company menu is active
 ;; (see https://github.com/company-mode/company-mode/issues/416)
