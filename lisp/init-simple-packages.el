@@ -77,12 +77,13 @@
 ;; flycheck (语法检查
 (use-package flycheck
   :ensure t
-  :commands (flycheck-mode)
   :diminish flycheck-mode
+  ;; :hook (prog-mode . flycheck-mode)
   :config
   (defalias 'show-error-at-point-soon
     'flycheck-show-error-at-point)
 
+  (setq flycheck-emacs-lisp-load-path 'inherit)
   (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
@@ -116,6 +117,36 @@
             :config
             (add-to-list 'flycheck-posframe-inhibit-functions
                          #'(lambda () (bound-and-true-p company-backend)))))))
+
+
+;;----------------------------------------------------------------------------
+;; helpful 更加友好的界面显示(help buffer)
+;; (use-package helpful
+;;   :ensure t
+;;   :defer t
+;;   :defines (counsel-describe-function-function
+;;             counsel-describe-variable-function)
+;;   :commands helpful--buffer
+;;   :bind (([remap describe-key] . helpful-key)
+;;          ([remap describe-symbol] . helpful-symbol)
+;;          ("C-c C-d" . helpful-at-point))
+;;   :init
+;;   (with-eval-after-load 'counsel
+;;     (setq counsel-describe-function-function #'helpful-callable
+;;           counsel-describe-variable-function #'helpful-variable))
+
+;;   (with-eval-after-load 'apropos
+;;     ;; patch apropos buttons to call helpful instead of help
+;;     (dolist (fun-bt '(apropos-function apropos-macro apropos-command))
+;;       (button-type-put
+;;        fun-bt 'action
+;;        (lambda (button)
+;;          (helpful-callable (button-get button 'apropos-symbol)))))
+;;     (dolist (var-bt '(apropos-variable apropos-user-option))
+;;       (button-type-put
+;;        var-bt 'action
+;;        (lambda (button)
+;;          (helpful-variable (button-get button 'apropos-symbol)))))))
 
 
 ;;----------------------------------------------------------------------------
