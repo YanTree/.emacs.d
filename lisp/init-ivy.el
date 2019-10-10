@@ -87,6 +87,7 @@
   ;; 用counsel的功能覆盖初始变量
   (setq-default counsel-mode-override-describe-bindings t)
 
+  ;;recenter after exiting ‘swiper’.
   (setq swiper-action-recenter t)
 
   ;;Build abbreviated recent file list, use "~/" instead of "/home/username" .
@@ -125,7 +126,8 @@ instead."
           (funcall search-function initial-input dir)))))
 
   (with-eval-after-load 'ivy
-    (add-to-list 'ivy-height-alist (cons 'counsel-ag 20)))
+    (add-to-list 'ivy-height-alist (cons 'counsel-rg 25))
+    (add-to-list 'ivy-height-alist (cons 'counsel-ag 25)))
 
   ;; Pre-fill search keywords
   (defvar my-ivy-fly-commands '(query-replace-regexp
