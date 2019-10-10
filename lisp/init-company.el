@@ -5,18 +5,17 @@
 (use-package company
   :ensure t
   :diminish company-mode
-  :commands (company-mode company-abort company-indent-or-complete-common)
   :bind (:map company-mode-map
-              ("M-/"   . company-complete)
               ("<backtab>" . company-yasnippet)
               :map company-active-map
-              ("M-/"   . company-other-backend)
+              ("<tab>"     . company-complete-common-or-cycle)
               ("<backtab>" . yantree-company-yasnippet)
-              ("C-n"   . company-select-next)
-              ("C-p"   . company-select-previous))
+              ("C-n"       . company-select-next)
+              ("C-p"       . company-select-previous))
   :hook (after-init . global-company-mode)
   :init
   (defun yantree-company-yasnippet ()
+    "Hide the current completeions and show snippets."
     (interactive)
     (company-abort)
     (call-interactively 'company-yasnippet))
@@ -32,7 +31,7 @@
    company-minimum-prefix-length 2))
 
 
-
+;;----------------------------------------------------------------------------
 ;; Suspend page-break-lines-mode while company menu is active
 ;; (see https://github.com/company-mode/company-mode/issues/416)
 (with-eval-after-load 'company
@@ -66,7 +65,7 @@
   :init (setq company-quickhelp-delay 0.5)
   :bind (:map company-active-map
               ([remap company-show-doc-buffer] . company-quickhelp-manual-begin))
-  :hook (after-init . company-quickhelp-mode))
+  :hook (global-company-mode . company-quickhelp-mode))
 
 (provide 'init-company)
 ;;; init-company.el ends here
