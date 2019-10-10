@@ -70,7 +70,6 @@
           ("^\\*.*Shell Command.*\\*$" :regexp t :size 0.3 :align 'below :autoclose t)
           ("\\*[Wo]*Man.*\\*" :regexp t :select t :align 'below :autoclose t)
           ("*Calendar*" :select t :size 0.3 :align 'below)
-          ("\\*ivy-occur .*\\*" :regexp t :size 0.4 :select t :align 'below)
           ("*quickrun*" :select t :size 15 :align 'below)
           ("*tldr*" :align 'below :autoclose t)
           ("^\\*elfeed-entry" :regexp t :size 0.7 :align 'below :autoclose t)
@@ -127,22 +126,22 @@
 
 
 ;;----------------------------------------------------------------------------
-;; personal configuration
-(defun sanityinc/set-tabulated-list-column-width (col-name width)
+;; 个人设置，每当打开一个新的 buffer 时，光标跟随移动
+(defun yantree/set-tabulated-list-column-width (col-name width)
   "Set any column with name COL-NAME to the given WIDTH."
   (when (> width (length col-name))
     (cl-loop for column across tabulated-list-format
              when (string= col-name (car column))
              do (setf (elt column 1) width))))
 
-(defun sanityinc/maybe-widen-package-menu-columns ()
+(defun yantree/maybe-widen-package-menu-columns ()
   "Widen some columns of the package menu table to avoid truncation."
   (when (boundp 'tabulated-list-format)
-    (sanityinc/set-tabulated-list-column-width "Version" 13)
+    (yantree/set-tabulated-list-column-width "Version" 13)
     (let ((longest-archive-name (apply 'max (mapcar 'length (mapcar 'car package-archives)))))
-      (sanityinc/set-tabulated-list-column-width "Archive" longest-archive-name))))
+      (yantree/set-tabulated-list-column-width "Archive" longest-archive-name))))
 
-(add-hook 'package-menu-mode-hook 'sanityinc/maybe-widen-package-menu-columns)
+(add-hook 'package-menu-mode-hook 'yantree/maybe-widen-package-menu-columns)
 
 ;;;When splitting window, show (other-buffer) in the new window
 (defun split-window-func-with-other-buffer (split-function)
@@ -158,7 +157,7 @@
 (global-set-key (kbd "C-x 2") (split-window-func-with-other-buffer 'split-window-vertically))
 (global-set-key (kbd "C-x 3") (split-window-func-with-other-buffer 'split-window-horizontally))
 
-(defun sanityinc/toggle-delete-other-windows ()
+(defun yantree/toggle-delete-other-windows ()
   "Delete other windows in frame if any, or restore previous window config."
   (interactive)
   (if (and winner-mode
@@ -185,7 +184,7 @@
     (when other-buffer
       (set-window-buffer (next-window) other-buffer))))
 
-(defun sanityinc/toggle-current-window-dedication ()
+(defun yantree/toggle-current-window-dedication ()
   "Toggle whether the current window is dedicated to its current buffer."
   (interactive)
   (let* ((window (selected-window))
@@ -201,10 +200,10 @@
 (use-package windows
   :ensure nil
   ;;;下面快捷键的设置是上面自定义的快捷键,为了lazy-load
-  :bind (("C-x 1"      . sanityinc/toggle-delete-other-windows)
+  :bind (("C-x 1"      . yantree/toggle-delete-other-windows)
          ("C-x |"      . split-window-horizontally-instead)
          ("C-x _"      . split-window-vertically-instead)
-         ("C-c <down>" . sanityinc/toggle-current-window-dedication)))
+         ("C-c <down>" . yantree/toggle-current-window-dedication)))
 
 
 ;;----------------------------------------------------------------------------
