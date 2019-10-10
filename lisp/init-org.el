@@ -5,33 +5,29 @@
 (use-package org
   :ensure nil
   :defer t
-  :hook ((org-indent-mode . (lambda() (diminish 'org-indent-mode)))
-         ;;automaticly truncate
-         (org-mode . (lambda () (setq truncate-lines nil))))
-  :bind ("C-c b" . org-switchb)        ;;打开书签
-  :preface
-  (setenv "BROWSER" "chromium-browser");;google browser
-  :config
+  :hook ((org-indent-mode . (lambda()
+                              (diminish 'org-indent-mode)
+                              ;; WORKAROUND: Prevent text moving around while using brackets
+                              ;; @see https://github.com/seagle0128/.emacs.d/issues/88
+                              (make-variable-buffer-local 'show-paren-mode)
+                              (setq show-paren-mode nil))))
+  :bind ("C-c b" . org-switchb)        ;;switch buffer for org files
+  :init
   ;; Various preferences
   (setq-default
    org-log-done 'time                  ;;done时,添加时间标签
    org-startup-indented t              ;;打开任意一个org文件,自动indented
    org-hide-leading-stars t            ;;隐藏 stars
-   org-pretty-entities t               ;;show entities as UTF8 characters
+   org-tags-column 80
    org-export-coding-system 'utf-8
    org-deadline-warning-days 5         ;;最后期限到达前５天即给出警告
-   org-export-with-sub-superscripts nil
    org-use-sub-superscripts nil        ;; the_sliver_search
    org-agenda-skip-deadline-if-done t
    org-directory "~/.emacs.d/private/org"
    org-default-notes-file (concat org-directory "/note.org")
    ;; Babel
    org-src-fontify-natively t          ;;fontify code in code blocks
-   org-src-tab-acts-natively t         ;;缩进block里的代码
    )
-
-  ;; 限制星星的个数
-  (setq org-refile-targets '((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5)))
 
   ;;; To-do settings
   (setq org-todo-keywords
@@ -46,8 +42,11 @@
   :hook (org-agenda-mode . (lambda () (add-hook 'window-configuration-change-hook 'org-agenda-align-tags nil t)))
   :bind ("C-c a" . org-agenda)
   :init
-  ;; 设置默认 Org Agenda 文件目录
-  (setq org-agenda-files '("~/.emacs.d/private/org/Agenda")) ;;;;org-agenda 目录
+  (setq org-agenda-files '("~/.emacs.d/private/org/Agenda") ;; 设置默认 Org Agenda 文件目录
+        org-agenda-compact-blocks t                         ;; 使 agenda 看起来更简洁
+        org-agenda-sticky t                                 ;; 保留 *agenda* buffer
+        org-agenda-start-on-weekday nil                     ;; 总是预览今天的日程
+        org-agenda-span 'day)
   ;;Simple agenda view
   (setq org-agenda-custom-commands
         '(("c" "Simple agenda view"
