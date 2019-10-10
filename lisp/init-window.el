@@ -220,5 +220,5 @@
   ;; (aw-mode-line-face ((t (:inherit mode-line-emphasis :bold t))))
   )
 
-(provide 'init-windows)
+(provide 'init-window)
 ;;; init-windows.el ends here

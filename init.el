@@ -54,7 +54,7 @@
 (require 'init-better-packages)    ;; 增强 emacs 原装 packages
 (require 'init-dired)              ;; 增强 dired 配置
 (require 'init-ibuffer)            ;; 增强 ibuffer 配置
-(require 'init-windows)            ;; 增强切换 windows 的速度
+(require 'init-window)             ;; 增强切换 windows 的速度
 
 
 
