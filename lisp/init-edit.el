@@ -185,6 +185,7 @@
 ;; whole-line-or-region (Cut/copy the current line if no region is active)
 (use-package whole-line-or-region
   :ensure t
+  :diminish whole-line-or-region-local-mode
   :hook (after-init . whole-line-or-region-global-mode)
   :bind (("M-;"     . whole-line-or-region-comment-dwim)))
 
