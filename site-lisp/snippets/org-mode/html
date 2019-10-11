@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: html
-# key: <h
+# key: <ht
 # --
 #+begin_src html
 $0
