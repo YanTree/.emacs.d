@@ -14,7 +14,7 @@
   :config
   (global-aggressive-indent-mode 1)
   ;; Disable in some modes
-  (dolist (mode '(asm-mode web-mode html-mode css-mode robot-mode go-mode))
+  (dolist (mode '(web-mode html-mode css-mode go-mode))
     (push mode aggressive-indent-excluded-modes))
 
   ;; Disable in some commands
