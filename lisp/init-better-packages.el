@@ -183,9 +183,9 @@
 ;; subword(这样辨别一个词 EmacsFrameClass    =>  "Emacs", "Frame" and "Class")
 (use-package subword
   :ensure nil
-  :config
-  (with-eval-after-load 'subword
-    (diminish 'subword-mode)))
+  :diminish
+  :hook ((prog-mode . subword-mode)
+         (minibuffer-setup . subword-mode)))
 
 
 ;;----------------------------------------------------------------------------
