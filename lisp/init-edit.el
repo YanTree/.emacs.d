@@ -50,7 +50,11 @@
          :map browse-kill-ring-mode-map
          ("C-g" . browse-kill-ring-quit)
          ("M-n" . browse-kill-ring-forward)
-         ("M-p" . browse-kill-ring-previous)))
+         ("M-p" . browse-kill-ring-previous))
+  :config
+  ;; 会将分隔符号 "^L" 替换成一条水平线
+  (with-eval-after-load 'page-break-lines
+    (push 'browse-kill-ring-mode page-break-lines-modes)))
 
 
 ;;----------------------------------------------------------------------------
