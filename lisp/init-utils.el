@@ -45,19 +45,6 @@
 
 
 ;;----------------------------------------------------------------------------
-;; 标记整行
-(defun mark-line (&optional arg)
-  (interactive "p")
-  (beginning-of-line)
-  (let ((here (point)))
-    (dotimes (i arg)
-      (or (zerop i) (forward-line))
-      (end-of-line))
-    (set-mark (point))
-    (goto-char here)))
-
-
-;;----------------------------------------------------------------------------
 ;; 标记整段
 (defun mark-sentence (&optional arg)
   (interactive "P")
@@ -158,7 +145,6 @@ Result is full path."
   :bind (([remap just-one-space] . cycle-spacing)
          ("C-c w"                . kill-whole-word)
          ("C-S-d"                . delete-current-line)
-         ("C-S-SPC"              . mark-line)
          ("ESC ESC c"            . yantree/init-file)
          ("<s-return>"           . eshell)
          ("C-c C-f"              . yantree/copy-file-path)
