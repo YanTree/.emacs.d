@@ -1,6 +1,6 @@
 #+STARTIP:showall hidestars
 
-* Tree Emacs
+* YanTree's init File
 
 使用 use-package 组织的 Emacs配置文件。注意：我是在 Emacs26.3 及其以上版本里使用的!
 
@@ -9,7 +9,7 @@
 #+BEGIN_EXAMPLE
 
 .emacs.d                      (整个配置文件目录)
-├── auto-save-list            (放置所有因插件而生成的自动保存文件)
+├── auto-save-list            (放置所有伴随着插件而自动生成的文件)
 │   ├── recentf
 │   ├── README
 │   └── ...
@@ -35,13 +35,13 @@
 │   │       ├── html5
 │   │       └── ...
 │   │   └── ...
-
+│   ├── ...
 
 #+END_EXAMPLE
 
 ** 如何配置 非melpa 上的插件？
 
-使用 use-package 可以很方便的来进行配置，例如：配置 [[https://github.com/manateelazycat/lazycat-emacs][lazycat]] 师傅的 sdcv 插件
+使用 use-package 可以很方便的来配置插件，例如：配置 [[https://github.com/manateelazycat/lazycat-emacs][lazycat]] 师傅的 sdcv 插件
 
 - 使用这个插件要安装两个软件 stardict sdcv ( 我个人使用的 Manjaro -> sudo pacman -S stardict sdcv)
 - 将 sdcv 插件下载下来并解压至 .emacs.d/site-lisp/extensions 目录里
