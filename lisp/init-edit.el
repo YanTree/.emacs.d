@@ -5,10 +5,10 @@
 (use-package anzu
   :ensure t
   :diminish
-  :init
-  (setq anzu-mode-lighter "")
   :bind (([remap query-replace]        . anzu-query-replace)
-         ([remap query-replace-regexp] . anzu-query-replace-regexp))
+         ([remap query-replace-regexp] . anzu-query-replace-regexp)
+         ([remap isearch-query-replace] . anzu-isearch-query-replace)
+         ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
   :config
   (global-anzu-mode 1))
 
@@ -54,14 +54,6 @@
 
 
 ;;----------------------------------------------------------------------------
-;; evil-nerd-commenter
-(use-package evil-nerd-commenter
-  :ensure t
-  :diminish
-  :bind ("M-;" . evilnc-comment-or-uncomment-lines))
-
-
-;;----------------------------------------------------------------------------
 ;; expand-region
 (use-package expand-region
   :ensure t
@@ -85,10 +77,10 @@
   :bind ([remap goto-line] . goto-line-preview)
   :config
   (when (fboundp 'display-line-numbers-mode)
-    (defun sanityinc/with-display-line-numbers (f &rest args)
+    (defun yantree/with-display-line-numbers (f &rest args)
       (let ((display-line-numbers t))
         (apply f args)))
-    (advice-add 'goto-line-preview :around #'sanityinc/with-display-line-numbers)))
+    (advice-add 'goto-line-preview :around #'yantree/with-display-line-numbers)))
 
 
 ;;----------------------------------------------------------------------------
@@ -187,6 +179,14 @@
   :diminish
   :config
   (volatile-highlights-mode 1))
+
+
+;;----------------------------------------------------------------------------
+;; whole-line-or-region (Cut/copy the current line if no region is active)
+(use-package whole-line-or-region
+  :ensure t
+  :hook (after-init . whole-line-or-region-global-mode)
+  :bind (("M-;"     . whole-line-or-region-comment-dwim)))
 
 
 ;;----------------------------------------------------------------------------
