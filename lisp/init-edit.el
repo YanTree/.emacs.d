@@ -116,8 +116,8 @@
   (setq mc/list-file "~/.emacs.d/auto-save-list/.mc-lists.el")  ;;改变配置文件位置的位置
   :bind (;; From active region to multiple cursors:
          ("C-S-c C-S-c"  . mc/edit-lines)
-         ("C-S-c C-a"    . mc/edit-beginnings-of-lines)
-         ("C-S-c C-e"    . mc/edit-ends-of-lines)
+         ("C-S-c C-S-a"  . mc/edit-beginnings-of-lines)
+         ("C-S-c C-S-e"  . mc/edit-ends-of-lines)
          ;; multiple-cursors
          ("C-<"          . mc/mark-previous-like-this)
          ("C->"          . mc/mark-next-like-this)
@@ -147,7 +147,7 @@
          ("C-M-w"   . sp-copy-sexp)
          ("C-M-SPC" . sp-mark-sexp)
 
-         ;; ("C-M-t"   . sp-transpose-sexp)
+         ("C-M-t"   . sp-transpose-sexp)
 
          ("M-("     . sp-wrap-round)
          ("M-<delete>" . sp-unwrap-sexp)))
@@ -202,23 +202,20 @@
   (setq wgrep-auto-save-buffer t
         wgrep-change-readonly-file t))
 
-;; rg 的安装
-;; (when (and (executable-find "rg")
-;;            (use-package rg
-;;              :ensure t
-;;              :config
-;;              (rg-enable-menu))))
+;; 'ripgrep' 的安装
+(when (executable-find "rg")
+  (use-package rg
+    :ensure t
+    :defines projectile-command-map
+    :config
+    (rg-enable-default-bindings)
 
-;; ag 的安装
-;; (when (and (executable-find "ag")
-;;            (use-package ag
-;;              :ensure t
-;;              :defer t
-;;              :init
-;;              (setq-default ag-highlight-search t)))
-;;   (use-package wgrep-ag
-;;     :ensure t
-;;     :bind ("M-?" . ag-project)))
+    (setq rg-group-result t
+          rg-show-columns t)
+
+    (with-eval-after-load 'projectile
+      (defalias 'projectile-ripgrep 'rg-project))))
+
 
 
 ;;----------------------------------------------------------------------------
