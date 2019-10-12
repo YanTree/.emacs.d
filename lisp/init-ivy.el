@@ -1,16 +1,17 @@
 ;;; -*- lexical-binding: t; -*-
 
 ;;----------------------------------------------------------------------------
-;; ivy,counsel,swiper,ivy-xref and smex(增强ivy--regex-fuzzy)
+;; ivy
 (use-package ivy
   :ensure t
   :diminish ivy-mode
   :hook (after-init . ivy-mode)
-  :bind (:map ivy-switch-buffer-map
-              ("C-k"     . ivy-switch-buffer-kill)
-              :map ivy-minibuffer-map
-              ("RET"     . #'ivy-alt-done))
-  :init
+  :bind (("C-x b"   . ivy-switch-buffer)
+         :map ivy-switch-buffer-map
+         ("C-k"     . ivy-switch-buffer-kill)
+         :map ivy-minibuffer-map
+         ("RET"     . #'ivy-alt-done))
+  :config
   ;; about ivy
   (setq-default ivy-use-virtual-buffers t          ;;将最近打开的文件和书签放进 `ivy-switch-buffer'
                 enable-recursive-minibuffers t     ;;允许在 minibuffer 里使用命令(M-x:)
@@ -72,24 +73,19 @@
   :bind (("C-s"           . swiper-isearch)
          ("M-x"           . counsel-M-x)
          ("C-x C-f"       . counsel-find-file)
+         ("M-y"           . counsel-yank-pop)
          ("C-S-s"         . isearch-forward)
          ("C-S-r"         . isearch-backward)
-
-         :map counsel-mode-map
          ([remap swiper]  . counsel-grep-or-swiper)
          ([remap dired]   . counsel-dired)
          ("C-x C-r"       . counsel-recentf)     ;;打开 recentf 文件
          ("C-c C-b"       . counsel-bookmark)    ;;打开书签
          ("C-h k"         . counsel-descbinds)   ;;查找绑定快捷键
          ("M-?"           . yantree/counsel-search-project))
-  :hook (ivy-mode . counsel-mode)
   :init
   ;; 用counsel的功能覆盖初始变量
   (setq-default counsel-mode-override-describe-bindings t)
-
-  ;;recenter after exiting ‘swiper’.
-  (setq swiper-action-recenter t)
-
+  :config
   ;;Build abbreviated recent file list, use "~/" instead of "/home/username" .
   (defun yantree-counsel-recentf ()
     "Find a file on `recentf-list'."
@@ -103,7 +99,8 @@
               :require-match t
               :caller 'counsel-recentf))
   (advice-add #'counsel-recentf :override #'yantree-counsel-recentf)
-  :config
+
+  ;; project search
   (let ((search-function
          (cond
           ((executable-find "rg") 'counsel-rg)
@@ -192,7 +189,10 @@ instead."
 ;; swiper
 (use-package swiper
   :ensure t
-  :defer t)
+  :defer t
+  :init
+  ;;recenter after exiting ‘swiper’.
+  (setq swiper-action-recenter t))
 
 
 ;;----------------------------------------------------------------------------
