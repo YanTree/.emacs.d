@@ -195,27 +195,10 @@
 
 
 ;;----------------------------------------------------------------------------
-;; wgrep ( 直接编辑 ag 或 rg 的搜索结果 )
-(use-package wgrep
-  :ensure t
-  :init
-  (setq wgrep-auto-save-buffer t
-        wgrep-change-readonly-file t))
-
-;; 'ripgrep' 的安装
-(when (executable-find "rg")
-  (use-package rg
-    :ensure t
-    :defines projectile-command-map
-    :config
-    (rg-enable-default-bindings)
-
-    (setq rg-group-result t
-          rg-show-columns t)
-
-    (with-eval-after-load 'projectile
-      (defalias 'projectile-ripgrep 'rg-project))))
-
+;; color-rg
+(use-package color-rg
+  :load-path "site-lisp/extensions/color-rg"
+  :bind ("C-c s" . color-rg-search-input))
 
 
 ;;----------------------------------------------------------------------------
