@@ -77,8 +77,8 @@
 ;; flycheck (语法检查
 (use-package flycheck
   :ensure t
+  :defer t
   :diminish flycheck-mode
-  ;; :hook (prog-mode . flycheck-mode)
   :config
   (defalias 'show-error-at-point-soon
     'flycheck-show-error-at-point)
