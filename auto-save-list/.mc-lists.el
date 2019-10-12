@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        color-rg-apply-changed
         hungry-delete-backward
         hungry-delete-forward
         org-end-of-line
