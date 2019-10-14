@@ -1,13 +1,13 @@
 ;;; -*- lexical-binding: t; -*-
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; Initialize packages
 (unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
   (setq package-enable-at-startup nil)          ; To prevent initializing twice
   (package-initialize))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; set package archives
 (defvar yantree-package-archives 'tuna
   "Set package archives from which to fetch, you can choice melpa, melpa-mirror, emacs-china, netease, or tuna")
@@ -55,7 +55,7 @@
 (set-package-archives yantree-package-archives)
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; keep the installed packages in .emacs.d
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
 

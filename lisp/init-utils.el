@@ -1,13 +1,13 @@
 ;;; -*- lexical-binding: t; -*-
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 链接到我的github
 (defun yantree/github()
   (interactive)
   (browse-url "https://github.com/YanTree"))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 浏览当前HTML文件
 (defun browse-current-file ()
   "Open the current file as a URL using `browse-url'."
@@ -19,7 +19,7 @@
       (browse-url (concat "file://" file-name)))))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; start a httpd-server in current directory
 (defun httpd-start-here (directory port)
   (interactive (list (read-directory-name "Root directory: " default-directory nil t)
@@ -30,7 +30,7 @@
   (browse-url (concat "http://localhost:" (number-to-string port) "/")))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 删除当前文件和buffer
 (defun delete-this-file ()
   "Delete the current file, and kill the buffer."
@@ -44,7 +44,7 @@
     (message "File '%s' successfully removed" buffer-file-name)))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 标记整段
 (defun mark-sentence (&optional arg)
   (interactive "P")
@@ -52,7 +52,7 @@
   (mark-end-of-sentence arg))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 删除整行
 (defun delete-current-line (&optional arg)
   (interactive "p")
@@ -62,7 +62,7 @@
     (goto-char here)))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 删除整个单词
 (defun kill-whole-word()
   (interactive)
@@ -70,7 +70,7 @@
   (kill-word 1))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 重命名当前文件和buffer
 (defun rename-this-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
@@ -86,7 +86,7 @@
       (rename-buffer new-name))))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; HTML cleanup buffer
 (defun untabify-buffer ()
   (interactive)
@@ -105,7 +105,7 @@ Including indent-buffer, which should not be called automatically on save."
   (indent-buffer))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 定义一个函数用于快速定位到自己的init.el文件
 (defun yantree/init-file()
   "opern my init.el file"
@@ -113,7 +113,7 @@ Including indent-buffer, which should not be called automatically on save."
   (find-file "~/.emacs.d/init.el"))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; copy当前文件的路径
 (defun yantree/copy-file-path (&optional @dir-path-only-p)
   "Copy the current buffer's file path or dired path to `kill-ring'.
@@ -139,7 +139,7 @@ Result is full path."
          $fpath )))))
 
 
-;;-------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 个人的快捷键设置
 (use-package yantree
   :bind (([remap just-one-space] . cycle-spacing)
@@ -155,7 +155,7 @@ Result is full path."
          ("M-SPC"                . set-mark-command)))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; sdcv 英语查词插件
 (use-package sdcv
   :load-path "site-lisp/extensions/sdcv"

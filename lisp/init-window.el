@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; shackle Enforce popup rules
 (use-package shackle
   :ensure t
@@ -99,7 +99,7 @@
           (tabulated-list-mode :align 'below))))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; Navigate window layouts with "C-c <left>" and "C-c <right>"
 (use-package winner
   :ensure nil
@@ -118,14 +118,14 @@
           "*esh command on file*")))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; Shift <left> <right> <up> <down> move cursor
 (use-package windmove
   :ensure nil
   :hook (after-init . windmove-default-keybindings))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 个人设置，每当打开一个新的 buffer 时，光标跟随移动
 (defun yantree/set-tabulated-list-column-width (col-name width)
   "Set any column with name COL-NAME to the given WIDTH."
@@ -195,7 +195,7 @@
              (buffer-name))))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; autoload bindings
 (use-package windows
   :ensure nil
@@ -206,7 +206,7 @@
          ("C-c <down>" . yantree/toggle-current-window-dedication)))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; ace-window(快速切换窗口)
 (use-package ace-window
   :ensure t

@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; company
 (use-package company
   :ensure t
@@ -31,7 +31,7 @@
    company-minimum-prefix-length 2))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; Suspend page-break-lines-mode while company menu is active
 ;; (see https://github.com/company-mode/company-mode/issues/416)
 (with-eval-after-load 'company
@@ -50,7 +50,7 @@
     (add-hook 'company-after-completion-hook 'yantree/page-break-lines-maybe-reenable)))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 更好的过滤和筛选(nice!)
 (use-package company-prescient
   :ensure t
@@ -58,7 +58,7 @@
   (company-prescient-mode 1))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; 他会额外安装pos-tip
 (use-package company-quickhelp
   :ensure t

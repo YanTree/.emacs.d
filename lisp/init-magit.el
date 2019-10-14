@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; magit
 (use-package magit
   :ensure t
@@ -18,7 +18,7 @@
     (setq magit-completing-read-function 'ivy-completing-read)))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; fullframe
 (use-package fullframe
   :ensure t
@@ -27,14 +27,14 @@
   (fullframe magit-status magit-mode-quit-window))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; git commit (for magit, edit git commit message
 (use-package git-commit
   :ensure t
   :hook (git-commit-mode . goto-address-mode))
 
 
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------
 ;; diff-hl (show different
 (use-package diff-hl
   :hook (magit-post-refresh . diff-hl-magit-post-refresh)
