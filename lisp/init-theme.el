@@ -48,15 +48,17 @@
 
 
 ;;----------------------------------------------------------------------------
-;; 让当前的buffer突出显出
-(use-package dimmer
+;; solaire-mode (Make certain buffers grossly incandescent)
+(use-package solaire-mode
   :ensure t
-  :hook (after-init . dimmer-mode)
-  :init
-  ;; TODO: file upstream as a PR
-  (setq-default dimmer-fraction 0.15)
-  (with-eval-after-load 'dimmer
-    (advice-add 'frame-set-background-mode :after (lambda (&rest args) (dimmer-process-all)))))
+  :defer t
+  :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
+         (minibuffer-setup . solaire-mode-in-minibuffer)
+         (after-load-theme . solaire-mode-swap-bg))
+  :config
+  (setq solaire-mode-remap-fringe nil)
+  (solaire-global-mode 1)
+  (solaire-mode-swap-bg))
 
 
 ;;----------------------------------------------------------------------------
