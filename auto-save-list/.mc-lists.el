@@ -4,6 +4,8 @@
 (setq mc/cmds-to-run-for-all
       '(
         color-rg-apply-changed
+        color-rg-beginning-of-line
+        color-rg-switch-to-edit-mode
         hungry-delete-backward
         hungry-delete-forward
         org-end-of-line
