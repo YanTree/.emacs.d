@@ -204,14 +204,15 @@
 
 ;;----------------------------------------------------------------
 ;; 时间显示
-;; (use-package time
-;;   :no-require
-;;   :init
-;;   (setq display-time-24hr-format t)
-;;   (setq display-time-format " %H:%M - %d %B")                    ;;格式
-;;   (setq system-time-locale "C")                                  ;;英文显示日期
-;;   :config
-;;   (display-time-mode 1))
+(use-package time
+  :no-require
+  :init
+  (setq display-time-24hr-format t)
+  (setq display-time-format " %H:%M - %b %d")                    ;;格式
+  (setq display-time-load-average-threshold nil)                 ;;不显示 load average
+  (setq system-time-locale "C")                                  ;;英文显示日期
+  :config
+  (display-time-mode 1))
 
 
 ;;----------------------------------------------------------------
