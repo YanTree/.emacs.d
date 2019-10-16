@@ -43,7 +43,6 @@
 ;;----------------------------------------------------------------
 ;; 更改默认设置, 增强体验
 (setq-default
- debug-on-error t                        ;; 当加载配置出现错误时，显示详细的出错信息
  ;; 让鼠标的滚动更平滑
  ;; Vertical Scroll
  scroll-preserve-screen-position 'always
