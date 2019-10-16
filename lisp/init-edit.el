@@ -186,6 +186,24 @@
 
 
 ;;----------------------------------------------------------------
+;; wgrep and rg
+(use-package wgrep
+  :ensure t
+  :defer t
+  :init
+  (setq wgrep-auto-save-buffer t)
+  (setq wgrep-change-readonly-file t))
+
+;; `ripgrep'
+(when (executable-find "rg")
+  (use-package rg
+    :ensure t
+    :defer t
+    :config
+    (setq rg-group-result t
+          rg-show-columns t)))
+
+;;----------------------------------------------------------------
 ;; whole-line-or-region (Cut/copy the current line if no region is active)
 (use-package whole-line-or-region
   :ensure t
