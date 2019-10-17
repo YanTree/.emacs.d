@@ -63,12 +63,10 @@
 
 
 ;;----------------------------------------------------------------
-;; emojify
-;; (use-package emojify
-;;   :ensure t
-;;   :defer t
-;;   :config
-;;   (global-emojify-mode))
+;; focus ( M-x focus-mode)
+(use-package focus
+  :ensure t
+  :defer t)
 
 
 ;;----------------------------------------------------------------
