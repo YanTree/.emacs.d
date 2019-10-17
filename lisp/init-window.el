@@ -81,21 +81,11 @@
           ("^\\*macro expansion\\**" :regexp t :size 0.4 :align 'below)
           (" *Install vterm" :size 0.3 :align 'below)
 
-          (ag-mode :select t :align 'below)
-          (grep-mode :select t :align 'below)
-          (pt-mode :select t :align 'below)
-          (rg-mode :select t :align 'below)
-
-          (flycheck-error-list-mode :select t :size 0.3 :align 'below :autoclose t)
-          (flymake-diagnostics-buffer-mode :select t :size 0.3 :align 'below :autoclose t)
-
           (Buffer-menu-mode :select t :size 20 :align 'below :autoclose t)
           (comint-mode :align 'below)
           (helpful-mode :select t :size 0.3 :align 'below :autoclose t)
-          (process-menu-mode :select t :size 0.3 :align 'below :autoclose t)
-          (cargo-process-mode :select t :size 0.3 :align 'below :autoclose t)
           (list-environment-mode :select t :size 0.3 :align 'below :autoclose t)
-          (profiler-report-mode :select t :size 0.5 :align 'below)
+          (profiler-report-mode :select t :size 0.5 :align 'right)
           (tabulated-list-mode :align 'below))))
 
 
