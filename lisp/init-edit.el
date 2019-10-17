@@ -27,10 +27,7 @@
   :diminish
   :init
   (setq-default beacon-lighter ""
-                beacon-size 20
-                ;;beacon-color "#51afef" ;;doom-one-theme
-                ;;beacon-color "#839496"   ;;solarized-dark
-                )
+                beacon-size 20)
   :config
   (beacon-mode 1))
 
@@ -203,6 +200,7 @@
     (setq rg-group-result t
           rg-show-columns t)))
 
+
 ;;----------------------------------------------------------------
 ;; whole-line-or-region (Cut/copy the current line if no region is active)
 (use-package whole-line-or-region
@@ -210,13 +208,6 @@
   :diminish whole-line-or-region-local-mode
   :hook (after-init . whole-line-or-region-global-mode)
   :bind (("M-;"     . whole-line-or-region-comment-dwim)))
-
-
-;;----------------------------------------------------------------
-;; color-rg
-(use-package color-rg
-  :load-path "site-lisp/extensions/color-rg"
-  :bind ("C-c s" . color-rg-search-input))
 
 
 ;;----------------------------------------------------------------
