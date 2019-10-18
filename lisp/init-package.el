@@ -95,6 +95,7 @@
 (use-package s                :ensure t :defer t)  ;; The long lost Emacs string manipulation library
 (use-package f                :ensure t :defer t)  ;; Modern API for working with files and directories
 (use-package simple-httpd     :ensure t :defer t)  ;; pure elisp HTTP server
+(use-package htmlize          :ensure t)           ;; Convert buffer text and decorations to HTML
 
 (provide 'init-package)
 ;;; init-package.el ends here
