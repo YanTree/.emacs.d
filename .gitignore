@@ -10,6 +10,7 @@
 /projectile-bookmarks.eld
 /projectile.cache
 /recentf
+/server
 /auto-save-list/.bookmark.el
 /auto-save-list/bookmarks
 /auto-save-list/custom.el
@@ -21,6 +22,8 @@
 /auto-save-list/.saves-*
 /auto-save-list/.smex-items
 /transient
+/site-lisp/sdcv-dict
+/site-lisp/extensions/modeline
 /.emacs.desktop
 /.emacs.desktop.lock
 *.elc
