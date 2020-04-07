@@ -1,6 +1,19 @@
 ;;; -*- lexical-binding: t; -*-
 
 ;;----------------------------------------------------------------
+;; markdown
+(use-package markdown-mode
+  :ensure t
+  :defer t
+  :commands (markdown-mode gfm-mode)
+  :mode (("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :config
+  (with-eval-after-load 'whitespace-cleanup-mode
+    (push 'markdown-mode whitespace-cleanup-mode-ignore-modes)))
+
+
+;;----------------------------------------------------------------
 ;; org
 (use-package org
   :ensure nil
@@ -142,5 +155,10 @@
 ;;   :ensure t
 ;;   :defer t)
 
-(provide 'init-org)
-;;; init-org.el ends here
+
+
+
+
+
+(provide 'init-write)
+;;; init-write.el ends here

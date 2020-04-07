@@ -6,7 +6,7 @@
   :ensure t
   :diminish company-mode
   :bind (:map company-mode-map
-              ("<backtab>" . company-yasnippet)
+              ("<backtab>" . company-yasnippet)   ;;shift+tab
               :map company-active-map
               ("<tab>"     . company-complete-common-or-cycle)
               ("<backtab>" . yantree-company-yasnippet)
