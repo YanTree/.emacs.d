@@ -17,6 +17,7 @@
         sp-delete-char
         sp-kill-word
         sp-unwrap-sexp
+        whole-line-or-region-yank
         yas-expand
         ))
 

@@ -8,9 +8,20 @@
   :commands (markdown-mode gfm-mode)
   :mode (("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
+  :init
+  ;; Use `which-key' instead
+  (advice-add #'markdown--command-map-prompt :override #'ignore)
+
   :config
   (with-eval-after-load 'whitespace-cleanup-mode
     (push 'markdown-mode whitespace-cleanup-mode-ignore-modes)))
+
+;; Table of contents
+(use-package markdown-toc
+  :ensure t
+  :after (markdown-mode)
+  :bind (:map markdown-mode-command-map
+              ("r" . markdown-toc-generate-or-refresh-toc)))
 
 
 ;;----------------------------------------------------------------
@@ -41,10 +52,33 @@
    ;; Babel
    org-src-fontify-natively t          ;;fontify code in code blocks
    )
-
+  :config
   ;;; To-do settings
   (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "|" "DONE(d!/!)" "CANCELLED(c@/!)")))))
+        (quote ((sequence "TODO(t)" "|" "DONE(d!/!)" "CANCELLED(c@/!)"))))
+
+  ;;; export to markdown file
+  (with-eval-after-load 'org
+    (add-to-list 'org-export-backends 'md))
+
+  ;;; progress
+  (defun make-progress (width percent has-number?)
+    (let* ((done (/ percent 100.0))
+           (done-width (floor (* width done))))
+      (concat
+       "["
+       (make-string done-width ?/)
+       (make-string (- width done-width) ? )
+       "]"
+       (if has-number? (concat " " (number-to-string percent) "%"))
+       )))
+
+  (defun insert-day-progress ()
+    (interactive)
+    (let* ((today (time-to-day-in-year (current-time)))
+           (percent (floor (* 100 (/ today 365.0)))))
+      (insert (make-progress 30 percent t))
+      )))
 
 
 ;;----------------------------------------------------------------
@@ -128,9 +162,9 @@
 
 ;;----------------------------------------------------------------
 ;; 让星星变得更好看
-(use-package org-bullets
+(use-package org-superstar
   :ensure t
-  :hook (org-mode . org-bullets-mode))
+  :hook (org-mode . org-superstar-mode))
 
 
 ;;----------------------------------------------------------------

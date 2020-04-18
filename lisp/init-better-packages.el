@@ -50,31 +50,31 @@
 
 ;;----------------------------------------------------------------
 ;; flyspell (需要安装 aspell 和 aspell-en)
-(use-package flyspell
-  :ensure nil
-  :diminish
-  :if (executable-find "aspell")
-  :hook (((text-mode org-mdoe markdown-mode) . flyspell-mode)
-         ;;(prog-mode . flyspell-prog-mode)
-         (flyspell-mode . (lambda ()
-                            (dolist (key '("C-;" "C-," "C-."))
-                              (unbind-key key flyspell-mode-map)))))
-  :init
-  (setq ispell-program-name "aspell"
-        ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")))
+;; (use-package flyspell
+;;   :ensure nil
+;;   :diminish
+;;   :if (executable-find "aspell")
+;;   :hook (((text-mode org-mdoe markdown-mode) . flyspell-mode)
+;;          ;;(prog-mode . flyspell-prog-mode)
+;;          (flyspell-mode . (lambda ()
+;;                             (dolist (key '("C-;" "C-," "C-."))
+;;                               (unbind-key key flyspell-mode-map)))))
+;;   :init
+;;   (setq ispell-program-name "aspell"
+;;         ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together")))
 
 
 ;;----------------------------------------------------------------
 ;; grep-mode 文本查找工具
-(use-package grep-mode
-  :no-require t
-  :init
-  (setq-default grep-highlight-matches t
-                grep-scroll-output t)
+;; (use-package grep-mode
+;;   :no-require t
+;;   :init
+;;   (setq-default grep-highlight-matches t
+;;                 grep-scroll-output t)
 
-  (with-eval-after-load 'grep
-    (dolist (key (list (kbd "C-c C-q") (kbd "w")))
-      (define-key grep-mode-map key 'wgrep-change-to-wgrep-mode))))
+;;   (with-eval-after-load 'grep
+;;     (dolist (key (list (kbd "C-c C-q") (kbd "w")))
+;;       (define-key grep-mode-map key 'wgrep-change-to-wgrep-mode))))
 
 
 ;;----------------------------------------------------------------

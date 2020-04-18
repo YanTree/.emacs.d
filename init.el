@@ -69,8 +69,6 @@
 (require 'init-edit)
 (require 'init-magit)
 (require 'init-write)              ;; 包含 markdown mode 和 org mode
-(require 'init-web)
-(require 'init-c)
 
 
 

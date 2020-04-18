@@ -15,9 +15,9 @@
 
 ;;----------------------------------------------------------------
 ;; avy (jumping to visible text using a char-based decision tree
-(use-package avy
-  :ensure t
-  :bind* ("C-'" . avy-goto-char-timer))
+;; (use-package avy
+;;   :ensure t
+;;   :bind* ("C-'" . avy-goto-char-timer))
 
 
 ;;----------------------------------------------------------------
@@ -71,15 +71,15 @@
 
 ;;----------------------------------------------------------------
 ;; goto-line-preview
-(use-package goto-line-preview
-  :ensure t
-  :bind ([remap goto-line] . goto-line-preview)
-  :config
-  (when (fboundp 'display-line-numbers-mode)
-    (defun yantree/with-display-line-numbers (f &rest args)
-      (let ((display-line-numbers t))
-        (apply f args)))
-    (advice-add 'goto-line-preview :around #'yantree/with-display-line-numbers)))
+;; (use-package goto-line-preview
+;;   :ensure t
+;;   :bind ([remap goto-line] . goto-line-preview)
+;;   :config
+;;   (when (fboundp 'display-line-numbers-mode)
+;;     (defun yantree/with-display-line-numbers (f &rest args)
+;;       (let ((display-line-numbers t))
+;;         (apply f args)))
+;;     (advice-add 'goto-line-preview :around #'yantree/with-display-line-numbers)))
 
 
 ;;----------------------------------------------------------------

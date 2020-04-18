@@ -36,7 +36,7 @@
     (mapc (lambda (mode) (if (fboundp mode) (funcall mode -1)))
           '(scroll-bar-mode       ;;禁用滚动栏
             tool-bar-mode         ;;禁用工具栏
-            menu-bar-mode         ;;禁用菜单栏，按F10可开启
+            ;; menu-bar-mode         ;;禁用菜单栏，按F10可开启
             )))
 
 

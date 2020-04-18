@@ -187,19 +187,19 @@
 
 ;;----------------------------------------------------------------
 ;; macrostep 展开当前宏
-(use-package macrostep
-  :ensure t
-  :custom-face
-  (macrostep-expansion-highlight-face ((t (:background ,(face-background 'tooltip)))))
-  :bind (:map emacs-lisp-mode-map
-              ("C-c e" . macrostep-expand)
-              :map lisp-interaction-mode-map
-              ("C-c e" . macrostep-expand))
-  :config
-  (add-hook 'after-load-theme-hook
-            (lambda ()
-              (set-face-background 'macrostep-expansion-highlight-face
-                                   (face-background 'tooltip)))))
+;; (use-package macrostep
+;;   :ensure t
+;;   :custom-face
+;;   (macrostep-expansion-highlight-face ((t (:background ,(face-background 'tooltip)))))
+;;   :bind (:map emacs-lisp-mode-map
+;;               ("C-c e" . macrostep-expand)
+;;               :map lisp-interaction-mode-map
+;;               ("C-c e" . macrostep-expand))
+;;   :config
+;;   (add-hook 'after-load-theme-hook
+;;             (lambda ()
+;;               (set-face-background 'macrostep-expansion-highlight-face
+;;                                    (face-background 'tooltip)))))
 
 
 ;;----------------------------------------------------------------
@@ -212,28 +212,28 @@
 
 ;;----------------------------------------------------------------
 ;; projectile
-(use-package projectile
-  :ensure t
-  :diminish
-  :bind* (("C-c TAB"  . projectile-find-file)
-          ;; ("C-c p" . (lambda () (interactive)
-          ;;              (projectile-cleanup-known-projects)
-          ;;              (projectile-discover-projects-in-search-path)))
-          )
-  :bind-keymap ("C-c p" . projectile-command-map)
-  :custom
-  (projectile-known-projects-file
-   "~/.emacs.d/auto-save-list/projectile-bookmarks.eld")
-  :init
-  ;;; Shorter modeline
-  (setq-default projectile-mode-line-prefix " ProJ"
-                projectile-sort-order 'recentf
-                projectile-use-git-grep t)
-  :config
-  (projectile-mode 1)
-  ;; Integration with `projectile' 将 projectile 的补全系统设置为 ivy
-  (with-eval-after-load 'projectile
-    (setq projectile-completion-system 'ivy)))
+;; (use-package projectile
+;;   :ensure t
+;;   :diminish
+;;   :bind* (("C-c TAB"  . projectile-find-file)
+;;           ;; ("C-c p" . (lambda () (interactive)
+;;           ;;              (projectile-cleanup-known-projects)
+;;           ;;              (projectile-discover-projects-in-search-path)))
+;;           )
+;;   :bind-keymap ("C-c p" . projectile-command-map)
+;;   :custom
+;;   (projectile-known-projects-file
+;;    "~/.emacs.d/auto-save-list/projectile-bookmarks.eld")
+;;   :init
+;;   ;;; Shorter modeline
+;;   (setq-default projectile-mode-line-prefix " ProJ"
+;;                 projectile-sort-order 'recentf
+;;                 projectile-use-git-grep t)
+;;   :config
+;;   (projectile-mode 1)
+;;   ;; Integration with `projectile' 将 projectile 的补全系统设置为 ivy
+;;   (with-eval-after-load 'projectile
+;;     (setq projectile-completion-system 'ivy)))
 
 
 ;;----------------------------------------------------------------

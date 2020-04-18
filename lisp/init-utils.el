@@ -3,6 +3,7 @@
 ;;----------------------------------------------------------------
 ;; 链接到我的github
 (defun yantree/github()
+  "Open my github"
   (interactive)
   (browse-url "https://github.com/YanTree"))
 
