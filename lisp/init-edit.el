@@ -55,6 +55,17 @@
 
 
 ;;----------------------------------------------------------------
+;; csharp
+(use-package csharp-mode
+  :ensure t
+  :config
+  (defun my-csharp-mode-hook ()
+    (electric-pair-local-mode 1) ;; Emacs 25
+    )
+  (add-hook 'csharp-mode-hook 'my-csharp-mode-hook))
+
+
+;;----------------------------------------------------------------
 ;; expand-region
 (use-package expand-region
   :ensure t
