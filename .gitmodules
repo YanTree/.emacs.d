@@ -1,3 +1,0 @@
-[submodule "sdcv"]
-	path = site-lisp/extensions/sdcv
-	url = https://github.com/manateelazycat/sdcv.git
