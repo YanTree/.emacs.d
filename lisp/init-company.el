@@ -156,15 +156,5 @@
             (Template . ,(all-the-icons-material "format_align_left" :height 0.8 :v-adjust -0.15)))
           company-box-icons-alist 'company-box-icons-all-the-icons)))
 
-
-;;----------------------------------------------------------------
-;; 他会额外安装pos-tip
-(use-package company-quickhelp
-  :ensure t
-  :init (setq company-quickhelp-delay 0.5)
-  :bind (:map company-active-map
-              ([remap company-show-doc-buffer] . company-quickhelp-manual-begin))
-  :hook (global-company-mode . company-quickhelp-mode))
-
 (provide 'init-company)
 ;;; init-company.el ends here
