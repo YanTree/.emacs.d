@@ -39,7 +39,7 @@
   (push (expand-file-name "lisp" user-emacs-directory) load-path))
 (advice-add #'package-initialize :after #'update-load-path)
 (update-load-path)
-(require 'init-benchmarking)       ;;测试启动时间
+;; (require 'init-benchmarking)       ;;测试启动时间
 
 ;;-----------------------------------------------------------------------
 ;; Bootstrap config
