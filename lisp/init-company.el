@@ -6,10 +6,8 @@
   :ensure t
   :diminish company-mode
   :bind (:map company-mode-map
-              ("<backtab>" . company-yasnippet)   ;;shift+tab
               :map company-active-map
               ("<tab>"     . company-complete-common-or-cycle)
-              ("<backtab>" . yantree-company-yasnippet)
               ("C-n"       . company-select-next)
               ("C-p"       . company-select-previous))
   :hook (after-init . global-company-mode)
@@ -54,8 +52,16 @@
 ;; 更好的过滤和筛选(nice!)
 (use-package company-prescient
   :ensure t
-  :config
-  (company-prescient-mode 1))
+  :init (company-prescient-mode 1))
+;; (use-package company-fuzzy
+;;   :ensure t
+;;   :hook (company-mode . global-company-fuzzy-mode)
+;;   :init
+;;   (setq company-fuzzy-sorting-function (lambda (candidates)
+;;                                          (message "%s" candidates)
+;;                                          candidates))  ; Don't forget to return the candidaites!
+;;   (setq company-fuzzy-sorting-backend 'alphabetic
+;;         company-fuzzy-prefix-ontop t))
 
 
 ;;----------------------------------------------------------------
@@ -69,7 +75,7 @@
               company-box-backends-colors nil
               company-box-show-single-candidate t
               company-box-max-candidates 50
-              company-box-doc-delay 0.2)
+              company-box-doc-delay nil)
   :config
   (with-no-warnings
     ;; FIXME: Display common text correctly
