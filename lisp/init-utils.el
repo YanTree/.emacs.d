@@ -9,29 +9,6 @@
 
 
 ;;----------------------------------------------------------------
-;; 浏览当前HTML文件
-(defun browse-current-file ()
-  "Open the current file as a URL using `browse-url'."
-  (interactive)
-  (let ((file-name (buffer-file-name)))
-    (if (and (fboundp 'tramp-tramp-file-p)
-             (tramp-tramp-file-p file-name))
-        (error "Cannot open tramp file")
-      (browse-url (concat "file://" file-name)))))
-
-
-;;----------------------------------------------------------------
-;; start a httpd-server in current directory
-(defun httpd-start-here (directory port)
-  (interactive (list (read-directory-name "Root directory: " default-directory nil t)
-                     (read-number "Port: " 8017)))
-  (setq httpd-root directory)
-  (setq httpd-port port)
-  (httpd-start)
-  (browse-url (concat "http://localhost:" (number-to-string port) "/")))
-
-
-;;----------------------------------------------------------------
 ;; 删除当前文件和buffer
 (defun delete-this-file ()
   "Delete the current file, and kill the buffer."
@@ -64,14 +41,6 @@
 
 
 ;;----------------------------------------------------------------
-;; 删除整个单词
-(defun kill-whole-word()
-  (interactive)
-  (backward-word)
-  (kill-word 1))
-
-
-;;----------------------------------------------------------------
 ;; 重命名当前文件和buffer
 (defun rename-this-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
@@ -88,7 +57,7 @@
 
 
 ;;----------------------------------------------------------------
-;; HTML cleanup buffer
+;; cleanup buffer
 (defun untabify-buffer ()
   (interactive)
   (untabify (point-min) (point-max)))
@@ -144,10 +113,7 @@ Result is full path."
 ;; 个人的快捷键设置
 (use-package yantree
   :bind (([remap just-one-space] . cycle-spacing)
-         ("C-c w"                . kill-whole-word)
          ("C-S-d"                . delete-current-line)
-         ("ESC ESC c"            . yantree/init-file)
-         ("<s-return>"           . eshell)
          ("C-c C-f"              . yantree/copy-file-path)
          ("C-c n"                . cleanup-buffer)
          ("C-h C-f"              . find-function)
