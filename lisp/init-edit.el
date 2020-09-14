@@ -221,15 +221,15 @@
 
 ;;----------------------------------------------------------------
 ;; yasnippet
-(use-package yasnippet
-  :ensure t
-  :commands (yas-reload-all)
-  :diminish yas-minor-mode
-  :hook ((org-mode prog-mode snippet-mode) . yas-minor-mode)
-  :init
-  (setq yas-snippet-dirs '("~/.emacs.d/site-lisp/snippets"))
-  :config
-  (yas-reload-all))
+;; (use-package yasnippet
+;;   :ensure t
+;;   :commands (yas-reload-all)
+;;   :diminish yas-minor-mode
+;;   :hook ((org-mode prog-mode snippet-mode) . yas-minor-mode)
+;;   :init
+;;   (setq yas-snippet-dirs '("~/.emacs.d/site-lisp/snippets"))
+;;   :config
+;;   (yas-reload-all))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here
