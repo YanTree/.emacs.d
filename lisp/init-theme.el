@@ -30,10 +30,11 @@
   ;; 图形界面使用 doom-themes,终端下使用 manoj-dark theme
   (if (display-graphic-p)
       (;; 深色主题
-       load-theme 'doom-one t
+       ;; load-theme 'doom-one t
        ;; load-theme 'doom-city-lights t
        ;; load-theme 'doom-dracula t
-       ;; load-theme 'doom-molokai t
+       ;; load-theme 'doom-monokai-classic t
+       load-theme 'doom-monokai-pro t
        ;; load-theme 'doom-nord t
        ;; load-theme 'doom-opera t
        ;; load-theme 'doom-tomorrow-night t

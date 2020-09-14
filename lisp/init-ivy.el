@@ -73,7 +73,6 @@
   :bind (("C-s"           . swiper-isearch)
          ("M-x"           . counsel-M-x)
          ("C-x C-f"       . counsel-find-file)
-         ("M-y"           . counsel-yank-pop)
          ("C-S-s"         . isearch-forward)
          ("C-S-r"         . isearch-backward)
          ([remap swiper]  . counsel-grep-or-swiper)

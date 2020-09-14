@@ -9,7 +9,7 @@
 
 ;;----------------------------------------------------------------
 ;; set package archives
-(defvar yantree-package-archives 'tuna
+(defvar yantree-package-archives 'netease
   "Set package archives from which to fetch, you can choice melpa, melpa-mirror, emacs-china, netease, or tuna")
 
 ;; 增加额外的package repositories
