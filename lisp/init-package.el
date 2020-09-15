@@ -9,7 +9,7 @@
 
 ;;----------------------------------------------------------------
 ;; set package archives
-(defvar yantree-package-archives 'netease
+(defvar yantree-package-archives 'tuna
   "Set package archives from which to fetch, you can choice melpa, melpa-mirror, emacs-china, netease, or tuna")
 
 ;; 增加额外的package repositories
@@ -65,37 +65,32 @@
 ;; warn when opening files bigger than 100MB
 (setq large-file-warning-threshold 100000000)
 
-;; 安装'use-package'
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-;; 说出最小的报错信息
+;; 安装leaf
 (eval-and-compile
-  (setq use-package-expand-minimally t)
-  (setq use-package-enable-imenu-support t))
+  (unless (package-installed-p 'leaf)
+    (package-refresh-contents)
+    (package-install 'leaf))
 
-(eval-when-compile
-  (require 'use-package)
-  (require 'bind-key))
+  (leaf leaf-keywords
+    :ensure t
+    :config
+    (leaf-keywords-init)))
 
 ;; 取消 C-z C-x C-z 键的绑定
-(bind-key "C-z" nil)
-(bind-key "C-x C-z" nil)
+;; (bind-key "C-z" nil)			;
+;; (bind-key "C-x C-z" nil)
 
 ;; Libraries
-(use-package all-the-icons    :ensure t :defer t)  ;; icons
-(use-package async            :ensure t :defer t)  ;; Asynchronous processing in Emacs
-(use-package diminish         :ensure t :demand t) ;; Diminished modes are minor modes with no modeline display
-(use-package epl              :ensure t :defer t)  ;; Emacs Package Library
-(use-package pkg-info         :ensure t :defer t)  ;; Information about packages
-(use-package pos-tip          :ensure t :defer t)  ;; Show tooltip at point
-(use-package posframe         :ensure t :defer t)  ;; Pop a posframe (just a frame) at point
-(use-package dash             :ensure t :defer t)  ;; A modern list library for Emacs
-(use-package s                :ensure t :defer t)  ;; The long lost Emacs string manipulation library
-(use-package f                :ensure t :defer t)  ;; Modern API for working with files and directories
-(use-package simple-httpd     :ensure t :defer t)  ;; pure elisp HTTP server
-(use-package htmlize          :ensure t)           ;; Convert buffer text and decorations to HTML
+(leaf all-the-icons    :ensure t :leaf-defer t)  ;; icons
+(leaf async            :ensure t :leaf-defer t)  ;; Asynchronous processing in Emacs
+;; (leaf diminish       package t :demand t) ;; Diminished modes are minor modes with no modeline display
+(leaf epl              :ensure t :leaf-defer t)  ;; Emacs Package Library
+(leaf pkg-info         :ensure t :leaf-defer t)  ;; Information about packages
+(leaf pos-tip          :ensure t :leaf-defer t)  ;; Show tooltip at point
+(leaf posframe         :ensure t :leaf-defer t)  ;; Pop a posframe (just a frame) at point
+(leaf dash             :ensure t :leaf-defer t)  ;; A modern list library for Emacs
+(leaf s                :ensure t :leaf-defer t)  ;; The long lost Emacs string manipulation library
+(leaf f                :ensure t :leaf-defer t)  ;; Modern API for working with files and directories
 
 (provide 'init-package)
 ;;; init-package.el ends here

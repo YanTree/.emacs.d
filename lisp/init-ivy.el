@@ -2,15 +2,13 @@
 
 ;;----------------------------------------------------------------
 ;; ivy
-(use-package ivy
+(leaf ivy
   :ensure t
-  :diminish ivy-mode
-  :hook (after-init . ivy-mode)
+  :hook (after-init-hook . ivy-mode)
   :bind (("C-x b"   . ivy-switch-buffer)
-         :map ivy-switch-buffer-map
-         ("C-k"     . ivy-switch-buffer-kill)
-         :map ivy-minibuffer-map
-         ("RET"     . #'ivy-alt-done))
+         (:ivy-switch-buffer-map
+          ("C-k"     . ivy-switch-buffer-kill))
+         )
   :config
   ;; about ivy
   (setq-default ivy-use-virtual-buffers t          ;;将最近打开的文件和书签放进 `ivy-switch-buffer'
@@ -60,16 +58,14 @@
                     (counsel-pt       . ivy--regex-plus)
                     (counsel-git-grep . ivy--regex-plus)
                     (counsel-grep     . ivy--regex-plus)
-                    (t                . ivy--regex-fuzzy)))))
+                    (t                . ivy--regex-fuzzy))))
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; counsel
-(use-package counsel
+(leaf counsel
   :ensure t
-  :defines (projectile-completion-system
-            magit-completing-read-function recentf-list)
-  :diminish ivy-mode counsel-mode
   :bind (("C-s"           . swiper-isearch)
          ("M-x"           . counsel-M-x)
          ("C-x C-f"       . counsel-find-file)
@@ -181,14 +177,15 @@ instead."
   (add-hook 'minibuffer-setup-hook #'my-ivy-fly-time-travel)
   (add-hook 'minibuffer-exit-hook
             (lambda ()
-              (remove-hook 'pre-command-hook 'my-ivy-fly-back-to-present t))))
+              (remove-hook 'pre-command-hook 'my-ivy-fly-back-to-present t)))
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; swiper
-(use-package swiper
+(leaf swiper
   :ensure t
-  :defer t
+  :leaf-defer t
   :init
   ;;recenter after exiting ‘swiper’.
   (setq swiper-action-recenter t))
@@ -196,22 +193,32 @@ instead."
 
 ;;----------------------------------------------------------------
 ;; ivy-xref (Select from xref candidates with Ivy
-(use-package ivy-xref
+(leaf ivy-xref
   :ensure t
-  :defer t
   :init
-  (when (boundp 'xref-show-definitions-function)
-    (setq xref-show-definitions-function #'ivy-xref-show-defs))
-  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+  (setq xref-show-xrefs-function 'ivy-xref-show-xrefs))
 
 
 ;;----------------------------------------------------------------
 ;; enhance M-x, record use times of commands
-(use-package smex
+(leaf smex
   :ensure t
   :init
   (setq-default smex-save-file (expand-file-name "auto-save-list/.smex-items" user-emacs-directory))
   :bind ([remap execute-extended-command] . smex))
+
+
+;;----------------------------------------------------------------
+;; ivy-rich
+;; (leaf ivy-rich
+;;   :ensure t
+;;   :hook(ivy-mode-hook . (lambda () (ivy-rich-mode ivy-mode)))
+;;   :init
+;;   (setq ivy-virtual-abbreviate 'abbreviate
+;;         ivy-rich-switch-buffer-align-virtual-buffer nil
+;;         ivy-rich-path-style 'abbrev
+;;         ivy-rich-parse-remote-buffer nil))
+
 
 (provide 'init-ivy)
 ;;; init-ivy.el ends here

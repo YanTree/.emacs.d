@@ -1,42 +1,21 @@
 ;;; -*- lexical-binding: t; -*-
 
 ;;----------------------------------------------------------------
-;; anzu (displays current match and total matches information in the mode-line
-(use-package anzu
-  :ensure t
-  :diminish
-  :bind (([remap query-replace]        . anzu-query-replace)
-         ([remap query-replace-regexp] . anzu-query-replace-regexp)
-         ([remap isearch-query-replace] . anzu-isearch-query-replace)
-         ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
-  :config
-  (global-anzu-mode 1))
-
-
-;;----------------------------------------------------------------
-;; avy (jumping to visible text using a char-based decision tree
-;; (use-package avy
-;;   :ensure t
-;;   :bind* ("C-'" . avy-goto-char-timer))
-
-
-;;----------------------------------------------------------------
 ;; beacon 像一个彗星尾巴一样闪烁当前行
-(use-package beacon
+(leaf beacon
   :ensure t
-  :diminish
   :init
   (setq-default beacon-lighter ""
-                beacon-size 20)
+                beacon-size 30)
   :config
-  (beacon-mode 1))
+  (beacon-mode 1)
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; Zap and browse-kill-ring 为 M-y 提供更好的交互
-(use-package browse-kill-ring
+(leaf browse-kill-ring
   :ensure t
-  :diminish
   :init
   (setq browse-kill-ring-separator "\f")
 
@@ -44,67 +23,37 @@
   (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
   :bind (("M-Y" . browse-kill-ring)
          ("M-z" . zap-up-to-char)
-         :map browse-kill-ring-mode-map
-         ("C-g" . browse-kill-ring-quit)
-         ("M-n" . browse-kill-ring-forward)
-         ("M-p" . browse-kill-ring-previous))
+         (:browse-kill-ring-mode-map
+          ("C-g" . browse-kill-ring-quit)
+          ("M-n" . browse-kill-ring-forward)
+          ("M-p" . browse-kill-ring-previous)))
   :config
   ;; 会将分隔符号 "^L" 替换成一条水平线
   (with-eval-after-load 'page-break-lines
-    (push 'browse-kill-ring-mode page-break-lines-modes)))
-
-
-;;----------------------------------------------------------------
-;; csharp
-(use-package csharp-mode
-  :ensure t
-  :config
-  (defun my-csharp-mode-hook ()
-    (electric-pair-local-mode 1) ;; Emacs 25
-    )
-  (add-hook 'csharp-mode-hook 'my-csharp-mode-hook))
+    (push 'browse-kill-ring-mode page-break-lines-modes))
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; expand-region
-(use-package expand-region
+(leaf expand-region
   :ensure t
-  :diminish
-  :bind ("C-=" . er/expand-region))
-
-
-;;----------------------------------------------------------------
-;; focus ( M-x focus-mode)
-(use-package focus
-  :ensure t
-  :defer t)
-
-
-;;----------------------------------------------------------------
-;; goto-line-preview
-;; (use-package goto-line-preview
-;;   :ensure t
-;;   :bind ([remap goto-line] . goto-line-preview)
-;;   :config
-;;   (when (fboundp 'display-line-numbers-mode)
-;;     (defun yantree/with-display-line-numbers (f &rest args)
-;;       (let ((display-line-numbers t))
-;;         (apply f args)))
-;;     (advice-add 'goto-line-preview :around #'yantree/with-display-line-numbers)))
+  :bind ("C-=" . er/expand-region)
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; hungry-delete
-(use-package hungry-delete
+(leaf hungry-delete
   :ensure t
-  :diminish hungry-delete-mode
   :config
-  (global-hungry-delete-mode 1))
+  (global-hungry-delete-mode 1)
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; move-dup
-(use-package move-dup
+(leaf move-dup
   :ensure t
   :bind
   (([M-up]     . md-move-lines-up)
@@ -115,9 +64,8 @@
 
 ;;----------------------------------------------------------------
 ;;  multiple-cursors
-(use-package multiple-cursors
+(leaf multiple-cursors
   :ensure t
-  :diminish
   :init
   (setq mc/list-file "~/.emacs.d/auto-save-list/.mc-lists.el")  ;;改变配置文件位置的位置
   :bind (;; From active region to multiple cursors:
@@ -129,14 +77,15 @@
          ("C->"          . mc/mark-next-like-this)
          ("C-+"          . mc/mark-next-like-this)
          ("C-c C-<"      . mc/mark-all-like-this)
-         ("C-r"          . mc/mark-all-dwim)))
+         ("C-r"          . mc/mark-all-dwim))
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; smartparens
-(use-package smartparens
+(leaf smartparens
   :ensure t
-  :hook (prog-mode . smartparens-mode)
+  :hook (prog-mode-hook . smartparens-mode)
   :config
   (require 'smartparens-config)
   (require 'smartparens-html)
@@ -161,10 +110,9 @@
 
 ;;----------------------------------------------------------------
 ;; symbol-overlay 高亮同一个symbol,并对其编辑(例如:下面的 define-key)
-(use-package symbol-overlay
+(leaf symbol-overlay
   :ensure t
-  :diminish symbol-overlay-mode
-  :hook ((prog-mode html-mode yaml-mode conf-mode) . symbol-overlay-mode)
+  :hook ((prog-mode-hook html-mode-hook yaml-mode-hook conf-mode-hook) . symbol-overlay-mode)
   :init
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "<up>") 'symbol-overlay-jump-prev)
@@ -178,33 +126,33 @@
     (setq symbol-overlay-map map))
   (setq symbol-overlay-idle-time 0.01)
   :custom-face
-  (symbol-overlay-default-face ((t (:inherit 'background-color :underline t))))
-  :bind ("M-i" . symbol-overlay-put))
+  (symbol-overlay-default-face . '((t (:inherit 'background-color :underline t))))
+  :bind ("M-i" . symbol-overlay-put)
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; volatile-highlights  高亮显示一些操作(例如：C-y) 很有用
-(use-package volatile-highlights
+(leaf volatile-highlights
   :ensure t
-  :diminish
   :config
-  (volatile-highlights-mode 1))
+  (volatile-highlights-mode 1)
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; wgrep and rg
-(use-package wgrep
+(leaf wgrep
   :ensure t
-  :defer t
+  :leaf-defer t
   :init
   (setq wgrep-auto-save-buffer t)
   (setq wgrep-change-readonly-file t))
 
 ;; `ripgrep'
 (when (executable-find "rg")
-  (use-package rg
+  (leaf rg
     :ensure t
-    :defer t
     :config
     (setq rg-group-result t
           rg-show-columns t)))
@@ -212,24 +160,35 @@
 
 ;;----------------------------------------------------------------
 ;; whole-line-or-region (Cut/copy the current line if no region is active)
-(use-package whole-line-or-region
+(leaf whole-line-or-region
   :ensure t
-  :diminish whole-line-or-region-local-mode
-  :hook (after-init . whole-line-or-region-global-mode)
-  :bind (("M-;"     . whole-line-or-region-comment-dwim)))
+  :hook (after-init-hook . whole-line-or-region-global-mode)
+  :bind (("M-;"     . whole-line-or-region-comment-dwim))
+  :diminish)
 
 
 ;;----------------------------------------------------------------
-;; yasnippet
-;; (use-package yasnippet
-;;   :ensure t
-;;   :commands (yas-reload-all)
-;;   :diminish yas-minor-mode
-;;   :hook ((org-mode prog-mode snippet-mode) . yas-minor-mode)
-;;   :init
-;;   (setq yas-snippet-dirs '("~/.emacs.d/site-lisp/snippets"))
-;;   :config
-;;   (yas-reload-all))
+;; markdown
+(leaf markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init
+  ;; Use `which-key' instead
+  (advice-add #'markdown--command-map-prompt :override #'ignore)
+
+  :config
+  (with-eval-after-load 'whitespace-cleanup-mode
+    (push 'markdown-mode whitespace-cleanup-mode-ignore-modes)))
+
+;; Table of contents
+(leaf markdown-toc
+  :ensure t
+  :after markdown-mode
+  :bind (:markdown-mode-command-map
+         ("r" . markdown-toc-generate-or-refresh-toc)))
+
 
 (provide 'init-edit)
 ;;; init-edit.el ends here

@@ -2,9 +2,9 @@
 
 ;;----------------------------------------------------------------
 ;; fullframe
-(use-package fullframe
+(leaf fullframe
   :ensure t
-  :after (ibuffer)
+  :after ibuffer
   :init
   (autoload #'fullframe "fullframe")
   :config
@@ -12,13 +12,8 @@
 
 ;;----------------------------------------------------------------
 ;; ibuffer
-(use-package ibuffer
+(leaf ibuffer
   :ensure nil
-  :functions (all-the-icons-icon-for-file
-              all-the-icons-icon-for-mode
-              all-the-icons-auto-mode-match?
-              all-the-icons-faicon)
-  :commands ibuffer-find-file
   :bind ("C-x C-b" . ibuffer)
   :init
   (defalias 'list-buffers 'ibuffer)   ;;; make ibuffer default
@@ -56,55 +51,15 @@
                                        default-directory)
                                    default-directory))))
         (counsel-find-file default-directory)))
-    (advice-add #'ibuffer-find-file :override #'yantree/ibuffer-find-file))
+    (advice-add #'ibuffer-find-file :override #'yantree/ibuffer-find-file)))
 
 
 ;;----------------------------------------------------------------
-  ;; (use-package ibuffer-vc
-  ;;   :ensure t
-  ;;   :init
-  ;;   (defalias 'list-buffers 'ibuffer)   ;;; make ibuffer default
-  ;;   (setq ibuffer-filter-group-name-face 'font-lock-doc-face)
-  ;;   (setq-default ibuffer-show-empty-filter-groups nil)
-
-  ;;   (defun ibuffer-set-up-preferred-filters ()
-  ;;     (ibuffer-vc-set-filter-groups-by-vc-root)
-  ;;     (unless (eq ibuffer-sorting-mode 'filename/process)
-  ;;       (ibuffer-do-sort-by-filename/process)))
-  ;;   :config
-  ;;   ;; Use human readable Size column instead of original one
-  ;;   (define-ibuffer-column size-h
-  ;;     (:name "Size" :inline t)
-  ;;     (file-size-human-readable (buffer-size)))
-  ;;   ;; Modify the default ibuffer-formats (toggle with `)
-  ;;   (setq ibuffer-formats
-  ;;         '((mark modified read-only vc-status-mini " "
-  ;;                 (name 22 22 :left :elide)
-  ;;                 " "
-  ;;                 (size-h 9 -1 :right)
-  ;;                 " "
-  ;;                 (mode 12 12 :left :elide)
-  ;;                 " "
-  ;;                 vc-relative-file)
-  ;;           (mark modified read-only vc-status-mini " "
-  ;;                 (name 22 22 :left :elide)
-  ;;                 " "
-  ;;                 (size-h 9 -1 :right)
-  ;;                 " "
-  ;;                 (mode 14 14 :left :elide)
-  ;;                 " "
-  ;;                 (vc-status 12 12 :left)
-  ;;                 " "
-  ;;                 vc-relative-file)))
-  ;;   :hook (ibuffer . ibuffer-set-up-preferred-filters))
-  )
-
-;;----------------------------------------------------------------
-;; Group ibuffer's list by project root
-(use-package ibuffer-projectile
+;; ibuffer-projectile
+(leaf ibuffer-projectile
+  :doc "Group ibuffer's list by project root"
   :ensure t
-  :defer t
-  :functions all-the-icons-octicon ibuffer-do-sort-by-alphabetic
+  ;;  :functions all-the-icons-octicon ibuffer-do-sort-by-alphabetic
   :hook ((ibuffer . (lambda ()
                       (ibuffer-projectile-set-filter-groups)
                       (unless (eq ibuffer-sorting-mode 'alphabetic)
@@ -119,6 +74,7 @@
                                     :height 1.25)
              " ")
           "Project: ")))
+
 
 (provide 'init-ibuffer)
 ;;; init-ibuffer.el ends here

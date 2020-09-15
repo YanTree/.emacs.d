@@ -1,18 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
 
 ;;----------------------------------------------------------------
-;; leuven-theme
-;; (use-package leuven-theme
-;;   :ensure t
-;;   :init
-;;   (setq org-fontify-whole-heading-line t)
-;;   :config
-;;   (load-theme 'leuven t))
-
-
-;;----------------------------------------------------------------
 ;; doom-theme
-(use-package doom-themes
+(leaf doom-themes
   :ensure t
   :init
   ;; Global settings (defaults)
@@ -50,12 +40,12 @@
 
 ;;----------------------------------------------------------------
 ;; solaire-mode (Make certain buffers grossly incandescent)
-(use-package solaire-mode
+(leaf solaire-mode
   :ensure t
-  :defer t
-  :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
-         (minibuffer-setup . solaire-mode-in-minibuffer)
-         (after-load-theme . solaire-mode-swap-bg))
+  :leaf-defer t
+  ;; :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
+  ;;        (minibuffer-setup . solaire-mode-in-minibuffer)
+  ;;        (after-load-theme . solaire-mode-swap-bg))
   :config
   (setq solaire-mode-remap-fringe nil)
   (solaire-global-mode 1)
@@ -64,7 +54,7 @@
 
 ;;----------------------------------------------------------------
 ;; doom-modeline
-(use-package doom-modeline
+(leaf doom-modeline
   :ensure t
   :init
   (setq doom-modeline-buffer-file-name-style 'buffer-name)

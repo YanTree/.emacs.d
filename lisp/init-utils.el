@@ -111,7 +111,8 @@ Result is full path."
 
 ;;----------------------------------------------------------------
 ;; 个人的快捷键设置
-(use-package yantree
+(leaf yantree
+  :require nil
   :bind (([remap just-one-space] . cycle-spacing)
          ("C-S-d"                . delete-current-line)
          ("C-c C-f"              . yantree/copy-file-path)
@@ -120,45 +121,6 @@ Result is full path."
          ("C-h C-v"              . find-variable)
          ("C-h C-k"              . find-function-on-key)))
 
-
-;;----------------------------------------------------------------
-;; sdcv 英语查词插件
-;; (use-package sdcv
-;;   :load-path "site-lisp/extensions/sdcv"
-;;   :config
-;;   ;; 词典链接 http://download.huzheng.org/zh_CN/
-;;   ;; 根据懒猫的配置,下面一行要这样自定义启动目录
-;;   (defvar yantree-sdcv-data-dir (file-truename "~/.emacs.d/site-lisp/sdcv-dict"))
-
-;;   (setq sdcv-say-word-p t)               ;;打开语音功能
-;;   (setq sdcv-dictionary-simple-list      ;;星际译王屏幕取词词典, 简单, 快速
-;;         '("懒虫简明英汉词典"
-;;           "懒虫简明汉英词典"
-;;           "KDic11万英汉词典"))
-;;   (setq sdcv-dictionary-complete-list    ;;星际译王的词典, 完全, 详细
-;;         '(
-;;           "懒虫简明英汉词典"
-;;           "英汉汉英专业词典"
-;;           "XDICT英汉辞典"
-;;           "stardict1.3英汉辞典"
-;;           "WordNet"
-;;           "XDICT汉英辞典"
-;;           "Jargon"
-;;           "懒虫简明汉英词典"
-;;           "FOLDOC"
-;;           "新世纪英汉科技大词典"
-;;           "KDic11万英汉词典"
-;;           "朗道汉英字典5.0"
-;;           "CDICT5英汉辞典"
-;;           "新世纪汉英科技大词典"
-;;           "牛津英汉双解美化版"
-;;           "21世纪双语科技词典"
-;;           "quick_eng-zh_CN"
-;;           ))
-
-;;   (setq sdcv-dictionary-data-dir yantree-sdcv-data-dir);;设置词典的路径
-
-;;   :bind ("C-c t" . sdcv-search-pointer+))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

@@ -2,22 +2,10 @@
 
 ;;----------------------------------------------------------------
 ;; company
-(use-package company
+(leaf company
   :ensure t
-  :diminish company-mode
-  :bind (:map company-mode-map
-              :map company-active-map
-              ("<tab>"     . company-complete-common-or-cycle)
-              ("C-n"       . company-select-next)
-              ("C-p"       . company-select-previous))
-  :hook (after-init . global-company-mode)
+  :hook (after-init-hook . global-company-mode)
   :init
-  (defun yantree-company-yasnippet ()
-    "Hide the current completeions and show snippets."
-    (interactive)
-    (company-abort)
-    (call-interactively 'company-yasnippet))
-
   (setq-default
    company-dabbrev-other-buffers 'all                    ;;在所有 buffer 里搜索补全候选项
    company-tooltip-align-annotations t
@@ -26,7 +14,17 @@
    company-echo-delay (if (display-graphic-p) nil 0)
    company-show-numbers t
    company-idle-delay 0.2
-   company-minimum-prefix-length 2))
+   company-minimum-prefix-length 2)
+  :config
+  (with-eval-after-load 'company
+    (dolist (backend '(company-eclim company-semantic))
+      (delq backend company-backends))
+    (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+    (define-key company-active-map (kbd "M-/") 'company-other-backend)
+    (define-key company-active-map (kbd "C-n") 'company-select-next)
+    (define-key company-active-map (kbd "C-p") 'company-select-previous)
+    (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer))
+  :diminish)
 
 
 ;;----------------------------------------------------------------
@@ -50,71 +48,22 @@
 
 ;;----------------------------------------------------------------
 ;; 更好的过滤和筛选(nice!)
-(use-package company-prescient
+(leaf company-prescient
   :ensure t
   :init (company-prescient-mode 1))
-;; (use-package company-fuzzy
-;;   :ensure t
-;;   :hook (company-mode . global-company-fuzzy-mode)
-;;   :init
-;;   (setq company-fuzzy-sorting-function (lambda (candidates)
-;;                                          (message "%s" candidates)
-;;                                          candidates))  ; Don't forget to return the candidaites!
-;;   (setq company-fuzzy-sorting-backend 'alphabetic
-;;         company-fuzzy-prefix-ontop t))
 
 
 ;;----------------------------------------------------------------
 ;; Icons 图标
-(use-package company-box
+(leaf company-box
   :ensure t
-  :diminish
-  :defines company-box-icons-all-the-icons
-  :hook (company-mode . company-box-mode)
+  :hook (company-mode-hook . company-box-mode)
   :init (setq company-box-enable-icon t
               company-box-backends-colors nil
-              company-box-show-single-candidate t
-              company-box-max-candidates 50
-              company-box-doc-delay nil)
+              company-box-highlight-prefix t
+              company-box-doc-enable nil)
   :config
   (with-no-warnings
-    ;; FIXME: Display common text correctly
-    (defun my-company-box--update-line (selection common)
-      (company-box--update-image)
-      (goto-char 1)
-      (forward-line selection)
-      (let* ((beg (line-beginning-position))
-             (txt-beg (+ company-box--icon-offset beg)))
-        (move-overlay (company-box--get-ov) beg (line-beginning-position 2))
-        (move-overlay (company-box--get-ov-common) txt-beg
-                      (+ (length common) txt-beg)))
-      (let ((color (or (get-text-property (point) 'company-box--color)
-                       'company-box-selection)))
-        (overlay-put (company-box--get-ov) 'face color)
-        (overlay-put (company-box--get-ov-common) 'face 'company-tooltip-common-selection)
-        (company-box--update-image color))
-      (run-hook-with-args 'company-box-selection-hook selection
-                          (or (frame-parent) (selected-frame))))
-    (advice-add #'company-box--update-line :override #'my-company-box--update-line)
-
-    (defun my-company-box--render-buffer (string)
-      (let ((selection company-selection)
-            (common (or company-common company-prefix)))
-        (with-current-buffer (company-box--get-buffer)
-          (erase-buffer)
-          (insert string "\n")
-          (setq mode-line-format nil
-                display-line-numbers nil
-                truncate-lines t
-                cursor-in-non-selected-windows nil)
-          (setq-local scroll-step 1)
-          (setq-local scroll-conservatively 10000)
-          (setq-local scroll-margin  0)
-          (setq-local scroll-preserve-screen-position t)
-          (add-hook 'window-configuration-change-hook 'company-box--prevent-changes t t)
-          (company-box--update-line selection common))))
-    (advice-add #'company-box--render-buffer :override #'my-company-box--render-buffer)
-
     ;; Prettify icons
     (defun my-company-box-icons--elisp (candidate)
       (when (derived-mode-p 'emacs-lisp-mode)
@@ -160,7 +109,9 @@
             (Operator . ,(all-the-icons-material "control_point" :height 0.8 :v-adjust -0.15))
             (TypeParameter . ,(all-the-icons-faicon "arrows" :height 0.8 :v-adjust -0.02))
             (Template . ,(all-the-icons-material "format_align_left" :height 0.8 :v-adjust -0.15)))
-          company-box-icons-alist 'company-box-icons-all-the-icons)))
+          company-box-icons-alist 'company-box-icons-all-the-icons))
+  :diminish)
+
 
 (provide 'init-company)
 ;;; init-company.el ends here

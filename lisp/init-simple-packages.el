@@ -3,35 +3,31 @@
 
 ;;----------------------------------------------------------------
 ;; aggresive-indent ( 时时保持缩进 )
-(use-package aggressive-indent
+(leaf aggressive-indent
   :ensure t
-  :diminish
-  :hook
-  ;; FIXME: Disable in big files due to the performance issues
-  (find-file .  (lambda ()
-                  (if (> (buffer-size) (* 3000 80))
-                      (aggressive-indent-mode -1))))
+  :hook((after-init-hook . global-aggressive-indent-mode)
+        ;; FIXME: Disable in big files due to the performance issues
+        (find-file .  (lambda ()
+                        (if (> (buffer-size) (* 3000 80))
+                            (aggressive-indent-mode -1)))))
   :config
-  (global-aggressive-indent-mode 1)
   ;; Disable in some modes
   (dolist (mode '(web-mode html-mode css-mode go-mode))
     (push mode aggressive-indent-excluded-modes))
 
   ;; Disable in some commands
-  (add-to-list 'aggressive-indent-protected-commands #'delete-trailing-whitespace t))
+  (add-to-list 'aggressive-indent-protected-commands #'delete-trailing-whitespace t)
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; diff-hl 高亮显示未提交的change
-(use-package diff-hl
+(leaf diff-hl
   :ensure t
-  :defines (diff-hl-margin-symbols-alist desktop-minor-mode-table)
-  :functions  my-diff-hl-fringe-bmp-function
-  :custom-face (diff-hl-change ((t (:foreground ,(face-background 'highlight)))))
-  :bind (:map diff-hl-command-map
-              ("SPC" . diff-hl-mark-hunk))
-  :hook ((dired-mode . diff-hl-dired-mode)
-         (after-init . global-diff-hl-mode))
+  :bind (:diff-hl-command-map
+         ("SPC" . diff-hl-mark-hunk))
+  :hook ((dired-mode-hook . diff-hl-dired-mode)
+         (after-init-hook . global-diff-hl-mode))
   :config
   ;; Highlight on-the-fly
   (diff-hl-flydiff-mode 1)
@@ -63,22 +59,21 @@
 ;; exec-path-from-shell(for macos
 (when (or (and (display-graphic-p) (eq system-type 'gnu/linux)) ;; 判断是否为 GNU/Linux 系统
           (and (display-graphic-p) (eq system-type 'darwin)))   ;; 判断是否为 GNU/Linux 系统
-  (use-package exec-path-from-shell
-    :ensure t
-    :defer t
-    :init
-    (setq exec-path-from-shell-check-startup-files nil
-          exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH")
-          exec-path-from-shell-arguments '("-l")))
+  (leaf exec-path-from-shell
+               :ensure t
+               :leaf-defer t
+               :init
+               (setq exec-path-from-shell-check-startup-files nil
+                     exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH")
+                     exec-path-from-shell-arguments '("-l")))
   (exec-path-from-shell-initialize))
 
 
 ;;----------------------------------------------------------------
 ;; flycheck (语法检查
-(use-package flycheck
+(leaf flycheck
   :ensure t
-  :defer t
-  :diminish flycheck-mode
+  :leaf-defer t
   :config
   (defalias 'show-error-at-point-soon
     'flycheck-show-error-at-point)
@@ -110,27 +105,24 @@
 ;;; Display Flycheck errors in GUI tooltips
   (if (display-graphic-p)
       (if (>= emacs-major-version 26)
-          (use-package flycheck-posframe
+          (leaf flycheck-posframe
             :ensure t
-            :after (flycheck)
-            :hook (flycheck-mode . flycheck-posframe-mode)
+            :after flycheck
+            :hook (flycheck-mode-hook . flycheck-posframe-mode)
             :config
             (add-to-list 'flycheck-posframe-inhibit-functions
-                         #'(lambda () (bound-and-true-p company-backend)))))))
+                         #'(lambda () (bound-and-true-p company-backend))))))
+  :diminish )
 
 
 ;;----------------------------------------------------------------
 ;; Highlight indentions
 (when (display-graphic-p)
-  (use-package highlight-indent-guides
+  (leaf highlight-indent-guides
     :ensure t
-    :defer t
-    :diminish
-    :functions (ivy-cleanup-string
-                my-ivy-cleanup-indentation)
+    :leaf-defer t
     :commands highlight-indent-guides--highlighter-default
-    :functions my-indent-guides-for-all-but-first-column
-    :hook (prog-mode . highlight-indent-guides-mode)
+    :hook (prog-mode-hook . highlight-indent-guides-mode)
     :init (setq highlight-indent-guides-method 'character
                 highlight-indent-guides-responsive 'top)
     :config
@@ -170,14 +162,15 @@
               (setq pos (text-property-any next limit prop nil str))
               (ignore-errors
                 (remove-text-properties next pos '(display nil face nil) str))))))
-      (advice-add #'ivy-cleanup-string :after #'my-ivy-cleanup-indentation))))
+      (advice-add #'ivy-cleanup-string :after #'my-ivy-cleanup-indentation)))
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; hl-todo 在注释或者 string 里高亮 TODO 和类似的关键字
-(use-package hl-todo
+(leaf hl-todo
   :ensure t
-  :hook ((prog-mode org-mode) . hl-todo-mode)
+  :hook ((prog-mode-hook org-mode-hook) . hl-todo-mode)
   :config
   (dolist (keyword '("BUG" "ISSUE" "PROMPT" "ATTENTION"))
     (cl-pushnew `(,keyword . ,(face-foreground 'error)) hl-todo-keyword-faces))
@@ -186,100 +179,36 @@
 
 
 ;;----------------------------------------------------------------
-;; macrostep 展开当前宏
-;; (use-package macrostep
-;;   :ensure t
-;;   :custom-face
-;;   (macrostep-expansion-highlight-face ((t (:background ,(face-background 'tooltip)))))
-;;   :bind (:map emacs-lisp-mode-map
-;;               ("C-c e" . macrostep-expand)
-;;               :map lisp-interaction-mode-map
-;;               ("C-c e" . macrostep-expand))
-;;   :config
-;;   (add-hook 'after-load-theme-hook
-;;             (lambda ()
-;;               (set-face-background 'macrostep-expansion-highlight-face
-;;                                    (face-background 'tooltip)))))
-
-
-;;----------------------------------------------------------------
 ;; Page break lines
-(use-package page-break-lines
+(leaf page-break-lines
   :ensure t
-  :diminish page-break-lines-mode
-  :hook (after-init . global-page-break-lines-mode))
-
-
-;;----------------------------------------------------------------
-;; projectile
-;; (use-package projectile
-;;   :ensure t
-;;   :diminish
-;;   :bind* (("C-c TAB"  . projectile-find-file)
-;;           ;; ("C-c p" . (lambda () (interactive)
-;;           ;;              (projectile-cleanup-known-projects)
-;;           ;;              (projectile-discover-projects-in-search-path)))
-;;           )
-;;   :bind-keymap ("C-c p" . projectile-command-map)
-;;   :custom
-;;   (projectile-known-projects-file
-;;    "~/.emacs.d/auto-save-list/projectile-bookmarks.eld")
-;;   :init
-;;   ;;; Shorter modeline
-;;   (setq-default projectile-mode-line-prefix " ProJ"
-;;                 projectile-sort-order 'recentf
-;;                 projectile-use-git-grep t)
-;;   :config
-;;   (projectile-mode 1)
-;;   ;; Integration with `projectile' 将 projectile 的补全系统设置为 ivy
-;;   (with-eval-after-load 'projectile
-;;     (setq projectile-completion-system 'ivy)))
+  :hook (after-init-hook . global-page-break-lines-mode)
+  :diminish)
 
 
 ;;----------------------------------------------------------------
 ;; rainbow-delimiters 用不同的方法颜色高亮不同层次的括号 (彩虹括号)
-(use-package rainbow-delimiters
+(leaf rainbow-delimiters
   :ensure t
-  :diminish rainbow-delimiters-mode
   ;;; 在大多数编程语言(prog-mode-hook)中启动rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook (prog-mode-hook . rainbow-delimiters-mode)
+  :diminish)
 
 (if (fboundp 'global-prettify-symbols-mode)
     (add-hook 'after-init-hook 'global-prettify-symbols-mode))
 
 
 ;;----------------------------------------------------------------
-;; rainbow-mode 显示字符串对应的颜色(例如: red 显示为红色)
-(use-package rainbow-mode
-  :ensure t
-  :diminish rainbow-mode
-  :hook ((css-mode html-mode sass-mode js-mode js2-mode) . rainbow-mode)
-  :init
-  (defun yantree/enable-rainbow-mode-if-theme ()
-    (when (and (buffer-file-name) (string-match-p "\\(color-theme-\\|-theme\\.el\\)" (buffer-file-name)))
-      (rainbow-mode)))
-  :hook ((emacs-lisp-mode . yantree/enable-rainbow-mode-if-theme)
-         (help-mode       . rainbow-mode)))
-
-
-;;----------------------------------------------------------------
-;; sicp 魔法书
-(use-package sicp
-  :ensure t
-  :defer t)
-
-
-;;----------------------------------------------------------------
 ;; which-key
-(use-package which-key
+(leaf which-key
   :ensure t
-  :diminish
-  :hook (after-init . which-key-mode)
+  :hook (after-init-hook . which-key-mode)
   :init
   (setq which-key-separator " ")
   (setq which-key-prefix-prefix "+ ")
-  :bind (:map help-map
-              ("C-h" . which-key-C-h-dispatch)))
+  :bind (:help-map
+         ("C-h" . which-key-C-h-dispatch))
+  :diminish)
 
 (provide 'init-simple-packages)
 ;;; init-simple-packages.el ends here

@@ -2,10 +2,9 @@
 
 ;;----------------------------------------------------------------
 ;; dired
-(use-package dired
-  :ensure nil
-  :defer t
-  :bind (:map dired-mode-map
+(leaf dired
+  :require nil
+  :bind (:dired-mode-map
               ("RET"      . dired-find-alternate-file))
   :config
   ;; 避免打开过多的 dried buffer
@@ -25,20 +24,19 @@
     (when gls (setq insert-directory-program gls)))
 
   ;; Colourful dired
-  (use-package diredfl
+  (leaf diredfl
     :ensure t
     :config
     (diredfl-global-mode 1))
 
   ;; show icons
-  (use-package all-the-icons-dired
+  (leaf all-the-icons-dired
     :ensure t
-    :defer t
-    :diminish
     :custom-face
-    (all-the-icons-dired-dir-face ((t (:foreground nil))))
-    :hook (dired-mode . all-the-icons-dired-mode)
+    (all-the-icons-dired-dir-face . '((t (:foreground nil))))
     :config
+    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+
     (defun yantree-all-the-icons-dired--display ()
       "Display the icons of files without colors in a dired buffer."
       ;; Don't display icons after dired commands (e.g insert-subdir, create-directory)
@@ -96,10 +94,10 @@
     (advice-add #'dired-do-rename :after #'dired-revert)
     (advice-add #'dired-do-delete :after #'dired-revert)
     (advice-add #'dired-do-flagged-delete :after #'dired-revert)
-    )
+    :diminish)
 
   ;; Extra Dired functionality
-  (use-package dired-x   :ensure nil  :after dired))
+  (leaf dired-x   :require nil  :after dired))
 
 (provide 'init-dired)
 ;;; init-dired.el ends here

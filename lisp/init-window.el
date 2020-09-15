@@ -2,11 +2,9 @@
 
 ;;----------------------------------------------------------------
 ;; shackle Enforce popup rules
-(use-package shackle
+(leaf shackle
   :ensure t
-  :functions org-switch-to-buffer-other-window
-  :commands shackle-display-buffer
-  :hook (after-init . shackle-mode)
+  :hook (after-init-hook . shackle-mode)
   :init
   (defvar shackle--popup-window-list nil) ;; all popup windows
   (defvar-local shackle--current-popup-window nil) ;; current popup window
@@ -91,9 +89,9 @@
 
 ;;----------------------------------------------------------------
 ;; Navigate window layouts with "C-c <left>" and "C-c <right>"
-(use-package winner
+(leaf winner
   :ensure nil
-  :hook (after-init . winner-mode)
+  :hook (after-init-hook . winner-mode)
   :init
   (setq winner-boring-buffers
         '("*Completions*"
@@ -110,9 +108,9 @@
 
 ;;----------------------------------------------------------------
 ;; Shift <left> <right> <up> <down> move cursor
-(use-package windmove
+(leaf windmove
   :ensure nil
-  :hook (after-init . windmove-default-keybindings))
+  :hook (after-init-hook . windmove-default-keybindings))
 
 
 ;;----------------------------------------------------------------
@@ -187,7 +185,7 @@
 
 ;;----------------------------------------------------------------
 ;; autoload bindings
-(use-package windows
+(leaf windows
   :ensure nil
   ;;;下面快捷键的设置是上面自定义的快捷键,为了lazy-load
   :bind (("C-x 1"      . yantree/toggle-delete-other-windows)
@@ -198,16 +196,16 @@
 
 ;;----------------------------------------------------------------
 ;; ace-window(快速切换窗口)
-(use-package ace-window
+(leaf ace-window
   :ensure t
   :bind ([remap other-window] . ace-window)
   :init
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)) ;; 用字母代替数字 1-9 ,数字的键程有点远
   :custom-face
-  (aw-leading-char-face ((t (:inherit font-lock-keyword-face :bold t :height 6.0))))
+  (aw-leading-char-face . '((t (:inherit font-lock-keyword-face :bold t :height 6.0))))
   ;; 在modeline里显示window的个数
   ;; (aw-mode-line-face ((t (:inherit mode-line-emphasis :bold t))))
-  )
+  :diminish)
 
 (provide 'init-window)
 ;;; init-windows.el ends here
