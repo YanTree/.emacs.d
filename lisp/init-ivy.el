@@ -210,14 +210,17 @@ instead."
 
 ;;----------------------------------------------------------------
 ;; ivy-rich
+;; (leaf all-the-icons-ivy-rich
+;;   :ensure t
+;;   :hook (ivy-mode-hook all-the-icons-ivy-rich-mode))
 ;; (leaf ivy-rich
 ;;   :ensure t
-;;   :hook(ivy-mode-hook . (lambda () (ivy-rich-mode ivy-mode)))
+;;   :hook(ivy-rich-mode-hook . (lambda ()
+;;                                "Use abbreviate in `ivy-rich-mode'."
+;;                                (setq ivy-virtual-abbreviate
+;;                                      (or (and ivy-rich-mode 'abbreviate) 'name))))
 ;;   :init
-;;   (setq ivy-virtual-abbreviate 'abbreviate
-;;         ivy-rich-switch-buffer-align-virtual-buffer nil
-;;         ivy-rich-path-style 'abbrev
-;;         ivy-rich-parse-remote-buffer nil))
+;;   (setq ivy-rich-parse-remote-buffer nil))
 
 
 (provide 'init-ivy)
