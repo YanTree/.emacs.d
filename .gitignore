@@ -1,3 +1,4 @@
+/amx-items
 /custom.el
 /elpa
 /elpa-*
@@ -26,6 +27,14 @@
 /site-lisp/extensions/modeline
 /.emacs.desktop
 /.emacs.desktop.lock
+/lib/.bookmark.el
+/lib/bookmarks
+/lib/prescient-save.el
+/lib/projectile-bookmarks.eld
+/lib/recentf
+/lib/savehist
+/lib/saveplace
+/lib/.saves-*
 *.elc
 *.html
 *.so
