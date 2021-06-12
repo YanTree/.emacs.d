@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: new-init-file
+# uuid: new-init-file
+# key: nif
+# condition: t
+# --xb
+;;; `(buffer-name)` --- $0 -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
+
+(provide '`(file-name-base buffer-file-name)`)
+;;; `(buffer-name)` ends here

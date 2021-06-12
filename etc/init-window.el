@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-window.el --- Window setting -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; shackle Enforce popup rules
@@ -210,4 +212,4 @@
   )
 
 (provide 'init-window)
-;;; init-windows.el ends here
+;;; init-window.el ends here

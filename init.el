@@ -1,4 +1,11 @@
-;;; -*- lexical-binding: t; -*-
+;;; init.el --- Load the full configuration -*- lexical-binding: t -*-
+;;; Commentary:
+
+;; This file bootstraps the configuration, which is divided into
+;; a number of other files.
+
+;;; Code:
+;; Produce backtraces when errors occur: can be helpful to diagnose startup issues
 ;; (setq debug-on-error t)                        ;; 当加载配置出现错误时，显示详细的出错信息
 
 ;; ------------------------------ Start ------------------------------
@@ -36,7 +43,7 @@
 ;; 最优化: Force "lisp" at the head to reduce the startup time.
 (defun update-load-path (&rest _)
   "Update `load-path'."
-  (push (expand-file-name "lisp" user-emacs-directory) load-path))
+  (push (expand-file-name "etc" user-emacs-directory) load-path))
 (advice-add #'package-initialize :after #'update-load-path)
 (update-load-path)
 ;; (require 'init-benchmarking)       ;;测试启动时间
@@ -44,7 +51,7 @@
 ;;-----------------------------------------------------------------------
 ;; Bootstrap config
 ;;-----------------------------------------------------------------------
-(setq custom-file (expand-file-name "auto-save-list/custom.el" user-emacs-directory))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (require 'init-package)
 (require 'init-utils)
 
@@ -69,7 +76,7 @@
 (require 'init-edit)
 (require 'init-magit)
 (require 'init-write)              ;; 包含 markdown mode 和 org mode
-
+(require 'init-shader)
 
 
 ;;-----------------------------------------------------------------------
@@ -81,9 +88,4 @@
 
 
 (provide 'init)
-
-;; Local Variables:
-;; coding: utf-8
-;; no-byte-compile: t
-;; End:
 ;;; init.el ends here

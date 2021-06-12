@@ -1,24 +1,6 @@
-;;; -*- lexical-binding: t; -*-
-
-;;----------------------------------------------------------------
-;; anzu (displays current match and total matches information in the mode-line
-(use-package anzu
-  :ensure t
-  :diminish
-  :bind (([remap query-replace]        . anzu-query-replace)
-         ([remap query-replace-regexp] . anzu-query-replace-regexp)
-         ([remap isearch-query-replace] . anzu-isearch-query-replace)
-         ([remap isearch-query-replace-regexp] . anzu-isearch-query-replace-regexp))
-  :config
-  (global-anzu-mode 1))
-
-
-;;----------------------------------------------------------------
-;; avy (jumping to visible text using a char-based decision tree
-;; (use-package avy
-;;   :ensure t
-;;   :bind* ("C-'" . avy-goto-char-timer))
-
+;;; init-edit.el --- Another improve edit -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; beacon 像一个彗星尾巴一样闪烁当前行
@@ -119,7 +101,7 @@
   :ensure t
   :diminish
   :init
-  (setq mc/list-file "~/.emacs.d/auto-save-list/.mc-lists.el")  ;;改变配置文件位置的位置
+  (setq mc/list-file "~/.emacs.d/lib/.mc-lists.el")  ;;改变配置文件位置的位置
   :bind (;; From active region to multiple cursors:
          ("C-S-c C-S-c"  . mc/edit-lines)
          ("C-S-c C-S-a"  . mc/edit-beginnings-of-lines)
@@ -221,15 +203,15 @@
 
 ;;----------------------------------------------------------------
 ;; yasnippet
-;; (use-package yasnippet
-;;   :ensure t
-;;   :commands (yas-reload-all)
-;;   :diminish yas-minor-mode
-;;   :hook ((org-mode prog-mode snippet-mode) . yas-minor-mode)
-;;   :init
-;;   (setq yas-snippet-dirs '("~/.emacs.d/site-lisp/snippets"))
-;;   :config
-;;   (yas-reload-all))
+(use-package yasnippet
+  :ensure t
+  :commands (yas-reload-all)
+  :diminish yas-minor-mode
+  :hook ((org-mode prog-mode snippet-mode) . yas-minor-mode)
+  :init
+  (setq yas-snippet-dirs '("~/.emacs.d/lib/snippets"))
+  :config
+  (yas-reload-all))
 
 (provide 'init-edit)
 ;;; init-edit.el ends here

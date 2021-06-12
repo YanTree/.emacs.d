@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-dired.el --- Dired customisations -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; dired

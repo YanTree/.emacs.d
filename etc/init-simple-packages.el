@@ -1,4 +1,7 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-simple-packages.el --- Settings for micro packages -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 ;; 配置不超过五十行代码的插件 or......我想把它放这儿
 
 ;;----------------------------------------------------------------
@@ -12,7 +15,7 @@
                   (if (> (buffer-size) (* 3000 80))
                       (aggressive-indent-mode -1))))
   :config
-  (global-aggressive-indent-mode 1)
+  ;; (global-aggressive-indent-mode 1)
   ;; Disable in some modes
   (dolist (mode '(web-mode html-mode css-mode go-mode))
     (push mode aggressive-indent-excluded-modes))

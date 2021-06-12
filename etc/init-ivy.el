@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-ivy.el --- Interactive of ivy -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; ivy
@@ -12,11 +14,11 @@
          :map ivy-minibuffer-map
          ("RET"     . #'ivy-alt-done))
   :config
+  (setq ivy-sort-max-size 7500)
   ;; about ivy
   (setq-default ivy-use-virtual-buffers t          ;;将最近打开的文件和书签放进 `ivy-switch-buffer'
                 enable-recursive-minibuffers t     ;;允许在 minibuffer 里使用命令(M-x:)
-                ivy-count-format "(%d/%d) "        ;;ivy 计数的样式
-                ivy-height 13                      ;;ivy 弹窗的高度(13行)
+                ivy-height 17                      ;;ivy 弹窗的高度(13行)
                 ivy-virtual-abbreviate 'fullpath   ;;用绝对路径显示未高亮的 buffer
                 ivy-display-style 'fancy           ;;在 ivy 里高粱显示匹配的字符
                 ivy-use-selectable-prompt t
@@ -33,7 +35,7 @@
      cands
      "\n"))
 
-  (setq ivy-format-functions-alist '((t . yantree-ivy-format-function-arrow)))
+  ;; (setq ivy-format-functions-alist '((t . yantree-ivy-format-function-arrow)))
 
   (defun ivy-switch-buffer-kill ()
     (interactive)
@@ -207,11 +209,8 @@ instead."
 
 ;;----------------------------------------------------------------
 ;; enhance M-x, record use times of commands
-(use-package smex
-  :ensure t
-  :init
-  (setq-default smex-save-file (expand-file-name "auto-save-list/.smex-items" user-emacs-directory))
-  :bind ([remap execute-extended-command] . smex))
+(use-package amx
+  :ensure t)
 
 (provide 'init-ivy)
 ;;; init-ivy.el ends here

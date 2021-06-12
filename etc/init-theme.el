@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-theme.el --- UI setting -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; leuven-theme
@@ -17,7 +19,8 @@
   :init
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+        doom-themes-enable-italic t)
+                                        ; if nil, italics is universally disabled
   :config
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -50,25 +53,14 @@
 
 ;;----------------------------------------------------------------
 ;; solaire-mode (Make certain buffers grossly incandescent)
-(use-package solaire-mode
-  :ensure t
-  :defer t
-  :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
-         (minibuffer-setup . solaire-mode-in-minibuffer)
-         (after-load-theme . solaire-mode-swap-bg))
-  :config
-  (setq solaire-mode-remap-fringe nil)
-  (solaire-global-mode 1)
-  (solaire-mode-swap-bg))
 
 
 ;;----------------------------------------------------------------
 ;; doom-modeline
 (use-package doom-modeline
   :ensure t
-  :init
-  (setq doom-modeline-buffer-file-name-style 'buffer-name)
   :config
+  (setq doom-modeline-buffer-file-name-style 'buffer-name)
   (doom-modeline-mode))
 
 (provide 'init-theme)

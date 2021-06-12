@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-write.el --- About write setting -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; markdown

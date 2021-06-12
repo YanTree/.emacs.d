@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-magit.el --- Git SCM support -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; magit

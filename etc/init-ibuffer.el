@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-ibuffer.el --- Ibuffer of buffers -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; fullframe

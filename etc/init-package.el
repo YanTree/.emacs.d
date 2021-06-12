@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-package.el --- Settings for package.el -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; Initialize packages
@@ -9,7 +11,7 @@
 
 ;;----------------------------------------------------------------
 ;; set package archives
-(defvar yantree-package-archives 'netease
+(defvar yantree-package-archives 'tuna
   "Set package archives from which to fetch, you can choice melpa, melpa-mirror, emacs-china, netease, or tuna")
 
 ;; 增加额外的package repositories

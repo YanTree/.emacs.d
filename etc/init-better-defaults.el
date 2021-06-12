@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-better-defaults.el --- Improve default setting -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; 设置utf-8编码

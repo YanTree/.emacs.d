@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-utils.el --- Micro utils -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; 链接到我的github

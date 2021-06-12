@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-better-packages.el --- Improve default package setting -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;;----------------------------------------------------------------
 ;; autorevert
@@ -21,7 +23,7 @@
   ;;; everytime bookmark is changed, automatically save it
   (setq bookmark-save-flag 1)
   (setq-default
-   bookmark-default-file (expand-file-name "auto-save-list/bookmarks" user-emacs-directory)))
+   bookmark-default-file (expand-file-name "lib/bookmarks" user-emacs-directory)))
 
 
 ;;----------------------------------------------------------------
@@ -144,7 +146,7 @@
   (setq recentf-max-saved-items 500
         recentf-exclude '("/tmp/" "/ssh:"))
   (setq-default
-   recentf-save-file (expand-file-name "auto-save-list/recentf" user-emacs-directory))
+   recentf-save-file (expand-file-name "lib/recentf" user-emacs-directory))
   :preface
   (defun recentf-add-dired-directory ()
     (if (and dired-directory
@@ -167,7 +169,7 @@
   :ensure nil
   :init (setq enable-recursive-minibuffers t;;Allow commands in minibuffers
               history-length 1000
-              savehist-file (expand-file-name "auto-save-list/savehist" user-emacs-directory))
+              savehist-file (expand-file-name "lib/savehist" user-emacs-directory))
   :config
   (savehist-mode 1))
 
@@ -178,7 +180,7 @@
   :ensure nil
   :init
   (setq save-place-file
-        (expand-file-name "auto-save-list/saveplace" user-emacs-directory))
+        (expand-file-name "lib/saveplace" user-emacs-directory))
   :config
   (save-place-mode 1))
 
