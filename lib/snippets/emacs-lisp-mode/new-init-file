@@ -3,7 +3,7 @@
 # uuid: new-init-file
 # key: nif
 # condition: t
-# --xb
+# --
 ;;; `(buffer-name)` --- $0 -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
