@@ -74,9 +74,9 @@
 (require 'init-simple-packages)
 (require 'init-theme)
 (require 'init-edit)
-(require 'init-magit)
+(require 'init-magit)              ;; git
 (require 'init-write)              ;; 包含 markdown mode 和 org mode
-(require 'init-shader)
+(require 'init-shader)             ;; Unity shader
 
 
 ;;-----------------------------------------------------------------------
