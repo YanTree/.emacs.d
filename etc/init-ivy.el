@@ -14,15 +14,17 @@
          :map ivy-minibuffer-map
          ("RET"     . #'ivy-alt-done))
   :config
-  (setq ivy-sort-max-size 7500)
+  (setq enable-recursive-minibuffers t     ;; 允许在 minibuffer 里使用命令(M-x:)
+        ivy-sort-max-size 7500)
+
   ;; about ivy
-  (setq-default ivy-use-virtual-buffers t          ;;将最近打开的文件和书签放进 `ivy-switch-buffer'
-                enable-recursive-minibuffers t     ;;允许在 minibuffer 里使用命令(M-x:)
-                ivy-height 17                      ;;ivy 弹窗的高度(13行)
-                ivy-virtual-abbreviate 'fullpath   ;;用绝对路径显示未高亮的 buffer
-                ivy-display-style 'fancy           ;;在 ivy 里高粱显示匹配的字符
-                ivy-use-selectable-prompt t
-                ivy-initial-inputs-alist nil)
+  (setq ivy-height 17                      ;; ivy 弹窗的高度(13行)
+        ivy-use-virtual-buffers nil        ;; 将最近打开的文件和书签放进 `ivy-switch-buffer'
+        ivy-count-format "[ %d] "
+        ivy-virtual-abbreviate 'fullpath   ;; 用绝对路径显示未高亮的 buffer
+        ivy-display-style 'fancy           ;; 在 ivy 里高粱显示匹配的字符
+        ivy-use-selectable-prompt t
+        ivy-initial-inputs-alist nil)
 
   ;;你可以查看 ivy-format-functions-alist，默认有三种选择，可以自己 hack 一下
   (defun yantree-ivy-format-function-arrow (cands)
