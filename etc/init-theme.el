@@ -60,7 +60,8 @@
 (use-package doom-modeline
   :ensure t
   :config
-  (setq doom-modeline-buffer-file-name-style 'buffer-name)
+  (setq doom-modeline-buffer-file-name-style 'buffer-name
+        doom-modeline-major-mode-icon nil)
   (doom-modeline-mode))
 
 (provide 'init-theme)
