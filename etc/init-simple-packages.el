@@ -247,8 +247,8 @@
   ;;; 在大多数编程语言(prog-mode-hook)中启动rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(if (fboundp 'global-prettify-symbols-mode)
-    (add-hook 'after-init-hook 'global-prettify-symbols-mode))
+;; (if (fboundp 'global-prettify-symbols-mode)
+;;     (add-hook 'after-init-hook 'global-prettify-symbols-mode))
 
 
 ;;----------------------------------------------------------------

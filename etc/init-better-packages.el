@@ -128,12 +128,12 @@
 
 ;;----------------------------------------------------------------
 ;; prettify-symbols(像这样 lambda 美化成一个 "入" 子符号 )
-(when (fboundp 'global-prettify-symbols-mode)
-  (use-package prettify-symbols
-    :ensure nil
-    :defer t
-    :config
-    (global-prettify-symbols-mode 1)))
+;; (when (fboundp 'global-prettify-symbols-mode)
+;;   (use-package prettify-symbols
+;;     :ensure nil
+;;     :defer t
+;;     :config
+;;     (global-prettify-symbols-mode 1)))
 
 
 ;;----------------------------------------------------------------
