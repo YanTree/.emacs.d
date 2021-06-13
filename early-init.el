@@ -1,4 +1,6 @@
-;;; -*- lexical-binding: t; -*-
+;;; early-init.el --- Early initialization -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
 
 ;; Defer garbage collection further back in the startup process
 (setq gc-cons-threshold most-positive-fixnum)
@@ -20,4 +22,5 @@
 (when (featurep 'ns)
   (push '(ns-transparent-titlebar . t) default-frame-alist))
 
+(provide 'early-init)
 ;;; early-init.el ends here
