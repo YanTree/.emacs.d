@@ -88,11 +88,11 @@
 ;; move-dup
 (use-package move-dup
   :ensure t
-  :bind
-  (([M-up]     . md-move-lines-up)
-   ([M-down]   . md-move-lines-down)
-   ([M-S-up]   . md-duplicate-up)
-   ([M-S-down] . md-duplicate-down)))
+  :config
+  (global-set-key (kbd "M-<up>") 'move-dup-move-lines-up)
+  (global-set-key (kbd "M-<down>") 'move-dup-move-lines-down)
+  (global-set-key (kbd "M-S-<up>") 'move-dup-duplicate-up)
+  (global-set-key (kbd "M-S-<down>") 'move-dup-duplicate-down))
 
 
 ;;----------------------------------------------------------------
