@@ -124,43 +124,58 @@ Result is full path."
 
 
 ;;----------------------------------------------------------------
-;; sdcv 英语查词插件
-;; (use-package sdcv
-;;   :load-path "site-lisp/extensions/sdcv"
-;;   :config
-;;   ;; 词典链接 http://download.huzheng.org/zh_CN/
-;;   ;; 根据懒猫的配置,下面一行要这样自定义启动目录
-;;   (defvar yantree-sdcv-data-dir (file-truename "~/.emacs.d/site-lisp/sdcv-dict"))
+;; 有道词典翻译 zh_cn -> en_us
+(use-package youdao-dictionary
+  :ensure t
+  :commands youdao-dictionary-play-voice-of-current-word
+  :bind (("C-c t" . YanTree-youdao-dictionary-search-at-point)
+         :map youdao-dictionary-mode-map
+         ("h" . youdao-dictionary-hydra/body)
+         ("?" . youdao-dictionary-hydra/body))
+  :init
+  (setq url-automatic-caching t
+        youdao-dictionary-use-chinese-word-segmentation t) ; 中文分词
 
-;;   (setq sdcv-say-word-p t)               ;;打开语音功能
-;;   (setq sdcv-dictionary-simple-list      ;;星际译王屏幕取词词典, 简单, 快速
-;;         '("懒虫简明英汉词典"
-;;           "懒虫简明汉英词典"
-;;           "KDic11万英汉词典"))
-;;   (setq sdcv-dictionary-complete-list    ;;星际译王的词典, 完全, 详细
-;;         '(
-;;           "懒虫简明英汉词典"
-;;           "英汉汉英专业词典"
-;;           "XDICT英汉辞典"
-;;           "stardict1.3英汉辞典"
-;;           "WordNet"
-;;           "XDICT汉英辞典"
-;;           "Jargon"
-;;           "懒虫简明汉英词典"
-;;           "FOLDOC"
-;;           "新世纪英汉科技大词典"
-;;           "KDic11万英汉词典"
-;;           "朗道汉英字典5.0"
-;;           "CDICT5英汉辞典"
-;;           "新世纪汉英科技大词典"
-;;           "牛津英汉双解美化版"
-;;           "21世纪双语科技词典"
-;;           "quick_eng-zh_CN"
-;;           ))
+  (defun YanTree-youdao-dictionary-search-at-point ()
+    "Search word at point and display result with `posframe', `pos-tip', or buffer."
+    (interactive)
+    (if (display-graphic-p)
+        (youdao-dictionary-search-at-point-posframe)
+      (youdao-dictionary-search-at-point)))
+  :config
+  (with-no-warnings
+    (defun my-youdao-dictionary--posframe-tip (string)
+      "Show STRING using posframe-show."
+      (unless (and (require 'posframe nil t) (posframe-workable-p))
+        (error "Posframe not workable"))
 
-;;   (setq sdcv-dictionary-data-dir yantree-sdcv-data-dir);;设置词典的路径
+      (let ((word (youdao-dictionary--region-or-word)))
+        (if word
+            (progn
+              (with-current-buffer (get-buffer-create youdao-dictionary-buffer-name)
+                (let ((inhibit-read-only t))
+                  (erase-buffer)
+                  (youdao-dictionary-mode)
+                  (insert (propertize "\n" 'face '(:height 0.5)))
+                  (insert string)
+                  (insert (propertize "\n" 'face '(:height 0.5)))
+                  (set (make-local-variable 'youdao-dictionary-current-buffer-word) word)))
+              (posframe-show youdao-dictionary-buffer-name
+                             :position (point)
+                             :left-fringe 16
+                             :right-fringe 16
+                             :background-color (face-background 'tooltip nil t)
+                             :internal-border-color (face-foreground 'font-lock-comment-face nil t)
+                             :internal-border-width 1)
+              (unwind-protect
+                  (push (read-event) unread-command-events)
+                (progn
+                  (posframe-hide youdao-dictionary-buffer-name)
+                  (other-frame 0))))
+          (message "Nothing to look up"))))
+    (advice-add #'youdao-dictionary--posframe-tip
+                :override #'my-youdao-dictionary--posframe-tip)))
 
-;;   :bind ("C-c t" . sdcv-search-pointer+))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here
