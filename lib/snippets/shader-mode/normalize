@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: normalize
+# key: nl
+# --
+normalize($0);

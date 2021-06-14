@@ -1,8 +1,6 @@
 # -*- mode: snippet -*-
 # name: shader
-# uuid: shader
 # key: sd
-# condition: t
 # --
 Shader "$0"
 {
