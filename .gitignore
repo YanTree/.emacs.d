@@ -35,6 +35,7 @@
 /lib/savehist
 /lib/saveplace
 /lib/.saves-*
+/url/
 *.elc
 *.html
 *.so
