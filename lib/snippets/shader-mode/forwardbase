@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: forwardbase
+# key: lmfb
+# --
+Tags {"LightMode" = "ForwardBase"}

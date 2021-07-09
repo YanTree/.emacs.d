@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Pow
+# key: pow
+# --
+half${1:Number} ${2:Name} = pow(${3:Value}, ${4:PowValue});

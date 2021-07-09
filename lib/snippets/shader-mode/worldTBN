@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: worldTBN
+# key: worldTBN
+# --
+half3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;  // 顶点位置转至世界空间
+half3 worldNormal = UnityObjectToWorldNormal(v.normal);   // 顶点法线转至世界空间
+half3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);// 顶点切线转至世界空间
+half3 worldBinormal = cross(worldNormal, worldTangent) * v.tangent.w; // 顶点副切线转至世界空间
+
+o.TtoW0 = float4(worldTangent.x, worldBinormal.x, worldNormal.x, worldPos.x);
+o.TtoW1 = float4(worldTangent.y, worldBinormal.y, worldNormal.y, worldPos.y);
+o.TtoW2 = float4(worldTangent.z, worldBinormal.z, worldNormal.z, worldPos.z);

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: FragmenttexCUBElod
+# key: fcubelod
+# --
+half4 ${1:cubeMap} = texCUBElod(_${2:CubeMap}, float4(reflectDir, mipLevel));
+half3 ${3:cubeMapCol} = DecodeHDR($1, _$2_HDR);

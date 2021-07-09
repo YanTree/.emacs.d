@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Header
+# key: hd
+# --
+[Header(${0:Name})]

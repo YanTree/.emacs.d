@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Properties Range
+# key: prange
+# --
+_${1:RangeName}("$1", Range(-1.0, 1.0)) = 0.0

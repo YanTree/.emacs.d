@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: UnpackNormal
+# key: UnpackNormal
+# --
+// 解压缩法线贴图
+half3 normal = UnpackNormal(tex2D(_NormalTex, i.uv));//采样解压缩法线贴图
+normal.xy *= _NormalIntensity;
+normal.z = sqrt(1.0 - max(0.0, dot(normal.xy, normal.xy)));
+// 将法线贴图信息从切线空间转至世界空间
+normal = normalize(half3(dot(i.TtoW0.xyz, normal), dot(i.TtoW1.xyz, normal), dot(i.TtoW2.xyz, normal)));
