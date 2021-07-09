@@ -14,19 +14,26 @@ Shader "$0"
 
         Pass
         {
+            Tags {"LightMode"="ForwardBase"}
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_fwdbase
 
             #include "UnityCG.cginc"
+            #include "AutoLight.cginc"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float4 _LightColor0;
 
             struct appdata
             {
                 float4 vertex : POSITION;
                 float2 texcoord : TEXCOORD0;
+                float3 normal : NORMAL;
+                float4 tangent : TANGENT;
             };
 
             struct v2f
