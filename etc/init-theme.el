@@ -34,6 +34,7 @@
   (if (display-graphic-p)
       (;; 深色主题
        load-theme 'doom-one t
+       ;; load-theme 'doom-vibrant t
        ;; load-theme 'doom-city-lights t
        ;; load-theme 'doom-dracula t
        ;; load-theme 'doom-monokai-classic t
@@ -42,9 +43,9 @@
        ;; load-theme 'doom-opera t
        ;; load-theme 'doom-tomorrow-night t
        ;; 浅色主题
+       ;; load-theme 'doom-one-light t
        ;; load-theme 'doom-solarized-light t
        ;; load-theme 'doom-nord-light t
-       ;; load-theme 'doom-one-light t
        ;; load-theme 'doom-opera-light t
        )
     (load-theme 'manoj-dark t))

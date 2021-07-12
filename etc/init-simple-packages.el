@@ -123,6 +123,14 @@
 
 
 ;;----------------------------------------------------------------
+;; goto line preview
+(use-package goto-line-preview
+  :ensure t
+  :diminish
+  :bind([remap goto-line] .  goto-line-preview))
+
+
+;;----------------------------------------------------------------
 ;; Highlight indentions
 (when (display-graphic-p)
   (use-package highlight-indent-guides
