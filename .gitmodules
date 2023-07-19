@@ -1,0 +1,31 @@
+[submodule "borg"]
+	path = modules/borg
+	url = git@github.com:emacscollective/borg.git
+[submodule "closql"]
+	path = modules/closql
+	url = git@github.com:emacscollective/closql.git
+[submodule "compat"]
+	path = modules/compat
+	url = https://git.sr.ht/~pkal/compat
+[submodule "dash"]
+	path = modules/dash
+	url = https://github.com/magnars/dash.el
+[submodule "emacsql"]
+	path = modules/emacsql
+	url = git@github.com:skeeto/emacsql.git
+	no-byte-compile = emacsql-pg.el
+[submodule "epkg"]
+	path = modules/epkg
+	url = git@github.com:emacscollective/epkg.git
+[submodule "llama"]
+	path = modules/llama
+	url = https://git.sr.ht/~tarsius/llama
+[submodule "magit"]
+	path = modules/magit
+	url = https://github.com/magit/magit
+[submodule "use-package"]
+	path = modules/use-package
+	url = git@github.com:jwiegley/use-package.git
+[submodule "with-editor"]
+	path = modules/with-editor
+	url = https://github.com/magit/with-editor

@@ -29,3 +29,6 @@
 *.elc
 *.html
 *.so
+/epkgs/
+/eln-cache/
+/local/
