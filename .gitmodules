@@ -6,10 +6,15 @@
 	url = git@github.com:emacscollective/closql.git
 [submodule "compat"]
 	path = modules/compat
-	url = https://git.sr.ht/~pkal/compat
+	url = git@git.sr.ht:~pkal/compat
+[submodule "corfu"]
+	load-path = .
+	load-path = extensions
+	path = modules/corfu
+	url = https://github.com/minad/corfu
 [submodule "dash"]
 	path = modules/dash
-	url = https://github.com/magnars/dash.el
+	url = git@github.com:magnars/dash.el.git
 [submodule "emacsql"]
 	path = modules/emacsql
 	url = git@github.com:skeeto/emacsql.git
@@ -17,15 +22,47 @@
 [submodule "epkg"]
 	path = modules/epkg
 	url = git@github.com:emacscollective/epkg.git
+[submodule "hungry-delete"]
+	path = modules/hungry-delete
+	url = https://github.com/nflath/hungry-delete
+[submodule "kind-icon"]
+	path = modules/kind-icon
+	url = https://github.com/jdtsmith/kind-icon
 [submodule "llama"]
 	path = modules/llama
 	url = https://git.sr.ht/~tarsius/llama
 [submodule "magit"]
 	path = modules/magit
-	url = https://github.com/magit/magit
+	url = git@github.com:magit/magit.git
+[submodule "marginalia"]
+	path = modules/marginalia
+	url = https://github.com/minad/marginalia
+[submodule "move-dup"]
+	path = modules/move-dup
+	url = https://github.com/wyuenho/move-dup
+[submodule "multiple-cursors"]
+	path = modules/multiple-cursors
+	url = https://github.com/magnars/multiple-cursors.el
+[submodule "orderless"]
+	path = modules/orderless
+	url = https://github.com/oantolin/orderless
+[submodule "rainbow-delimiters"]
+	path = modules/rainbow-delimiters
+	url = https://github.com/Fanael/rainbow-delimiters
+[submodule "symbol-overlay"]
+	path = modules/symbol-overlay
+	url = https://github.com/wolray/symbol-overlay
 [submodule "use-package"]
 	path = modules/use-package
 	url = git@github.com:jwiegley/use-package.git
+[submodule "vertico"]
+	load-path = .
+	load-path = extensions
+	path = modules/vertico
+	url = https://github.com/minad/vertico
+[submodule "which-key"]
+	path = modules/which-key
+	url = https://github.com/justbur/emacs-which-key
 [submodule "with-editor"]
 	path = modules/with-editor
-	url = https://github.com/magit/with-editor
+	url = git@github.com:magit/with-editor.git
