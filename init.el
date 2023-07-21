@@ -73,6 +73,13 @@
 
 
 ;;
+;;; Load theme
+(progn
+  ;; Built-in awesome theme
+  (load-theme 'leuven))
+
+
+;;
 ;;; Startup
 (progn
   (defvar before-user-init-time (current-time)
@@ -96,6 +103,7 @@
   (setq inhibit-startup-echo-area-message "locutus")
   (setq initial-buffer-choice t))
 
+
 ;;
 ;;; Data directory
 (defvar cat-local-dir (expand-file-name "local/" user-emacs-directory)
@@ -115,9 +123,6 @@
 
 (defvar cat-templates-dir (expand-file-name "templates/" user-emacs-directory)
   "Where sotres snippets and other template files")
-
-(defconst cat-custom-example-file (expand-file-name "custom.example.el" cat-templates-dir)
-  "The path to example custom file")
 
 
 ;;
