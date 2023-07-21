@@ -345,14 +345,14 @@
         show-paren-when-point-in-periphery t)
 
   ;; Fire show paren mode
-  (show-paren-mode))
+  (show-paren-mode t))
 
 
 ;; Highlights the current line
 (use-package hl-line
   :custom
   ;; Fire global hl line mode
-  (global-hl-line-mode 1)
+  (global-hl-line-mode t)
   :config
   (defvar global-hl-line-modes
   '(prog-mode text-mode conf-mode special-mode
@@ -402,7 +402,7 @@
   (revert-without-query (list ".")) ;; Only prompts for confirmation when buffer is unsaved.
   :config
   ;; Fire global auto revert mode
-  (global-auto-revert-mode))
+  (global-auto-revert-mode t))
 
 
 ;; persist variables across sessions
@@ -438,7 +438,7 @@ the unwritable tidbits."
                   (cl-remove-if-not #'savehist-printable register-alist))))
 
   ;; Fire savehist mode
-  (savehist-mode))
+  (savehist-mode t))
 
 
 ;; persistent point location in buffers
@@ -446,7 +446,7 @@ the unwritable tidbits."
   :custom (save-place-file (concat cat-data-dir "save-place.el"))
   :config
   ;; Fire save place mode
-  (save-place-mode))
+  (save-place-mode t))
 
 
 ;; Keep track of recently opened files
@@ -472,7 +472,10 @@ the unwritable tidbits."
   ;; The most sensible time to clean up your recent files list is when you quit
   ;; Emacs (unless this is a long-running daemon session).
   (setq recentf-auto-cleanup (if (daemonp) 300))
-  (add-hook 'kill-emacs-hook #'recentf-cleanup))
+  (add-hook 'kill-emacs-hook #'recentf-cleanup)
+
+  ;; Fire recentf
+  (recentf-mode t))
 
 ;; File manager
 (use-package dired
@@ -519,7 +522,7 @@ the unwritable tidbits."
         cand)))
 
    ;; Fire vertico     
-  (vertico-mode))
+  (vertico-mode t))
 
 
 ;; More marginalia info for minibuffer
@@ -554,7 +557,7 @@ the unwritable tidbits."
      (corfu-popupinfo-mode))
   
   ;; Fire global corfu mode
-  (global-corfu-mode))
+  (global-corfu-mode t))
 
 
 ;; Add icon for corfu completion result(nerd-icons)
@@ -571,7 +574,7 @@ the unwritable tidbits."
 
 ;; Useful to delete huge whitespace
 (use-package hungry-delete
-  :config (global-hungry-delete-mode))
+  :config (global-hungry-delete-mode t))
 
 
 ;; Rainbow brackets
@@ -596,12 +599,12 @@ the unwritable tidbits."
   (setq-default which-key-idle-delay 2)
   
   ;; Fire which key mode
-  (which-key-mode))
+  (which-key-mode t))
 
 
 ;; M-<UP>/M-<DOWN> move current line up/down
 (use-package move-dup
-  :config (global-move-dup-mode))
+  :config (global-move-dup-mode t))
 
 
 ;; ---------------------------------------------------------------------------
@@ -629,7 +632,7 @@ the unwritable tidbits."
          (dired-mode         . diff-hl-dired-mode))
   :config
   ;; Fire global diff hl mode
-  (global-diff-hl-mode))
+  (global-diff-hl-mode t))
 
 
 ;; ---------------------------------------------------------------------------
