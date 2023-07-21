@@ -4,6 +4,8 @@
 ;;
 ;;; Code:
 
+(require 'cl-lib)
+
 
 ;; PERF: Garbage collection is a big contributor to startup times. This fends it
 ;;   off, but will be reset later to normal. Not resetting it later will
