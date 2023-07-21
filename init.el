@@ -607,6 +607,16 @@ the unwritable tidbits."
   :config (global-move-dup-mode t))
 
 
+;; High light :TODO similar key words
+(use-package hl-todo
+  :hook ((prog-mode org-mode) . hl-todo-mode)
+  :config
+  (dolist (keyword '("BUG" "ISSUE"))
+    (cl-pushnew `(,keyword . ,(face-foreground 'error)) hl-todo-keyword-faces))
+  (dolist (keyword '("HACK" "TRICK" "WARNING"))
+    (cl-pushnew `(,keyword . ,(face-foreground 'warning)) hl-todo-keyword-faces)))
+
+
 ;; ---------------------------------------------------------------------------
 ;; version control
 
@@ -668,13 +678,13 @@ the unwritable tidbits."
   ;; 
   ;;; vertico Ido-like directory navigation commands
   :bind (:map vertico-map
-            ("RET"   . vertico-directory-enter)
-            ("DEL"   . vertico-directory-delete-char)
-            ("M-DEL" . vertico-directory-delete-word))
+            ("RET"    . vertico-directory-enter)
+            ("DEL"    . vertico-directory-delete-char)
+            ("M-DEL"  . vertico-directory-delete-word))
   
   ;; 
   ;;; hungry-delete
-  :bind ("C-=" . er/expand-region)
+  :bind ("C-="        . er/expand-region)
   
   ;;
   ;;; symbol-overlay
@@ -686,21 +696,21 @@ the unwritable tidbits."
   
   ;;
   ;;; multiple-cursors
-  :bind (("C-<"     . mc/mark-previous-like-this)
-         ("C->"     . mc/mark-next-like-this)
-         ("C-+"     . mc/mark-next-like-this)
-         ("C-c C-<" . mc/mark-all-like-this))
+  :bind (("C-<"       . mc/mark-previous-like-this)
+         ("C->"       . mc/mark-next-like-this)
+         ("C-+"       . mc/mark-next-like-this)
+         ("C-c C-<"   . mc/mark-all-like-this))
 
   ;; 
   ;;; move-dup
-  :bind (("M-<up>"     . move-dup-move-lines-up)
+  :bind (("M-<up>"    . move-dup-move-lines-up)
         ("M-<down>"   . move-dup-move-lines-down)
         ("M-S-<up>"   . move-dup-duplicate-up)
         ("M-S-<down>" . move-dup-duplicate-down))
   
   ;; 
   ;;; magit
-  :bind ("C-x g" . magit-status))
+  :bind ("C-x g"      . magit-status))
 
 
 ;; ---------------------------------------------------------------------------
