@@ -28,6 +28,9 @@
 [submodule "git-timemachine"]
 	path = modules/git-timemachine
 	url = git@github.com:emacsmirror/git-timemachine.git
+[submodule "hl-todo"]
+	path = modules/hl-todo
+	url = https://github.com/tarsius/hl-todo
 [submodule "hungry-delete"]
 	path = modules/hungry-delete
 	url = https://github.com/nflath/hungry-delete
