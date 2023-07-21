@@ -6,7 +6,7 @@
 	url = git@github.com:emacscollective/closql.git
 [submodule "compat"]
 	path = modules/compat
-	url = git@git.sr.ht:~pkal/compat
+	url = https://git.sr.ht/~pkal/compat
 [submodule "corfu"]
 	load-path = .
 	load-path = extensions
