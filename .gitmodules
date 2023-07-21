@@ -15,6 +15,9 @@
 [submodule "dash"]
 	path = modules/dash
 	url = git@github.com:magnars/dash.el.git
+[submodule "diff-hl"]
+	path = modules/diff-hl
+	url = https://github.com/dgutov/diff-hl
 [submodule "emacsql"]
 	path = modules/emacsql
 	url = git@github.com:skeeto/emacsql.git
@@ -22,6 +25,9 @@
 [submodule "epkg"]
 	path = modules/epkg
 	url = git@github.com:emacscollective/epkg.git
+[submodule "git-timemachine"]
+	path = modules/git-timemachine
+	url = git@github.com:emacsmirror/git-timemachine.git
 [submodule "hungry-delete"]
 	path = modules/hungry-delete
 	url = https://github.com/nflath/hungry-delete
@@ -66,3 +72,6 @@
 [submodule "with-editor"]
 	path = modules/with-editor
 	url = git@github.com:magit/with-editor.git
+[submodule "yasnippet"]
+	path = modules/yasnippet
+	url = https://github.com/joaotavora/yasnippet
