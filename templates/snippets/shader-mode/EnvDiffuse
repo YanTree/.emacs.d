@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: SHDiffuse
+# key: ed
+# --
+// 间接光漫反射
+half halfLamert = NdotL *  0.5 + 0.5;
+half3 indirectDiffuse =  custom_sh(normal) * ${1:baseCol} * halfLamert;

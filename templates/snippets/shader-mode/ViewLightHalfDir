@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: ViewLightHalf
+# key: vlh
+# --
+// 视角、主光源灯光、半角等方向 (view + light + half)
+half3 worldPos = half3(i.TtoW0.w, i.TtoW1.w, i.TtoW2.w);
+half3 viewDir = normalize(_WorldSpaceCameraPos.xyz - worldPos);
+half3 lightDir = normalize(_WorldSpaceLightPos0.xyz); // 主光源(平行光)
+half3 halfDir = normalize(lightDir + viewDir);

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Buffer2D
+# key: b2d
+# --
+sampler2D _${1:TexName};
+float4 _$1_ST;

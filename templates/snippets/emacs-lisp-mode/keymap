@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: keymap
+# key: keymap
+# --
+(let ((map (make-sparse-keymap))) $1map)$0

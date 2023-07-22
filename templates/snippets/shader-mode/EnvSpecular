@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: IBLSpecular
+# key: es
+# --
+// 间接光镜面反射
+half IBLroughness = roughness * (1.7 - 0.7 * roughness);
+half mipLevel = IBLroughness * 6.0;
+half3 reflectDir = reflect(-viewDir, worldNormal);
+half4 ${1:} = texCUBElod(_${2:}, float4(reflectDir, mipLevel));
+half3 ${3:} = DecodeHDR($1, _$2_HDR);
+half3 envSpecular = $3 * ${4:SpecularCol};

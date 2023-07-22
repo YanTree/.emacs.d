@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: forwardadd
+# key: lmfa
+# --
+Tags {"LightMode" = "ForwardAdd"}

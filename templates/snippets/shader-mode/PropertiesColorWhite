@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Properties Color White
+# key: pcolw
+# --
+_${1:ColName}("$1", Color) = (1.0,1.0,1.0,1.0)

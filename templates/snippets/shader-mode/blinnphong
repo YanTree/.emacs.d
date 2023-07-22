@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: blinnphong
+# key: blinnphong
+# --
+// Blinn-Phong 模型
+half NdotH = max(0.0, dot(worldNormal, halfDir));  // 法线点乘半角向量计算高光 (高光)
+half3 specular = pow(NdotH, _SpecularPower) * _LightColor0.rgb;

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: halflambert
+# key: halflambert
+# --
+// halflambert 光照模型
+half NdotL = max(0.0, dot(worldNormal, lightDir)); // lambert (漫反射)
+NdotL = pow(NdotL * 0.5 + 0.5, 2.0);               // half_lambert (对计算结果进行一个提亮)
+half4 baseCol = tex2D(_MainTex, i.uv);
+half3 diffuse = baseCol.rgb * NdotL * _LightColor0.rgb;

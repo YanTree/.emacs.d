@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: LIGHTING_COORDS
+# key: lc
+# --
+LIGHTING_COORDS(4, 5)

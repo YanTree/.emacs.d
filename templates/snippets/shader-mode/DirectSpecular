@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: DirectSpecular
+# key: ds
+# --
+// 直接光镜面反射
+half NdotH = max(0.0, dot(worldNormal, halfDir));
+half smoothness = 1.0 - roughness; // 高光使用光滑度表示更恰当
+half shiness = lerp(1.0, _SpecShiness, smoothness); // 越光滑采样越接近 _SmoothShiness，越粗糙采样越接近 1.0
+half3 directSpecular = _LightColor0.xyz * ${1:specularCol} * pow(NdotH, shiness) * atten;

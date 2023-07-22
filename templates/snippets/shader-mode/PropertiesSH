@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: custom_sh
+# key: psh
+# --
+[HideInInspector]custom_SHAr("Custom SHAr", Vector) = (0, 0, 0, 0)
+[HideInInspector]custom_SHAg("Custom SHAg", Vector) = (0, 0, 0, 0)
+[HideInInspector]custom_SHAb("Custom SHAb", Vector) = (0, 0, 0, 0)
+[HideInInspector]custom_SHBr("Custom SHBr", Vector) = (0, 0, 0, 0)
+[HideInInspector]custom_SHBg("Custom SHBg", Vector) = (0, 0, 0, 0)
+[HideInInspector]custom_SHBb("Custom SHBb", Vector) = (0, 0, 0, 0)
+[HideInInspector]custom_SHC("Custom SHC", Vector) = (0, 0, 0, 1)

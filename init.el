@@ -133,6 +133,9 @@
 (defvar cat-templates-dir (expand-file-name "templates/" user-emacs-directory)
   "Where sotres snippets and other template files")
 
+(defvar cat-yasnippets-dir (expand-file-name "snippets/" cat-templates-dir)
+  "Where sotres yasnippets")
+
 
 ;;
 ;;; Core 
@@ -586,7 +589,17 @@ the unwritable tidbits."
   (global-corfu-mode t))
 
 
-;;
+;; Snippet engine
+(use-package yasnippet
+  :commands (yas-reload-all)
+  :hook ((prog-mode snippet-mode org-mode) . yas-minor-mode)
+  :config
+  (setq 'yas-snippet-dirs 'cat-yasnippets-dir)
+
+  (yas-reload-all))
+
+
+;; More different completion type like: buffer content, file path...
 (use-package cape
   :after corfu
   :init

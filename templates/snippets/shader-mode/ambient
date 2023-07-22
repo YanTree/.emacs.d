@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: ambient
+# key: ambient
+# --
+// ambient (环境光)
+half3 ambientCol = UNITY_LIGHTMODEL_AMBIENT.rgb * $0;

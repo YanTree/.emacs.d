@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: parallax
+# key:parallax
+# --
+// parallax 视差偏移
+half3 tangentView = normalize(half3(dot(i.TtoW0.xyz, normal), dot(i.TtoW1.xyz, normal), dot(i.TtoW2.xyz, normal)));
+half3 tangentView = normalize(mul(TBN, viewDir));
+half2 parallaxUV = i.uv;
+for(int j =0;j<10;j++)
+{
+    half height = tex2D(_ParallaxMap, parallaxUV);
+    // Trick [0.5, (tangentView.xy / tangentView.z)]
+    parallaxUV = parallaxUV - (0.5 - height) * tangentView.xy * _Parallax * 0.01f;
+}

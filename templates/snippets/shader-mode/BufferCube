@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Buffer Cube
+# key: bcube
+# --
+samplerCUBE _${1:CubeMap};
+float4 _$1_HDR;

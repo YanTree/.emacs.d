@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: normalizeTBN
+# key: normalizeTBN
+# --
+// 根据 normal 贴图重新计算世界空间下的法线
+half3 worldTangent = normalize(half3(i.TtoW0.x, i.TtoW1.x, i.TtoW2.x));// 归一化世界空间下的切线
+half3 worldBinormal = normalize(half3(i.TtoW0.y, i.TtoW1.y, i.TtoW2.y));// 归一化世界空间下的副切线
+half3 worldNormal = normalize(half3(i.TtoW0.z, i.TtoW1.z, i.TtoW2.z));// 归一化世界空间下的法线
+float4x4 tangentToWorld = float4x4(worldTangent.x, worldBinormal.x, worldNormal.x, 0.0,
+    worldTangent.y, worldBinormal.y, worldNormal.y, 0.0,
+    worldTangent.z, worldBinormal.z, worldNormal.z, 0.0,
+    0.0, 0.0, 0.0, 1.0);
+float3x3 worldToTangent = float3x3(worldTangent, worldBinormal, worldNormal); // 行排列
