@@ -75,6 +75,15 @@
 ;;
 ;;; Load theme
 (progn
+  ;; Encoding enviroment
+  (when (fboundp 'set-charset-priority)
+    (set-charset-priority 'unicode))
+  (prefer-coding-system 'utf-8)
+  (setq locale-coding-system 'utf-8)
+  (setq system-time-locale "C")
+  (unless (eq system-type 'windows-nt)
+    (set-selection-coding-system 'utf-8))
+  
   ;; Built-in awesome theme
   (load-theme 'leuven))
 
@@ -156,6 +165,10 @@
 ;;
 ;;; Better default
 (progn
+  ;; Time format
+  (setq system-time-locale "C"      ;; All timestamp use english instead of chinese
+        display-time-24hr-format t)
+  
   ;; Load custom.el file
   (setq custom-file (expand-file-name "custom.el" cat-data-dir))
   (when (file-exists-p custom-file)
@@ -164,6 +177,10 @@
   ;; Load server
   ;; (or (server-running-p) (server-mode))
 
+  ;; Toggle comfortable scroll with pixel
+  ;; (with-eval-after-load 'pixel-scroll
+  ;;   (pixel-scroll-precision-mode t))
+  
   ;; Paste overwrite marked text
   (delete-selection-mode 1)
 
@@ -535,6 +552,10 @@ the unwritable tidbits."
   :init (marginalia-mode))
 
 
+;; Provide candidates for a list at minibuffer
+(use-package consult)
+
+
 ;; ---------------------------------------------------------------------------
 ;; completion
 
@@ -564,6 +585,13 @@ the unwritable tidbits."
   ;; Fire global corfu mode
   (global-corfu-mode t))
 
+
+;;
+(use-package cape
+  :after corfu
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file))
 
 ;; Add icon for corfu completion result(nerd-icons)
 (use-package kind-icon
@@ -605,6 +633,11 @@ the unwritable tidbits."
   
   ;; Fire which key mode
   (which-key-mode t))
+
+
+;; Remove trailing whitespace
+(use-package ws-butler
+  :hook ((prog-mode) . ws-butler-mode))
 
 
 ;; M-<UP>/M-<DOWN> move current line up/down
@@ -654,24 +687,24 @@ the unwritable tidbits."
 ;; language server protocol
 
 ;; Treesitter
-(use-package treesit
-  :when (and (fboundp 'treesit-available-p)
-             (treesit-available-p))
-  :custom (major-mode-remap-alist
-           '((c-mode             . c-ts-mode)
-             (c++-mode           . c++-ts-mode)
-             (csharp-mode        . csharp-ts-mode)
-             (conf-toml-mode     . toml-ts-mode)
-             (javascript-mode    . js-ts-mode)
-             (js-json-mode       . json-ts-mode)
-             (sh-mode            . bash-ts-mode)
-             (python-mode        . python-ts-mode)))
-  :config
-  (add-to-list 'auto-mode-alist '("\\(?:CMakeLists\\.txt\\|\\.cmake\\)\\'" . cmake-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
-  (add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-ts-mode)))
+;; (use-package treesit
+;;   :when (and (fboundp 'treesit-available-p)
+;;              (treesit-available-p))
+;;   :custom (major-mode-remap-alist
+;;            '((c-mode             . c-ts-mode)
+;;              (c++-mode           . c++-ts-mode)
+;;              (csharp-mode        . csharp-ts-mode)
+;;              (conf-toml-mode     . toml-ts-mode)
+;;              (javascript-mode    . js-ts-mode)
+;;              (js-json-mode       . json-ts-mode)
+;;              (sh-mode            . bash-ts-mode)
+;;              (python-mode        . python-ts-mode)))
+;;   :config
+;;   (add-to-list 'auto-mode-alist '("\\(?:CMakeLists\\.txt\\|\\.cmake\\)\\'" . cmake-ts-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-ts-mode)))
 
 
 ;; ---------------------------------------------------------------------------
@@ -686,6 +719,14 @@ the unwritable tidbits."
             ("RET"    . vertico-directory-enter)
             ("DEL"    . vertico-directory-delete-char)
             ("M-DEL"  . vertico-directory-delete-word))
+
+  ;;
+  ;;; consult
+  :bind(([remap switch-to-buffer]             . consult-buffer)
+        ([remap switch-to-buffer-other-window]. consult-buffer-other-window)
+        ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
+        ([remap goto-line]                    . consult-goto-line)
+        )
   
   ;; 
   ;;; hungry-delete
