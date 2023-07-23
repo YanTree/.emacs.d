@@ -7,6 +7,17 @@
 (require 'cl-lib)
 
 
+;; Increase how much is read from processes in a single chunk (default is 4kb).
+;; This is further increased elsewhere, where needed (like our LSP module).
+(setq read-process-output-max (* 64 1024))  ; 64kb
+
+;; Performance on Windows is considerably worse than elsewhere. We'll need
+;; everything we can get.
+(eval-when! (boundp 'w32-get-true-file-attributes)
+  (setq w32-get-true-file-attributes nil    ; decrease file IO workload
+        w32-pipe-read-delay 0               ; faster IPC
+        w32-pipe-buffer-size (* 64 1024)))  ; read more at a time (was 4K)
+
 ;; PERF: Garbage collection is a big contributor to startup times. This fends it
 ;;   off, but will be reset later to normal. Not resetting it later will
 ;;   cause stuttering/freezes.
@@ -15,6 +26,7 @@
   (setq gc-cons-threshold init-gc-cons-threshold)
   (add-hook 'emacs-startup-hook
             (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
+
 
 ;;
 ;;; About operating system
@@ -187,7 +199,10 @@
   ;; Paste overwrite marked text
   (delete-selection-mode 1)
 
-  ;; Keep font caches to avoid compact during GC
+  ;; Font compacting can be terribly expensive, especially for rendering icon
+  ;; fonts on Windows. Whether disabling it has a notable affect on Linux and Mac
+  ;; hasn't been determined, but do it anyway, just in case. This increases memory
+  ;; usage, however!
   (setq inhibit-compacting-font-caches t)
 
   ;; Disable ring bell, it's annoying
@@ -227,13 +242,20 @@
               (list ".*" auto-save-list-file-prefix t)))
 
 
+  ;; Packages with file/dir settings that don't use `user-emacs-directory' origin
+  ;; `locate-user-emacs-file' to initialize will need to set explicitly, to stop
+  ;; them from littering in ~/.emacs.d/.
+  (setq desktop-dirname  (file-name-concat cat-data-dir "desktop")
+        pcache-directory (file-name-concat cat-cache-dir "pcache/"))
+
+
   ;;
   ;;; Formatting
 
   ;; Favor spaces over tabs, 8-space tabs more consistent
   ;; 4-space tabs.
   (setq-default indent-tabs-mode nil
-          tab-width 8)
+                tab-width 8)
 
   ;; First hitting TAB tries to indent current line, if the line was already indent,
   ;; then try to complete the thing at point
