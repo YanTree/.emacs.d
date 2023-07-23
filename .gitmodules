@@ -64,6 +64,9 @@
 [submodule "rainbow-delimiters"]
 	path = modules/rainbow-delimiters
 	url = https://github.com/Fanael/rainbow-delimiters
+[submodule "shader-mode"]
+	path = modules/shader-mode
+	url = https://github.com/midnightSuyama/shader-mode
 [submodule "symbol-overlay"]
 	path = modules/symbol-overlay
 	url = https://github.com/wolray/symbol-overlay
