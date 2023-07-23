@@ -504,13 +504,17 @@ the unwritable tidbits."
 
 ;; File manager
 (use-package dired
+  ;; Hide read/write permission, keyboard `(' toggle on/off
+  :hook (dired-mode . dired-hide-details-mode)
   :config
-  ;; More convenitent for Copy/Move files, deleted files move to system trash,
-  ;; delete/copy whole folder
   (setq dired-dwim-target t
+        ;; Delete file move system trash
         delete-by-moving-to-trash t
-        dired-recursive-deletes 'always
-        dired-recursive-copies 'always)
+        ;; Always copy/delete recursively
+        dired-recursive-copies  'always
+        dired-recursive-deletes 'top
+        ;; Ask whether destination dirs should get created when copying/removing files.
+        dired-create-destination-dirs 'ask)
   
   ;; Avoid open too many dired buffer
   (put 'dired-find-alternate-file 'disabled nil))
@@ -594,8 +598,9 @@ the unwritable tidbits."
   :commands (yas-reload-all)
   :hook ((prog-mode snippet-mode org-mode) . yas-minor-mode)
   :config
-  (setq 'yas-snippet-dirs 'cat-yasnippets-dir)
+  (setq yas-snippet-dirs '(cat-yasnippets-dir))
 
+  ;; Fire yasnippet
   (yas-reload-all))
 
 
