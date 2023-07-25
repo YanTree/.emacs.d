@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: Struct-Stencil
+# key: Struct-Stencil
+# --
+Stencil
+{
+    Ref [_Stencil]
+    Comp [_StencilComp]
+    ReadMask [_StencilReadMask]
+    WriteMask [_StencilWriteMask]
+    Pass [_StencilPass]
+    Fail [_StencilFail]
+    ZFail [_StencilZFail]
+}

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Struct-RenderState
+# key: Struct-RenderState
+# --
+Cull [_CullMode]
+ZWrite [_ZWriteMode]
+Blend [_SrcBlend] [_DstBlend]
+ColorMask [_ColorMask]

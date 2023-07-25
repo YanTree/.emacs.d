@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: Prop-Stencil
+# key: Prop-Stencil
+# --
+[Header(Stencil)] [Space(5)]
+[IntRange]_Stencil ("Stencil Ref", Range(0,255)) = 0
+[Enum(UnityEngine.Rendering.CompareFunction)]_StencilComp ("Stencil Comparison", Float) = 8
+[IntRange]_StencilReadMask ("Stencil Read Mask", Range(0,255)) = 255
+[IntRange]_StencilWriteMask ("Stencil Write Mask", Range(0,255)) = 255
+[Enum(UnityEngine.Rendering.StencilOp)]_StencilPass ("Stencil Pass", Float) = 0
+[Enum(UnityEngine.Rendering.StencilOp)]_StencilFail ("Stencil Fail", Float) = 0
+[Enum(UnityEngine.Rendering.StencilOp)]_StencilZFail ("Stencil ZFail", Float) = 0

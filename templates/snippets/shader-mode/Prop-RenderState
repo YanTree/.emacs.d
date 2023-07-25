@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: Prop-RenderState
+# key: Prop-RenderState
+# --
+[Header(RenderState)] [Space(5)]
+[Enum(UnityEngine.Rendering.CullMode)]_CullMode ("CullMode", float) = 2
+[Enum(Off, 0, On, 1)]_ZWriteMode ("ZWriteMode", float) = 1
+[Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("SrcBlend", Float) = 1
+[Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("DstBlend", Float) = 0
+[Enum(UnityEngine.Rendering.ColorWriteMask)]_ColorMask ("ColorMask", Float) = 15

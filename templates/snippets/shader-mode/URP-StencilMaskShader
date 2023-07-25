@@ -1,0 +1,62 @@
+# -*- mode: snippet -*-
+# name: URP-StencilMaskShader
+# key: URP-StencilMaskShader
+# --
+// 1. Only to draw mask, not output any color, so ColorMask 0
+// 2. Render queue, after all opaque object render complete, so "Queue" = "AlphaTest + 25"
+Shader "Stencil/Mask"
+{
+    Properties
+    {
+        [Header(Stencil)][Space(5)]
+        [IntRange]_Stencil ("Stencil Ref", Range(0,255)) = 0
+        [Enum(UnityEngine.Rendering.CompareFunction)]_StencilComp ("Stencil Comparison", Float) = 8
+        [IntRange]_StencilReadMask ("Stencil Read Mask", Range(0,255)) = 255
+        [IntRange]_StencilWriteMask ("Stencil Write Mask", Range(0,255)) = 255
+        [Enum(UnityEngine.Rendering.StencilOp)]_StencilPass ("Stencil Pass", Float) = 0
+        [Enum(UnityEngine.Rendering.StencilOp)]_StencilFail ("Stencil Fail", Float) = 0
+        [Enum(UnityEngine.Rendering.StencilOp)]_StencilZFail ("Stencil ZFail", Float) = 0
+
+        [Header(RenderState)][Space(5)]
+        [Enum(UnityEngine.Rendering.CullMode)]_CullMode ("CullMode", float) = 2
+        [Enum(Off, 0, On, 1)]_ZWriteMode ("ZWriteMode", float) = 1
+    }
+
+    SubShader
+    {
+        // Universal Pipeline tag is required. If Universal render pipeline is not set in the graphics settings
+        // this Subshader will fail. One can add a subshader below or fallback to Standard built-in to make this
+        // material work with both Universal Render Pipeline and Builtin Unity Pipeline
+        Tags
+        {
+            "RenderType" = "Opaque"
+            "Queue" = "AlphaTest + 25"
+            "RenderPipeline" = "UniversalPipeline"
+            "UniversalMaterialType" = "Lit"
+            "IgnoreProjector" = "True"
+        }
+
+        Pass
+        {
+            Name "StencilMask"
+            Tags { "LightMode" = "UniversalForward" }
+
+            // Stencil
+            Stencil
+            {
+                Ref [_Stencil]
+                Comp [_StencilComp]
+                ReadMask [_StencilReadMask]
+                WriteMask [_StencilWriteMask]
+                Pass [_StencilPass]
+                Fail [_StencilFail]
+                ZFail [_StencilZFail]
+            }
+            // Renderstate
+            Cull [_CullMode]
+            ZWrite [_ZWriteMode]
+            ColorMask 0
+        }
+    }
+    FallBack "Hidden/Universal Render Pipeline/FallbackError"
+}
