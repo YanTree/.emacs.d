@@ -2,8 +2,9 @@
 # name: URP-StencilDiffuseShader
 # key: URPStencilDiffuseShader
 # --
-// 1. Should output color, so first to disable ColorMask
-// 2. Render queue, after all stencil mask render complete, so `Queue' to `AlphaTest + 50'
+// 1. Should output color, so first to disable ColorMask(Delete or comment)
+// 2. ZWrite: The `GO' should shadow `Mask', so `ZWrite On'
+// 3. Render queue, after all stencil mask render complete, so `Queue' to `AlphaTest + 50'
 // ⚠ Don't hand setting render queue on shader with urp
 Shader "Stencil/Diffuse"
 {
