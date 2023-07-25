@@ -3,7 +3,8 @@
 # key: URP-StencilDiffuseShader
 # --
 // 1. Should output color, so first to disable ColorMask
-// 2. Render queue, after all stencil mask render complete, so "Queue" = "AlphaTest + 50"
+// 2. Render queue, after all stencil mask render complete, so `Queue' to `AlphaTest + 50'
+// ⚠ Don't hand setting render queue on shader with urp
 Shader "Stencil/Diffuse"
 {
     Properties
@@ -32,7 +33,6 @@ Shader "Stencil/Diffuse"
         Tags
         {
             "RenderType" = "Opaque"
-            "Queue" = "AlphaTest + 50"
             "RenderPipeline" = "UniversalPipeline"
             "UniversalMaterialType" = "Lit"
             "IgnoreProjector" = "True"

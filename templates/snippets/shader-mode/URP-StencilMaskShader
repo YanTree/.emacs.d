@@ -3,7 +3,8 @@
 # key: URP-StencilMaskShader
 # --
 // 1. Only to draw mask, not output any color, so ColorMask 0
-// 2. Render queue, after all opaque object render complete, so "Queue" = "AlphaTest + 25"
+// 2. Render queue, after all opaque object render complete, so change `Queue' to `AlphaTest + 25'
+// ⚠ Don't hand setting render queue on shader with urp
 Shader "Stencil/Mask"
 {
     Properties
@@ -30,7 +31,6 @@ Shader "Stencil/Mask"
         Tags
         {
             "RenderType" = "Opaque"
-            "Queue" = "AlphaTest + 25"
             "RenderPipeline" = "UniversalPipeline"
             "UniversalMaterialType" = "Lit"
             "IgnoreProjector" = "True"
