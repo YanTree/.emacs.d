@@ -21,6 +21,7 @@ Shader "Stencil/Mask"
 
         [Header(RenderState)][Space(5)]
         [Enum(UnityEngine.Rendering.CullMode)]_CullMode ("CullMode", float) = 2
+        [Enum(UnityEngine.Rendering.CompareFunction)]_ZTest("ZTestMode", Float) = 4
         [Enum(Off, 0, On, 1)]_ZWriteMode ("ZWriteMode", float) = 1
     }
 
@@ -55,6 +56,7 @@ Shader "Stencil/Mask"
             }
             // Renderstate
             Cull [_CullMode]
+            ZTest [_ZTest]
             ZWrite [_ZWriteMode]
             ColorMask 0
         }

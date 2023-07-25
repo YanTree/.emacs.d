@@ -24,6 +24,7 @@ Shader "Stencil/Diffuse"
 
         [Header(RenderState)][Space(5)]
         [Enum(UnityEngine.Rendering.CullMode)]_CullMode ("CullMode", float) = 2
+        [Enum(UnityEngine.Rendering.CompareFunction)]_ZTest("ZTestMode", Float) = 4
         [Enum(Off, 0, On, 1)]_ZWriteMode ("ZWriteMode", float) = 1
     }
 
@@ -57,6 +58,7 @@ Shader "Stencil/Diffuse"
             }
             // Renderstate
             Cull [_CullMode]
+            ZTest [_ZTest]
             ZWrite [_ZWriteMode]
             // Should to disable ColorMask
             // ColorMask 0

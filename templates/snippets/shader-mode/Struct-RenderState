@@ -3,6 +3,7 @@
 # key: StructRenderState
 # --
 Cull [_CullMode]
+ZTest[_ZTest]
 ZWrite [_ZWriteMode]
 Blend [_SrcBlend] [_DstBlend]
 ColorMask [_ColorMask]
