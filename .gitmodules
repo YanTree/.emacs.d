@@ -3,7 +3,7 @@
 	url = git@github.com:emacscollective/borg.git
 [submodule "cape"]
 	path = modules/cape
-	url = https://github.com/minad/cape
+	url = git@github.com:minad/cape.git
 [submodule "closql"]
 	path = modules/closql
 	url = git@github.com:emacscollective/closql.git
@@ -12,7 +12,7 @@
 	url = https://git.sr.ht/~pkal/compat
 [submodule "consult"]
 	path = modules/consult
-	url = https://github.com/minad/consult
+	url = git@github.com:minad/consult.git
 [submodule "corfu"]
 	load-path = .
 	load-path = extensions
@@ -36,10 +36,10 @@
 	url = git@github.com:emacsmirror/git-timemachine.git
 [submodule "hl-todo"]
 	path = modules/hl-todo
-	url = https://github.com/tarsius/hl-todo
+	url = git@github.com:tarsius/hl-todo.git
 [submodule "hungry-delete"]
 	path = modules/hungry-delete
-	url = https://github.com/nflath/hungry-delete
+	url = git@github.com:nflath/hungry-delete.git
 [submodule "kind-icon"]
 	path = modules/kind-icon
 	url = https://github.com/jdtsmith/kind-icon
@@ -51,25 +51,25 @@
 	url = git@github.com:magit/magit.git
 [submodule "marginalia"]
 	path = modules/marginalia
-	url = https://github.com/minad/marginalia
+	url = git@github.com:minad/marginalia.git
 [submodule "move-dup"]
 	path = modules/move-dup
-	url = https://github.com/wyuenho/move-dup
+	url = git@github.com:wyuenho/move-dup.git
 [submodule "multiple-cursors"]
 	path = modules/multiple-cursors
-	url = https://github.com/magnars/multiple-cursors.el
+	url = git@github.com:magnars/multiple-cursors.el.git
 [submodule "orderless"]
 	path = modules/orderless
-	url = https://github.com/oantolin/orderless
+	url = git@github.com:oantolin/orderless.git
 [submodule "rainbow-delimiters"]
 	path = modules/rainbow-delimiters
-	url = https://github.com/Fanael/rainbow-delimiters
+	url = git@github.com:Fanael/rainbow-delimiters.git
 [submodule "shader-mode"]
 	path = modules/shader-mode
-	url = https://github.com/midnightSuyama/shader-mode
+	url = git@github.com:midnightSuyama/shader-mode.git
 [submodule "symbol-overlay"]
 	path = modules/symbol-overlay
-	url = https://github.com/wolray/symbol-overlay
+	url = git@github.com:wolray/symbol-overlay.git
 [submodule "use-package"]
 	path = modules/use-package
 	url = git@github.com:jwiegley/use-package.git
@@ -80,13 +80,13 @@
 	url = https://github.com/minad/vertico
 [submodule "which-key"]
 	path = modules/which-key
-	url = https://github.com/justbur/emacs-which-key
+	url = git@github.com:justbur/emacs-which-key.git
 [submodule "with-editor"]
 	path = modules/with-editor
 	url = git@github.com:magit/with-editor.git
 [submodule "ws-butler"]
 	path = modules/ws-butler
-	url = https://github.com/lewang/ws-butler
+	url = git@github.com:lewang/ws-butler.git
 [submodule "yasnippet"]
 	path = modules/yasnippet
-	url = https://github.com/joaotavora/yasnippet
+	url = git@github.com:joaotavora/yasnippet.git
