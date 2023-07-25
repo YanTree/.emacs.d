@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: AO
-# key: AO
+# name: Cg-AO
+# key: CgAO
 # --
 // 环境光贴图
 half3 AOCol = tex2D(_AOMap, i.uv).rgb;

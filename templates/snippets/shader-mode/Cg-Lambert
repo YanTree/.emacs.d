@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: lambert
-# key: lambert
+# name: Cg-Lambert
+# key: CgLambert
 # --
 // lambert 模型
 half NdotL = max(0.0, dot(worldNormal, lightDir)); // lambert (漫反射)

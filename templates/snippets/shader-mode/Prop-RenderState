@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Prop-RenderState
-# key: Prop-RenderState
+# key: PropRenderState
 # --
 [Header(RenderState)] [Space(5)]
 [Enum(UnityEngine.Rendering.CullMode)]_CullMode ("CullMode", float) = 2

@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: Properties Float
-# key: pfloat
+# name: Prop-Float
+# key: PropFloat
 # --
 _${1:FloatName}("$1", Float) = 1.0

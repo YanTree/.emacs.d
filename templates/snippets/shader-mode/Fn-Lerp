@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: Lerp
-# key: lerp
+# name: Fn-Lerp
+# key: Fn-Lerp
 # --
 half${1:Number} ${2:Name} = lerp(${3:FirName}, ${4:SecName}, ${5:Weight});

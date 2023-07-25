@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: TRANSFER_VERTEX_TO_FRAGMENT
-# key: tvtf
+# name: Cg-TRANSFER_VERTEX_TO_FRAGMENT
+# key: CgTRANSFER_VERTEX_TO_FRAGMENT
 # --
 TRANSFER_VERTEX_TO_FRAGMENT(o);

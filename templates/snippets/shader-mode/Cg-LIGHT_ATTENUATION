@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: LIGHT_ATTENUATION
-# key: la
+# name: Cg-LIGHT_ATTENUATION
+# key: CgLIGHT_ATTENUATION
 # --
 // 光照衰减
 half atten = LIGHT_ATTENUATION(i);

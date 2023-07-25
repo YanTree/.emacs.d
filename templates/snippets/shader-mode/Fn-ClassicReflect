@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: Reflect
-# key: reflect
+# name: Fn-ClassicReflect
+# key: FnClassicReflect
 # --
 half3 ${1:} = reflect(-${2:}, ${3:});

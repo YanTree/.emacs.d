@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: Properties texture 2D bump
-# key: p2db
+# name: Prop-Normal2D
+# key: PropNormal2D
 # --
 _${1:MapName}("$1", 2D) = "bump" {}

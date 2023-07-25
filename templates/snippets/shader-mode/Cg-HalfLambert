@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: halflambert
-# key: halflambert
+# name: Cg-HalfLambert
+# key: CgHalfLambert
 # --
 // halflambert 光照模型
 half NdotL = max(0.0, dot(worldNormal, lightDir)); // lambert (漫反射)

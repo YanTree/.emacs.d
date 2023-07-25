@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: Buffer SH
-# key: bsh
+# name: Struct-SimpleSH
+# key: StructSimpleSH
 # --
 // SH
 half4 custom_SHAr;

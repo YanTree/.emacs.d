@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: DirectSpecular
-# key: ds
+# name: Cg-DirectSpecular
+# key: CgDirectSpecular
 # --
 // 直接光镜面反射
 half NdotH = max(0.0, dot(worldNormal, halfDir));

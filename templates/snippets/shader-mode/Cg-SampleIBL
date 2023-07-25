@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: IBLSpecular
-# key: es
+# name: Cg-SampleIBL
+# key: CgSampleIBL
 # --
 // 间接光镜面反射
 half IBLroughness = roughness * (1.7 - 0.7 * roughness);

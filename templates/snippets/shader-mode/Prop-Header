@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: Header
-# key: hd
+# name: Prop-Header
+# key: PropHeader
 # --
 [Header(${0:Name})]

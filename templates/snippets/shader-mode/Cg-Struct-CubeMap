@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: Buffer Cube
-# key: bcube
+# name: Cg-Struct-CubeMap
+# key: CgStructCubeMap
 # --
 samplerCUBE _${1:CubeMap};
 float4 _$1_HDR;

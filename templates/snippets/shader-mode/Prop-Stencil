@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Prop-Stencil
-# key: Prop-Stencil
+# key: PropStencil
 # --
 [Header(Stencil)] [Space(5)]
 [IntRange]_Stencil ("Stencil Ref", Range(0,255)) = 0

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: Struct-RenderState
-# key: Struct-RenderState
+# key: StructRenderState
 # --
 Cull [_CullMode]
 ZWrite [_ZWriteMode]

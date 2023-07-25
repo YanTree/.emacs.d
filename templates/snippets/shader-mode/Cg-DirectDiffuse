@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: DirectDiffuse
-# key: dd
+# name: Cg-DirectDiffuse
+# key: CgDirectDiffuse
 # --
 // 直接光漫反射
 half NdotL = max(0.0, dot(worldNormal, lightDir)); // lambert(漫反射)

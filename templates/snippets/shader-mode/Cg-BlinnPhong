@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: blinnphong
-# key: blinnphong
+# name: Cg-BlinnPhong
+# key: CgBlinnPhong
 # --
 // Blinn-Phong 模型
 half NdotH = max(0.0, dot(worldNormal, halfDir));  // 法线点乘半角向量计算高光 (高光)

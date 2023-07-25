@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: SHDiffuse
-# key: ed
+# name: Fn-SimpleSH
+# key: FnSimpleSH
 # --
 // 间接光漫反射
 half halfLamert = NdotL *  0.5 + 0.5;

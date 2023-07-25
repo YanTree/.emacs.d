@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: ViewLightHalf
-# key: vlh
+# name: Cg-DirectionVLH
+# key: CgDirectionVLH
 # --
 // 视角、主光源灯光、半角等方向 (view + light + half)
 half3 worldPos = half3(i.TtoW0.w, i.TtoW1.w, i.TtoW2.w);

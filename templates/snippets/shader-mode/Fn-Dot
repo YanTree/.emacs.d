@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: Dot
-# key: dot
+# name: Fn-Dot
+# key: FnDot
 # --
 half ${1:Name} = max(0.0, dot(${2:FirDir}, ${3:SecDir}));

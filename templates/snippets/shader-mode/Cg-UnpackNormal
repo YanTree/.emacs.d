@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: UnpackNormal
-# key: UnpackNormal
+# name: Cg-UnpackNormal
+# key: CgUnpackNormal
 # --
 // 解压缩法线贴图
 half3 normal = UnpackNormal(tex2D(_NormalTex, i.uv));//采样解压缩法线贴图

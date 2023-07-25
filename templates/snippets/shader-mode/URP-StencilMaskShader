@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: URP-StencilMaskShader
-# key: URP-StencilMaskShader
+# key: URPStencilMaskShader
 # --
 // 1. Only to draw mask, not output any color, so ColorMask 0
 // 2. Render queue, after all opaque object render complete, so change `Queue' to `AlphaTest + 25'

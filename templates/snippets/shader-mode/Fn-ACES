@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: ACESFilm
-# key: ACES
+# name: Cg-ACES
+# key: CgACES
 # --
 float3 ACESFilm(float3 x) // 色调映射 (HDR 范围经重映射至 LDR 范围)
 {

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: URP-StencilDiffuseShader
-# key: URP-StencilDiffuseShader
+# key: URPStencilDiffuseShader
 # --
 // 1. Should output color, so first to disable ColorMask
 // 2. Render queue, after all stencil mask render complete, so `Queue' to `AlphaTest + 50'

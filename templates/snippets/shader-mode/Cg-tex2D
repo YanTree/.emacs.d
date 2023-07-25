@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: Fragment tex2D
-# key: f2d
+# name: Cg-tex2D
+# key: Cgtex2D
 # --
 half4 ${1:albedo} = tex2D(_${2:TexName}, i.uv);

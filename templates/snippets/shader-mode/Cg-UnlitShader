@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: shader
-# key: sd
+# name: Cg-UnlitShader
+# key: CgUnlitShader
 # --
 Shader "$0"
 {

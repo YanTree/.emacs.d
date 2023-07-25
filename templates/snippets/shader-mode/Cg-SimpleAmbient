@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: ambient
-# key: ambient
+# name: Cg-SimpleAmbient
+# key: CgSimpleAmbient
 # --
 // ambient (环境光)
 half3 ambientCol = UNITY_LIGHTMODEL_AMBIENT.rgb * $0;

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: TtoW
-# key: TtoW
+# name: Regi-TtoW3
+# key: RegiTtoW3
 # --
 float4 TtoW0:TEXCOORD1;
 float4 TtoW1:TEXCOORD2;

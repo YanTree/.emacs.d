@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: SH
-# key: SH
+# name: Fn-SH
+# key: FnSH
 # --
 float3 custom_sh(float3 normalDir)
 {

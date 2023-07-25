@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: normalize
-# key: normalize
+# name: Fn-Normalize
+# key: Fn-Normalize
 # --
 half3 ${1:DirName} = normalize(${2:Dir});
