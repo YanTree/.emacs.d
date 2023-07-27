@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: URP-Struct-TtoW3
+# key: URP-Struct-TtoW3
+# --
+// Tangent space to world space
+float sign = real(v.tangentOS.w); // * GetOddNegativeScale();
+float3 normalWS = TransformObjectToWorldNormal(v.normalOS.xyz);
+float3 tangentWS = TransformObjectToWorldDir(v.tangentOS.xyz);
+float3 binormalWS = cross(normalWS, tangentWS) * sign;
+
+o.TtoW0 = float4(tangentWS.x, binormalWS.x, normalWS.x, positionWS.x);
+o.TtoW1 = float4(tangentWS.y, binormalWS.y, normalWS.y, positionWS.y);
+o.TtoW2 = float4(tangentWS.z, binormalWS.z, normalWS.z, positionWS.z);
