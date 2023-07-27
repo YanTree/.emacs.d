@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: URP-Vertex-TtoW3
+# key: URP-Vertex-TtoW3
+# --
+float3 positionWS    = TransformObjectToWorld(input.positionOS.xyz);
+// Construct a matrix, transform tangent space to world space
+float sign           = real(input.tangentOS.w); // For compatibility with different platform;
+float3 normalWS      = normalize(TransformObjectToWorldNormal(input.normalOS.xyz));
+float3 tangentWS     = normalize(TransformObjectToWorldDir(input.tangentOS.xyz));
+float3 binormalWS    = normalize(cross(normalWS, tangentWS) * sign);
+
+output.TtoW0         = float4(tangentWS.x, binormalWS.x, normalWS.x, positionWS.x);
+output.TtoW1         = float4(tangentWS.y, binormalWS.y, normalWS.y, positionWS.y);
+output.TtoW2         = float4(tangentWS.z, binormalWS.z, normalWS.z, positionWS.z);
+
+output.positionHCS   = TransformObjectToHClip(input.positionOS.xyz);
