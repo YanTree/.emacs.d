@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Fn-NormalTSStrength
+# key: Fn-NormalTSStrength
+# --
+// This's algorithm only apply to `normalTS'
+half3 ${1:Name} = half3(${2:normalTS}.rg * ${3:Stength}, lerp(1.0, $2.b, saturate($3)));
