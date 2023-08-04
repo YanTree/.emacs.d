@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Frag-PositionNormalViewDirWS
+# key: Frag-PositionNormalViewDirWS
+# --
+half3 normalWS     = input.normalWS;
+float3 positionWS  = input.positionWS;
+half3 viewDirWS    = input.viewDirWS;

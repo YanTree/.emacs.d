@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: URP-TransformPositionNormalWS
+# key: URP-TransformPositionNormalWS
+# --
+output.normalWS    = normalize(TransformObjectToWorldNormal(input.normalOS.xyz));
+output.positionWS  = TransformObjectToWorld(input.positionOS.xyz);
+output.viewDirWS   = GetWorldSpaceNormalizeViewDir(positionWS);
