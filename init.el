@@ -164,6 +164,11 @@
   (setq use-package-enable-imenu-support t)
   (require  'use-package))
 
+;; `server-start' enable daemon
+(use-package server
+  :commands (server-running-p)
+  :config (or (server-running-p) (server-mode)))
+
 ;; Package epkg config
 (use-package epkg
   :defer t

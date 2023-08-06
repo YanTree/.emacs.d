@@ -78,6 +78,9 @@
 	load-path = extensions
 	path = modules/vertico
 	url = https://github.com/minad/vertico
+[submodule "wgsl-mode"]
+	path = modules/wgsl-mode
+	url = https://github.com/acowley/wgsl-mode
 [submodule "which-key"]
 	path = modules/which-key
 	url = git@github.com:justbur/emacs-which-key.git
