@@ -1,6 +1,6 @@
 ;;; init.el -*- lexical-binding: t -*-
 ;;; Commentary:
-;; 1. emacs 28
+;; 1. emacs 29.1
 ;;
 ;;; Code:
 
@@ -529,6 +529,7 @@ the unwritable tidbits."
   ;; Fire recentf
   (recentf-mode t))
 
+
 ;; File manager
 (use-package dired
   ;; Hide read/write permission, keyboard `(' toggle on/off
@@ -545,6 +546,7 @@ the unwritable tidbits."
   
   ;; Avoid open too many dired buffer
   (put 'dired-find-alternate-file 'disabled nil))
+
 
 ;; https://eliza.sh/2022-07-31-using-unity-editor-with-emacs-(part-2).html
 (use-package project
@@ -621,17 +623,18 @@ of project.el"
 ;; Enhance in-buffer completion
 (use-package corfu
   :custom
+  (corfu-cycle t)
   (corfu-auto t)
-  (corfu-auto-delay 0.2)
   (corfu-auto-prefix 3)
-  :config
+  (corfu-auto-delay 0.1)
+  :bind (:map corfu-map
+              ([tab]        . corfu-next)
+              ([backtab]    . corfu-previous))
   ;; Disable corfu-auto at eshell
-  (with-eval-after-load 'eshell
-    (add-hook 'eshell-mode-hook (lambda () (setq-local corfu-auto nil))))
-
+  :hook (eshell-mode . (lambda () (setq-local corfu-auto nil)))
+  :init
   ;; WARNING: borg can't complie corfu-popupinfo.el Turn extra info
-  (with-eval-after-load 'corfu
-     (corfu-popupinfo-mode))
+  (corfu-popupinfo-mode)
   
   ;; Fire global corfu mode
   (global-corfu-mode t))
@@ -739,10 +742,8 @@ of project.el"
 (use-package diff-hl
   :hook ((magit-pre-refresh  . diff-hl-magit-pre-refresh)
          (magit-post-refresh . diff-hl-magit-post-refresh)
-         (dired-mode         . diff-hl-dired-mode))
-  :config
-  ;; Fire global diff hl mode
-  (global-diff-hl-mode t))
+         (dired-mode         . diff-hl-dired-mode)
+         (after-init         . global-diff-hl-mode)))
 
 
 ;; ---------------------------------------------------------------------------
