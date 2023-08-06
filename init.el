@@ -546,6 +546,23 @@ the unwritable tidbits."
   ;; Avoid open too many dired buffer
   (put 'dired-find-alternate-file 'disabled nil))
 
+;; https://eliza.sh/2022-07-31-using-unity-editor-with-emacs-(part-2).html
+(use-package project
+;; Extend project.el backend for unity
+  :config
+  (cl-defmethod project-root ((project (head csharp)))
+    "Extend backend for C# project of project.el, eg: unity project"
+    (cdr project))
+
+  (defun +project-try-unity (dir)
+    "Extend method for `project-find-functions' to search correctly above backend
+of project.el"
+    (if-let ((root (locate-dominating-file
+                    dir (lambda (dir)
+                          (directory-files dir nil "\\.sln$" t 1)))))
+        (cons 'csharp root)))
+  (add-hook 'project-find-functions #'+project-try-unity))
+
 
 ;; ---------------------------------------------------------------------------
 ;; Minibuffer
