@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: Struct-Stencil
-# key: StructStencil
+# name: CBUFFER-Stencil
+# key: CBUFFER-Stencil
 # --
 Stencil
 {

@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: Fn-SimpleSH
-# key: FnSimpleSH
-# --
-// 间接光漫反射
-half halfLamert = NdotL *  0.5 + 0.5;
-half3 indirectDiffuse =  custom_sh(normal) * ${1:baseCol} * halfLamert;

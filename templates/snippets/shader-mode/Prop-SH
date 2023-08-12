@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: Prop-SimpleSH
-# key: PropSimpleSH
+# name: Prop-SH
+# key: Prop-SH
 # --
 [HideInInspector]custom_SHAr("Custom SHAr", Vector) = (0, 0, 0, 0)
 [HideInInspector]custom_SHAg("Custom SHAg", Vector) = (0, 0, 0, 0)

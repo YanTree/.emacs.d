@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: Struct-RenderState
-# key: StructRenderState
+# name: CBUFFER-RenderState
+# key: CBUFFER-RenderState
 # --
 Cull [_CullMode]
 ZTest[_ZTest]

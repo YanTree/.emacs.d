@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: Struct-SimpleSH
-# key: StructSimpleSH
+# name: CBUFFER-SH
+# key: CBUFFER-SH
 # --
 half4 custom_SHAr, custom_SHAg, custom_SHAb, custom_SHBr, custom_SHBg, custom_SHBb, custom_SHC;
