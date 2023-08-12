@@ -4,7 +4,7 @@
 # --
 // Prepare
 float3 positionWS    = float3(input.TtoW0.w, input.TtoW1.w, input.TtoW2.w);
-half3 normalMap      = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_BaseMap, input.uv.xy)); // values between [-1, 1]
+half3 normalMap      = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.uv.xy)); // values between [-1, 1]
 // This's algorithm only apply to normalTS
 half3 normalStr      = half3(normalMap.rg * _NormalStrength, lerp(1.0, normalMap.b, saturate(_NormalStrength)));
 half3 normalWS       = normalize(half3(dot(input.TtoW0.xyz, normalStr), dot(input.TtoW1.xyz, normalStr), dot(input.TtoW2.xyz, normalStr)));

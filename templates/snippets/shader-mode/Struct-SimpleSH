@@ -2,11 +2,4 @@
 # name: Struct-SimpleSH
 # key: StructSimpleSH
 # --
-// SH
-half4 custom_SHAr;
-half4 custom_SHAg;
-half4 custom_SHAb;
-half4 custom_SHBr;
-half4 custom_SHBg;
-half4 custom_SHBb;
-half4 custom_SHC;
+half4 custom_SHAr, custom_SHAg, custom_SHAb, custom_SHBr, custom_SHBg, custom_SHBb, custom_SHC;

@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: Fn-Rotation
+# key: Fn-Rotation
+# --
+// Apply rotation
+float2 ApplyRotation(float2 uv, float4 params)
+{
+    // idea: use dot product operation instead of matrix operation
+    // uv: rotationed axis, eg: along y axis rotation, uv should be xz axis value
+    // parms: matrix2x2(cosΘ, -sinΘ, sinΘ, cosΘ) split to float4(cosΘ, -sinΘ, sinΘ, cosΘ)
+    float4 dotProduct = uv.xyxy * params.xyzw;
+    float2 product = dotProduct.xz + dotProduct.yw;
+    return product;
+}
