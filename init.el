@@ -753,7 +753,10 @@ of project.el"
 (use-package treesit
   :when (and (fboundp 'treesit-available-p)
              (treesit-available-p))
-  :custom (major-mode-remap-alist
+  :custom
+  (treesit-font-lock-level 4)
+
+  (major-mode-remap-alist
            '((c-mode             . c-ts-mode)
              (c++-mode           . c++-ts-mode)
              (csharp-mode        . csharp-ts-mode)
