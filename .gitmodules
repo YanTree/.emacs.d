@@ -7,6 +7,9 @@
 [submodule "closql"]
 	path = modules/closql
 	url = git@github.com:emacscollective/closql.git
+[submodule "color-rg"]
+	path = modules/color-rg
+	url = https://github.com/manateelazycat/color-rg
 [submodule "compat"]
 	path = modules/compat
 	url = https://git.sr.ht/~pkal/compat

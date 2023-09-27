@@ -827,6 +827,13 @@ of project.el"
 
 
 ;; ---------------------------------------------------------------------------
+;; Search
+(use-package color-rg
+  :config
+  (define-key isearch-mode-map (kbd "M-s M-s") 'isearch-toggle-color-rg))
+
+
+;; ---------------------------------------------------------------------------
 ;; Loading done
 (progn ;     startup
   (message "Loading %s...done (%.3fs)" user-init-file
