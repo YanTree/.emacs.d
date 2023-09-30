@@ -19,7 +19,6 @@ Shader "$0"
                 "RenderPipeline" = "UniversalPipeline"
                 "UniversalMaterialType" = "Lit"
                 "IgnoreProjector" = "True"
-                "ShaderModel"="4.5"
         }
 
         Pass
@@ -29,8 +28,32 @@ Shader "$0"
 
             // The HLSL code block. Unity SRP uses the HLSL language.
             HLSLPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+            // -------------------------------------
+            // Shader Stages
+            HLSLPROGRAM
+            #pragma vertex UnlitPassVertex
+            #pragma fragment UnlitPassFragment
+
+            // -------------------------------------
+            // Material Keywords
+            // #pragma shader_feature_local_fragment _SURFACE_TYPE_TRANSPARENT
+            // #pragma shader_feature_local_fragment _ALPHATEST_ON
+            // #pragma shader_feature_local_fragment _ALPHAMODULATE_ON
+
+            // -------------------------------------
+            // Unity defined keywords
+            #pragma multi_compile_fog
+            #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
+            #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
+            #pragma multi_compile _ DEBUG_DISPLAY
+            #pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #pragma instancing_options renderinglayer
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
@@ -46,17 +69,24 @@ Shader "$0"
             {
                 float4 positionOS   : POSITION;
                 float2 texcoord     : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID    // GPU Instance support
             };
 
             struct Varyings
             {
                 float4 positionHCS  : SV_POSITION;
                 half4  uv           : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID    // GPU Instance support
+                UNITY_VERTEX_OUTPUT_STEREO        // VR support
             };
 
-            Varyings vert(Attributes input)
+            Varyings UnlitPassVertex(Attributes input)
             {
-                Varyings output    = (Varyings)0;
+                Varyings output    = (Varyings)0; // Initialize
+
+                UNITY_SETUP_INSTANCE_ID(input);   // GPU Instance support
+                UNITY_TRANSFER_INSTANCE_ID(input, output);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output); // VR support
 
                 output.positionHCS = TransformObjectToHClip(input.positionOS.xyz);
                 output.uv.xy       = TRANSFORM_TEX(input.texcoord, _BaseMap);
@@ -65,10 +95,25 @@ Shader "$0"
             }
 
             // The fragment shader definition.
-            half4 frag(Varyings input) : SV_Target
+            void LitPassFragment(
+                Varyings input
+                , out half4 outColor : SV_Target0
+            #ifdef _WRITE_RENDERING_LAYERS
+                , out float4 outRenderingLayers : SV_Target1
+            #endif
+            )
             {
+                UNITY_SETUP_INSTANCE_ID(input);  // GPU Instance support
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input); // VR support
+
                 half4 color = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.uv.xy);
-                return color * _BaseColor;
+
+                outColor = color * _BaseColor;
+
+            #ifdef _WRITE_RENDERING_LAYERS
+                uint renderingLayers = GetMeshRenderingLayer();
+                outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
+            #endif
             }
             ENDHLSL
         }
