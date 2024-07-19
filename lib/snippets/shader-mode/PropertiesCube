@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: Properties Cube
-# key: pcube
-# --
-_${1:CubeName}("$1", Cube) = "white" {}

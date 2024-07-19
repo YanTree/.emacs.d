@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: Reflect
-# key: reflect
-# --
-half3 ${1:} = reflect(-${2:}, ${3:});

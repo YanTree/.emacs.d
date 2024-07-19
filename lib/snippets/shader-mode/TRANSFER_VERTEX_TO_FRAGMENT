@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: TRANSFER_VERTEX_TO_FRAGMENT
-# key: tvtf
-# --
-TRANSFER_VERTEX_TO_FRAGMENT(o);

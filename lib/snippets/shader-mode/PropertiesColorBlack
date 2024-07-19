@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: Properties Color Black
-# key: pcolb
-# --
-_${1:ColName}("$1", Color) = (0.0,0.0,0.0,0.0)

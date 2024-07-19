@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: LIGHT_ATTENUATION
-# key: la
-# --
-// 光照衰减
-half atten = LIGHT_ATTENUATION(i);

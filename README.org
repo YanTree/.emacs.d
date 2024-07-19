@@ -1,5 +1,0 @@
-#+STARTIP:showall hidestars
-
-* YanTree's init File
-
-使用 use-package 组织的 Emacs配置文件。注意：我是在 Emacs26.3 及其以上版本里使用的!

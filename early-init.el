@@ -1,26 +1,48 @@
-;;; early-init.el --- Early initialization -*- lexical-binding: t -*-
+;;; early-init.el --- earliest birds               -*- lexical-binding: t -*-
 ;;; Commentary:
+;;
+;; early-init.el was introduced in Emacs 27.1. It is loaded before init.el,
+;; before Emacs initializes its UI or package.el, and before site files are
+;; loaded. This is great place for startup optimizing, because only here can you
+;; *prevent* things from loading, rather than turn them off after-the-fact.
+;;
 ;;; Code:
 
-;; Defer garbage collection further back in the startup process
-(setq gc-cons-threshold most-positive-fixnum)
 
-;; In Emacs 27+, package initialization occurs before `user-init-file' is
-;; loaded, but after `early-init-file'. Doom handles package initialization, so
-;; we must prevent Emacs from doing it early!
+;; Load the latest changed file in .el and .elc files. If you modify a .el file
+;; and not compile it to .elc, then emacs will load .el file.
+(setq load-prefer-newer t)
+
+;; We use `borg' instead `package.el' to install package, not need `package.el'
+;; to download, compile, load packages, so disable it.
 (setq package-enable-at-startup nil)
 
-;; Resizing the Emacs frame can be a terribly expensive part of changing the
-;; font. By inhibiting this, we easily halve startup times with fonts that are
-;; larger than the system default.
-(setq frame-inhibit-implied-resize t)
+;; Setting frame title to show file path.
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
 
-;; Prevent the glimpse of un-styled Emacs by disabling these UI elements early.
-(push '(menu-bar-lines . 0) default-frame-alist)
-(push '(tool-bar-lines . 0) default-frame-alist)
-(push '(vertical-scroll-bars) default-frame-alist)
-(when (featurep 'ns)
-  (push '(ns-transparent-titlebar . t) default-frame-alist))
+;; Menu, icon button and scroll bar settings, menu is so useful to turn on.
+;; (push '(menu-bar-lines . 0) default-frame-alist)   ; Disable menus
+(push '(tool-bar-lines . 0) default-frame-alist)   ; Disable icon button at menus
+(push '(vertical-scroll-bars) default-frame-alist) ; Disable scroll bar
 
-(provide 'early-init)
+
+;; Perfer utf-8 encoding for file saving.
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+(prefer-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+(unless (eq system-type 'windows-nt)
+  (set-selection-coding-system 'utf-8))
+
+;; If show current time at modeline, use EN instead of CN
+(setq system-time-locale "C")
+
+
+;; Local Variables:
+;; no-byte-compile: t
+;; indent-tabs-mode: nil
+;; End:
 ;;; early-init.el ends here

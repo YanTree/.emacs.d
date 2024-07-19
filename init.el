@@ -1,91 +1,82 @@
-;;; init.el --- Load the full configuration -*- lexical-binding: t -*-
-;;; Commentary:
-
-;; This file bootstraps the configuration, which is divided into
-;; a number of other files.
-
-;;; Code:
-;; Produce backtraces when errors occur: can be helpful to diagnose startup issues
-;; (setq debug-on-error t)                        ;; 当加载配置出现错误时，显示详细的出错信息
-
-;; ------------------------------ Start ------------------------------
-;; From DOOM-EMACS  优化 GC ☞ 不明白的话就理解成加快 Emacs 启动速度，减少卡顿
-(defvar YanTree-gc-cons-threshold 16777216)
-
-(defvar YanTree-file-name-handler-alist file-name-handler-alist)
-
-(defun YanTree|restore-startup-optimizations ()
-  (setq file-name-handler-alist YanTree-file-name-handler-alist)
-  (run-with-idle-timer
-   3 nil
-   (lambda ()
-     (setq-default gc-cons-threshold YanTree-gc-cons-threshold)
-
-     (defun YanTree|defer-garbage-collection ()
-       (setq gc-cons-threshold most-positive-fixnum))
-
-     (defun YanTree|restore-garbage-collection ()
-       (run-at-time 1 nil (lambda () (setq gc-cons-threshold YanTree-gc-cons-threshold))))
-
-     (add-hook 'minibuffer-setup-hook #'YanTree|defer-garbage-collection)
-     (add-hook 'minibuffer-exit-hook  #'YanTree|restore-garbage-collection)
-     (add-hook 'focus-out-hook #'garbage-collect))))
+;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
+;;; Early birds
 
 
-(if (ignore-errors (or after-init-time noninteractive))
-    (setq gc-cons-threshold YanTree-gc-cons-threshold)
-  (setq gc-cons-threshold most-positive-fixnum)
-  (setq file-name-handler-alist nil)
-  (add-hook 'after-init-hook #'YanTree|restore-startup-optimizations))
-;; ------------------------------ End ------------------------------
+;; Increase how much is read from processes in a single chunk (default is 4kb).
+;; This is further increased elsewhere, where needed (like our LSP module).
+(setq read-process-output-max (* 128 1024))  ; 128kb
 
-;; Load path
-;; 最优化: Force "lisp" at the head to reduce the startup time.
-(defun update-load-path (&rest _)
-  "Update `load-path'."
-  (push (expand-file-name "etc" user-emacs-directory) load-path))
-(advice-add #'package-initialize :after #'update-load-path)
-(update-load-path)
-;; (require 'init-benchmarking)       ;;测试启动时间
-
-;;-----------------------------------------------------------------------
-;; Bootstrap config
-;;-----------------------------------------------------------------------
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(require 'init-package)
-(require 'init-utils)
-
-;;-----------------------------------------------------------------------
-;; 基本插件 (大多是是增强build-in 插件的功能,也有安装来自 melpa 的插件)
-;;-----------------------------------------------------------------------
-(require 'init-better-defaults)    ;; 更改 emacs 初始设置
-(require 'init-better-packages)    ;; 增强 emacs 原装 packages
-(require 'init-dired)              ;; 增强 dired 配置
-(require 'init-ibuffer)            ;; 增强 ibuffer 配置
-(require 'init-window)             ;; 增强切换 windows 的速度
+;; PERF: Garbage collection is a big contributor to startup times. This fends it
+;;   off, but will be reset later to normal. Not resetting it later will
+;;   cause stuttering/freezes.
+(let ((normal-gc-cons-threshold (* 16 1024 1024)) ; 16mb
+      (init-gc-cons-threshold (* 512 1024 1024))) ; 512mb
+  (setq gc-cons-threshold init-gc-cons-threshold)
+  (add-hook 'emacs-startup-hook
+            (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
 
 
+;;
+;;; Load init.el
 
-;;-----------------------------------------------------------------------
-;; melpa插件  加载目录为 melpa
-;;-----------------------------------------------------------------------
-(require 'init-ivy)
-(require 'init-company)
-(require 'init-simple-packages)
-(require 'init-theme)
-(require 'init-edit)
-(require 'init-magit)              ;; git
-(require 'init-write)              ;; 包含 markdown mode 和 org mode
-(require 'init-shader)             ;; Unity shader
+;; Loading init.el time
+(progn 
+  (defvar before-user-init-time (current-time)
+    "Value of `current-time' when Emacs begins loading `user-init-file'.")
+
+  (message "Loading Emacs...done (%.3fs)"
+           (float-time (time-subtract before-user-init-time
+                                      before-init-time)))
+  (setq user-init-file (or load-file-name buffer-file-name))
+  (setq user-emacs-directory (file-name-directory user-init-file))
+  (message "Loading %s..." user-init-file)
+  
+  ;; Theme, light theme `leuven'; dark theme 
+  (load-theme 'leuven)
+  ;(setq inhibit-startup-buffer-menu t) ; TODO: not clear
+  ;(setq inhibit-startup-screen t)      ; Disable `welcome' buffer
+  )
 
 
-;;-----------------------------------------------------------------------
-;;加载‘customize’
-;;-----------------------------------------------------------------------
-(when (file-exists-p custom-file)
-  (load custom-file))
+;;
+;;; About operating system
+
+(defconst IS-MAC      (eq system-type 'darwin))
+(defconst IS-LINUX    (memq system-type '(gnu gnu/linux gnu/kfreebsd berkeley-unix)))
+(defconst IS-WINDOWS  (memq system-type '(cygwin windows-nt ms-dos)))
+(defconst IS-BSD      (memq system-type '(darwin berkeley-unix gnu/kfreebsd)))
 
 
+;;
+;;; Data directory
 
-(provide 'init)
+(defvar maybe-data-dir (expand-file-name (format "%s.%s-data" emacs-major-version emacs-minor-version)
+                        user-emacs-directory)
+  "Local storage for package's cache files.")
+
+
+;;
+;;; Core 
+
+;; Package: `borg'
+;; Use to manage packages
+(eval-and-compile
+  (add-to-list 'load-path (expand-file-name "packages/borg" user-emacs-directory))
+  (require 'borg)
+  (borg-initialize))
+
+;; Package: `use-package'
+;; Use to config emacs package
+(eval-and-compile
+  (require  'use-package)
+  ;; (setq use-package-verbose t)              ; TODO: not clear
+  ;; (setq use-package-enable-imenu-support t) ; TODO: not clear
+  ;; (setq use-package-expand-minimally t)     ; TODO: not clear
+  ;; (setq use-package-compute-statistics t)   ; TODO: not clear
+  )
+
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 ;;; init.el ends here

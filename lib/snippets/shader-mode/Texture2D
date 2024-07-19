@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: Properties texture 2D
-# key: p2d
-# --
-_${1:MapName}("$1", 2D) = "white" {}
