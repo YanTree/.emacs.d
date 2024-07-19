@@ -28,6 +28,7 @@
   
   ;; Theme, light theme `leuven'; dark theme 
   (load-theme 'leuven)
+  (setq ring-bell-function #'ignore)   ; Disable ring bell, it's annoying
   ;(setq inhibit-startup-buffer-menu t) ; TODO: not clear
   ;(setq inhibit-startup-screen t)      ; Disable `welcome' buffer
   )
@@ -75,6 +76,20 @@
 (use-package gcmh
   :hook (after-init . gcmh-mode)
   :init (setq gcmh-high-cons-threshold (* 128 1024 1024))) ; 128mb
+
+
+;;
+;;; Better default
+
+(progn
+  (setq system-time-locale "C"      ; If show current time at modeline, use EN instead of CN
+        display-time-24hr-format t) ; 00:00~23:00 instead of 00:00~12:00
+
+  ; Load custom.el file
+  (setq custom-file (expand-file-name "custom.el" maybe-data-dir))
+  (when (file-exists-p custom-file)
+    (load custom-file))
+  )
 
 
 ;; Local Variables:

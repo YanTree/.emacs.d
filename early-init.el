@@ -37,9 +37,6 @@
 (unless (eq system-type 'windows-nt)
   (set-selection-coding-system 'utf-8))
 
-;; If show current time at modeline, use EN instead of CN
-(setq system-time-locale "C")
-
 
 ;; Local Variables:
 ;; no-byte-compile: t
