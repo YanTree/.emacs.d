@@ -8,34 +8,33 @@
 ;;
 ;;; Code:
 
+;; Garbage collection is a big contributor to startup times. This fends it
+;; off, but will be reset later by `gcmh-mode'. Not resetting it later causes
+;; stuttering/freezes.
+(setq gc-cons-threshold most-positive-fixnum)
 
-;; Load the latest changed file in .el and .elc files. If you modify a .el file
-;; and not compile it to .elc, then emacs will load .el file.
-(setq load-prefer-newer t)
+;; Don't use precious startup time checking mtime on elisp bytecode.
+(setq load-prefer-newer noninteractive)
 
-;; We use `borg' instead `package.el' to install package, not need `package.el'
-;; to download, compile, load packages, so disable it.
+;; Suppress package.el. Since Emacs 27, package initialization occurs before
+;; `user-init-file' is loaded, but after `early-init-file'. We use `borg' instead
+;; `package.el' to install package.
 (setq package-enable-at-startup nil)
 
-;; Setting frame title to show file path.
-(setq frame-title-format
-      '((:eval (if (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name))
-                 "%b"))))
-
-;; Menu, icon button and scroll bar settings, menu is so useful to turn on.
+;; HACK: I intentionally avoid calling `menu-bar-mode', `tool-bar-mode', and
+;;   `scroll-bar-mode' because their manipulation of frame parameters can
+;;   trigger/queue a superfluous (and expensive, depending on the window system)
+;;   frame redraw at startup. The variables must be set to `nil' as well so
+;;   users don't have to call the functions twice to re-enable them.
 ;; (push '(menu-bar-lines . 0) default-frame-alist)   ; Disable menus
 (push '(tool-bar-lines . 0) default-frame-alist)   ; Disable icon button at menus
 (push '(vertical-scroll-bars) default-frame-alist) ; Disable scroll bar
+(setq ;menu-bar-mode nil    ; Disable menus
+      tool-bar-mode nil    ; Disable icon button at menus
+      scroll-bar-mode nil) ; Disable scroll bar
 
-
-;; Perfer utf-8 encoding for file saving.
-(when (fboundp 'set-charset-priority)
-  (set-charset-priority 'unicode))
-(prefer-coding-system 'utf-8)
-(setq locale-coding-system 'utf-8)
-(unless (eq system-type 'windows-nt)
-  (set-selection-coding-system 'utf-8))
+;; Add config to load path
+(add-to-list 'load-path (expand-file-name "config/" (file-name-directory load-file-name)))
 
 
 ;; Local Variables:
