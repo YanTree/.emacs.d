@@ -4,7 +4,7 @@
 ;;; Code:
 
 
-;; Not limit read from processes in a single chunk size.
+;; Not limit read from processes size in a single chunk.
 (setq process-adaptive-read-buffering nil)
 ;; Increase how much is read from processes in a single chunk (default is 4kb).
 ;; This is further increased elsewhere, where needed (like our LSP module).

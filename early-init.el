@@ -11,7 +11,8 @@
 ;; Garbage collection is a big contributor to startup times. This fends it
 ;; off, but will be reset later by `gcmh-mode'. Not resetting it later causes
 ;; stuttering/freezes.
-(setq gc-cons-threshold most-positive-fixnum)
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 1.0)
 
 ;; Don't use precious startup time checking mtime on elisp bytecode.
 (setq load-prefer-newer noninteractive)

@@ -70,34 +70,23 @@
                       inhibit-message nil)
         (redisplay)))
 
-
-;;
-;;; Hook
-
-
-;;
-;;; Useful global defaults
-
-;; Put server.el file to `DATA/' folder
-(setq custom-file (file-name-concat maybe-data-dir "custom.el"))
-(when (file-exists-p custom-file)
-  (load custom-file))
-
-;; Put server.el file to `DATA/server/' folder
-(setq server-auth-dir (file-name-concat maybe-data-dir "server/"))
-
-;; Redirect eln-cache folder to `DATA/eln-cache/' 
-(startup-redirect-eln-cache (expand-file-name "eln-cache/" maybe-data-dir))
+; UNKOWN: From doom-start.el
+;; Performance on Windows is considerably worse than elsewhere. We'll need
+(if (boundp 'w32-get-true-file-attributes)
+  (setq w32-get-true-file-attributes nil    ; decrease file IO workload
+        w32-pipe-read-delay 0               ; faster IPC
+        w32-pipe-buffer-size (* 256 1024))) ; read more at a time (was 4K)
 
 ;; Cache font, this increases memory usage, however!
 (setq inhibit-compacting-font-caches t)
 
-; UNKOWN: From doom-start.el
-;; Performance on Windows is considerably worse than elsewhere. We'll need
-;; everything we can get.
-(setq w32-get-true-file-attributes nil    ; decrease file IO workload
-      w32-pipe-read-delay 0               ; faster IPC
-      w32-pipe-buffer-size (* 64 1024))   ; read more at a time (was 4K)
+
+;;
+;;; Hook
+
+;(doom-run-hook-on 'doom-first-buffer-hook '(find-file-hook doom-switch-buffer-hook))
+;(doom-run-hook-on 'doom-first-file-hook   '(find-file-hook dired-initial-position-hook))
+;(doom-run-hook-on 'doom-first-input-hook  '(pre-command-hook))
 
 
 ;;
@@ -176,6 +165,79 @@
 ;; Time format
 (setq system-time-locale "C"      ; Timestamp use english instead of chinese
       display-time-24hr-format t) ; Use 00:00 - 24:00 instead of 00:00 - 12:00
+
+
+;;
+;;; File handling
+
+; UNKOWN: From doom-editor.el
+;; Resolve symlinks when opening files, so that any operations are conducted
+;; from the file's true directory (like `find-file').
+(setq find-file-visit-truename t
+      vc-follow-symlinks t)
+
+;; More useful kit. Create missing directories when we open a file that doesn't
+;; exist under a directory tree that may not exist.
+(add-hook 'find-file-not-found-functions
+  (defun maybe-create-missing-directories()
+    "Automatically create missing directories when creating new files."
+    (unless (file-remote-p buffer-file-name)
+      (let ((parent-directory (file-name-directory buffer-file-name)))
+        (and (not (file-directory-p parent-directory))
+             (y-or-n-p (format "Directory `%s' does not exist! Create it?"
+                               parent-directory))
+             (progn (make-directory parent-directory 'parents)
+                    t))))))
+
+;; Disable backup files, we use Git to control version.
+(setq make-backup-files nil
+      backup-directory-alist (list (cons "." (concat maybe-data-dir "backup/")))
+      tramp-backup-directory-alist (list (cons "." (concat maybe-data-dir "tramp-backup/"))))
+
+;; Enable auto save, so we have a fallback in case of crashes or lost data.
+;; Use `recover-file' or `recover-session' to recover them.
+(setq auto-save-default t
+      ; Don't auto-disable auto-save after deleting big chunks.
+      auto-save-include-big-deletions t
+      auto-save-list-file-prefix (concat maybe-data-dir "auto-save-list/")
+      tramp-auto-save-directory  (concat maybe-data-dir "tramp-auto-save-list/"))
+
+;; Put server.el file to `DATA/' folder
+(setq custom-file (file-name-concat maybe-data-dir "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
+;; Put server.el file to `DATA/server/' folder
+(setq server-auth-dir (file-name-concat maybe-data-dir "server/"))
+
+;; Redirect eln-cache folder to `DATA/eln-cache/' 
+(startup-redirect-eln-cache (expand-file-name "eln-cache/" maybe-data-dir))
+
+
+;;
+;;; Formatting
+
+;; Use spaces instead of tabs.
+(setq-default indent-tabs-mode nil
+              tab-width 4)
+
+;; Allow tab with other task, not only indent, like completion.
+(setq-default tab-always-indent nil)
+
+;; Chars of one line touch the max limit, then create a newline.
+(setq-default fill-column 80)
+
+;; Continue wrapped words at whitespace, rather than in the middle of a word.
+(setq-default word-wrap t)
+
+
+;;
+;;; Extra file extensions to support
+
+(nconc
+ auto-mode-alist
+ '(("/LICENSE\\'" . text-mode)
+   ("\\.log\\'" . text-mode)))
 
 
 (provide 'maybe)
