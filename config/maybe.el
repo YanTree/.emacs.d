@@ -170,6 +170,9 @@
 ;;
 ;;; File handling
 
+;; When delete file or directory, try move to system trash.
+(setq delete-by-moving-to-trash t)
+
 ; UNKOWN: From doom-editor.el
 ;; Resolve symlinks when opening files, so that any operations are conducted
 ;; from the file's true directory (like `find-file').
@@ -238,6 +241,80 @@
  auto-mode-alist
  '(("/LICENSE\\'" . text-mode)
    ("\\.log\\'" . text-mode)))
+
+
+;;
+;;; Global keybind settings
+(cond
+ (system-windows-p
+  (setq w32-lwindow-modifier 'super   ; Left `WIN' key to 'super key
+        w32-rwindow-modifier 'super)))
+
+
+;;
+;;; Built-in packages
+
+;; ###Package: `bookmark'
+;; Bookmark
+(setq bookmark-default-file (expand-file-name "bookmarks" maybe-data-dir))
+
+
+;; ###Package: `hl-line'
+;; Hightlight the line of current cursor positon.
+(add-hook 'window-setup-hook #'global-hl-line-mode)
+
+
+;; ###Package: `autorevert'
+;; Sync file state when edit at another editor.
+(add-hook 'window-setup-hook #'global-auto-revert-mode)
+
+
+;; ###Package: `recentf'
+;; Create `recentf' file to note opened files recently.
+(defun config-recentf()
+  ;; Redirect to `DATA' folder.
+  (setq recentf-save-file (concat maybe-data-dir "recentf"))
+
+  (setq recentf-auto-cleanup nil    ; We will handle cleanup
+        recentf-max-saved-items 200); Increase limit 20 to 200
+
+  ;; The most sensible time to clean up your recent files list is when you quit
+  ;; Emacs (unless this is a long-running daemon session).
+  (setq recentf-auto-cleanup (if (daemonp) 300))
+  (add-hook 'kill-emacs-hook #'recentf-cleanup)
+  
+  (recentf-mode t))
+
+(add-hook 'window-setup-hook #'config-recentf)
+
+
+;; ###Package: `savehist'
+;; Persist variables across sessions
+(defun config-savehist()
+  (setq savehist-file (concat maybe-data-dir "history"))
+
+  (savehist-mode t))
+
+(add-hook 'window-setup-hook #'config-savehist)
+
+
+;; ###Package: `saveplace'
+;; Persistent cursor point location in buffers
+(defun config-saveplace()
+  (setq save-place-file (concat maybe-data-dir "places"))
+  
+  (save-place-mode t))
+
+(add-hook 'window-setup-hook #'config-saveplace)
+
+
+;; ###C Source Code: `display-fill-column-indicator-mode'
+;; Show one vertical line at `fill-column' position.
+(defun config-fill-column-indicator()
+  (defvar enable-hook '(emacs-lisp-mode-hook))
+  (dolist (hook enable-hook) (add-hook hook #'display-fill-column-indicator-mode)))
+
+(add-hook 'window-setup-hook #'config-fill-column-indicator)
 
 
 (provide 'maybe)

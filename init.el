@@ -20,7 +20,7 @@
 ;;; Core 
 
 ;; ###Package: `borg'
-;; Use to manage packages
+;; Manage packages, download, build, add to load-path
 (eval-and-compile
   (add-to-list 'load-path (expand-file-name "packages/borg" maybe-emacs-dir))
   (require 'borg)
@@ -38,11 +38,17 @@
 ;; but will be reset later to normal by gcmh. (16mb)
 (add-hook 'window-setup-hook (lambda () (setq gc-cons-threshold (* 16 1024 1024))))
 
-;; 
-(setq gcmh-idle-delay 'auto          ; 1. Switch to auto(default is 15s)
-      gcmh-auto-idle-delay-factor 10 ; 2. Then we can use custom delay time
-      gcmh-high-cons-threshold (* 16 1024 1024)) ; 16mb
-(add-hook 'window-setup-hook #'gcmh-mode) ; Enable gcmh
+;;
+(defun config-gcmh()
+    (setq gcmh-idle-delay 'auto          ; 1. Switch to auto(default is 15s)
+          gcmh-auto-idle-delay-factor 10 ; 2. Then we can use custom delay time
+          gcmh-high-cons-threshold (* 16 1024 1024)) ; 16mb
+    (gcmh-mode 1)) ; Enable gcmh
+
+;; Fire `gcmh'
+;; TODO: `window-setup-hook' another hook
+(add-hook 'window-setup-hook #'config-gcmh)
+
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
