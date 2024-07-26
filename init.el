@@ -36,7 +36,8 @@
 
 ;; Garbage collection is a big contributor to startup times. This fends it off,
 ;; but will be reset later to normal by gcmh. (16mb)
-(add-hook 'window-setup-hook (lambda () (setq gc-cons-threshold (* 16 1024 1024))))
+(add-hook 'maybe-first-input-hook
+          (lambda () (setq gc-cons-threshold (* 16 1024 1024))))
 
 ;;
 (defun config-gcmh()
@@ -46,8 +47,7 @@
     (gcmh-mode 1)) ; Enable gcmh
 
 ;; Fire `gcmh'
-;; TODO: `window-setup-hook' another hook
-(add-hook 'window-setup-hook #'config-gcmh)
+(add-hook 'maybe-first-input-hook #'config-gcmh)
 
 
 ;; Local Variables:

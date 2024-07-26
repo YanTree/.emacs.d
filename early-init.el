@@ -35,7 +35,8 @@
       scroll-bar-mode nil) ; Disable scroll bar
 
 ;; Add config to load path
-(add-to-list 'load-path (expand-file-name "config/" (file-name-directory load-file-name)))
+(add-to-list 'load-path
+             (expand-file-name "config/" (file-name-directory load-file-name)))
 
 
 ;; Local Variables:

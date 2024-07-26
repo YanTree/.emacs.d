@@ -19,9 +19,9 @@
 ;;
 ;;; About operating system
 
-(defconst system-macos-p    (eq system-type 'darwin))
-(defconst system-linux-p    (memq system-type '(gnu gnu/linux gnu/kfreebsd berkeley-unix)))
-(defconst system-windows-p  (memq system-type '(cygwin windows-nt ms-dos)))
+(defconst system-macos-p   (eq system-type 'darwin))
+(defconst system-linux-p   (memq system-type '(gnu gnu/linux gnu/kfreebsd berkeley-unix)))
+(defconst system-windows-p (memq system-type '(cygwin windows-nt ms-dos)))
 
 
 ;;
@@ -33,9 +33,69 @@
 (defconst maybe-config-dir (file-name-directory load-file-name)
   "The root directory of Maybe's core files. Must end with a slash.")
 
-(defvar maybe-data-dir (expand-file-name (format "_emacs%s.%s_data/" emacs-major-version emacs-minor-version)
+(defvar maybe-data-dir (expand-file-name
+                        (format "_emacs%s.%s_data/"
+                                emacs-major-version
+                                emacs-minor-version)
                         maybe-emacs-dir)
   "Local storage for all package's cache files.")
+
+
+;;
+;;; Custom hooks
+
+(defcustom maybe-first-input-hook ()
+  "Transient hooks run before the first user input.")
+
+(defcustom maybe-first-file-hook ()
+  "Transient hooks run before the first interactively opened file.")
+
+(defcustom maybe-first-buffer-hook ()
+  "Transient hooks run before the first interactively opened buffer.")
+
+(defcustom maybe-switch-buffer-hook nil
+  "A list of hooks run after changing the current buffer.")
+
+(defcustom maybe-switch-window-hook nil
+  "A list of hooks run after changing the focused windows.")
+
+(defcustom maybe-switch-frame-hook nil
+  "A list of hooks run after changing the focused frame.")
+
+;; Fire `maybe-switch-buffer-hook'
+(defun maybe-run-switch-buffer-hooks(&optional _)
+  (let ((gc-cons-threshold most-positive-fixnum)
+        (inhibit-redisplay t))
+    (run-hooks 'maybe-switch-buffer-hook)))
+
+;; Fire `maybe-switch-frame-hook' and `maybe-switch-window-hook'
+(defun maybe-run-switch-window-or-frame-hooks(&optional _)
+  (let ((gc-cons-threshold most-positive-fixnum)
+        (inhibit-redisplay t))
+    (unless (equal (old-selected-frame) (selected-frame))
+      (run-hooks 'maybe-switch-frame-hook))
+    (unless (or (minibufferp)
+                (equal (old-selected-window) (minibuffer-window)))
+      (run-hooks 'maybe-switch-window-hook))))
+
+(defun run-hook-once-after (hook-var hook-triggers)
+  "Configure HOOK-VAR to be invoked exactly once when any of the TRIGGER-HOOKS
+are invoked *after* Emacs has initialized (to reduce false positives). Once
+HOOK-VAR is triggered, it is reset to nil.
+
+HOOK-VAR is a quoted hook.
+TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
+  (dolist (hook hook-triggers)
+    (let ((fn (make-symbol (format "chain-%s-to-%s" hook-var hook)))
+          (running-p nil))
+      (fset fn (lambda(&rest _)
+        (when (and (not running-p)
+              (not (eq hook-var nil)))
+          (setq running-p t)
+          (run-hooks hook-var)
+          (setq hook-var nil))))
+         (add-hook hook fn -101)
+         fn)))
 
 
 ;;
@@ -80,13 +140,38 @@
 ;; Cache font, this increases memory usage, however!
 (setq inhibit-compacting-font-caches t)
 
+;; Config font/theme/ui
+(defun maybe-init-font())  ; TODO:
+(defun maybe-init-theme()) ; TODO:
+(defun maybe-init-ui()
+  ;; Initialize `maybe-switch-window-hook' and `maybe-switch-frame-hook'
+  (add-hook 'window-selection-change-functions #'maybe-run-switch-window-or-frame-hooks)
+  ;; Initialize `maybe-switch-buffer-hook'
+  (add-hook 'window-buffer-change-functions #'maybe-run-switch-buffer-hooks)
+  ;; `window-buffer-change-functions' doesn't trigger for files visited via the server.
+  (add-hook 'server-visit-hook #'maybe-run-switch-buffer-hooks))
 
-;;
-;;; Hook
+;; Apply font, theme then ui
+(add-hook 'after-init-hook   #'maybe-init-font -100)
+(add-hook 'after-init-hook   #'maybe-init-theme -90)
+(add-hook 'window-setup-hook #'maybe-init-ui -100)
 
-;(doom-run-hook-on 'doom-first-buffer-hook '(find-file-hook doom-switch-buffer-hook))
-;(doom-run-hook-on 'doom-first-file-hook   '(find-file-hook dired-initial-position-hook))
-;(doom-run-hook-on 'doom-first-input-hook  '(pre-command-hook))
+;; When show GUI screen, fire `maybe-first-buffer-hook'
+;; Then when press any key(include mouse click), fire `maybe-first-input-hook'
+;; Then when open any file(include enter dired and create new file), fire `maybe-first-file-hook'
+;;; `maybe-first-buffer-hook' -> `maybe-first-input-hook' -> `maybe-first-file-hook'
+(run-hook-once-after 'maybe-first-buffer-hook '(find-file-hook maybe-switch-buffer-hook))
+(run-hook-once-after 'maybe-first-input-hook  '(pre-command-hook))
+(run-hook-once-after 'maybe-first-file-hook   '(find-file-hook dired-initial-position-hook))
+
+;; The hook invoke turn.
+;;   - hook: `after-init-hook'
+;;   - hook: `emacs-startup-hook'
+;;   - hook: `window-setup-hook'
+;;   > After startup is complete:
+;;     - On first input:              `maybe-first-input-hook'
+;;     - On first switched-to buffer: `maybe-first-buffer-hook'
+;;     - On first opened file:        `maybe-first-file-hook'
 
 
 ;;
@@ -94,6 +179,9 @@
 
 ;; Not blinking cursor.
 (blink-cursor-mode -1)
+
+;; Selection and replaced.
+(delete-selection-mode 1)
 
 ;; No beeping or blinking please.
 (setq ring-bell-function #'ignore)
@@ -140,6 +228,9 @@
 
 ;; Typing `y/n' instead of `yes/no'
 (setq use-short-answers t)
+
+;; Echo area show key info more faster after typed.
+(setq echo-keystrokes 0.02)
 
 
 ;;
@@ -261,12 +352,12 @@
 
 ;; ###Package: `hl-line'
 ;; Hightlight the line of current cursor positon.
-(add-hook 'window-setup-hook #'global-hl-line-mode)
+(add-hook 'maybe-first-buffer-hook #'global-hl-line-mode)
 
 
 ;; ###Package: `autorevert'
 ;; Sync file state when edit at another editor.
-(add-hook 'window-setup-hook #'global-auto-revert-mode)
+(add-hook 'maybe-first-buffer-hook #'global-auto-revert-mode)
 
 
 ;; ###Package: `recentf'
@@ -285,7 +376,7 @@
   
   (recentf-mode t))
 
-(add-hook 'window-setup-hook #'config-recentf)
+(add-hook 'maybe-first-input-hook #'config-recentf)
 
 
 ;; ###Package: `savehist'
@@ -295,7 +386,7 @@
 
   (savehist-mode t))
 
-(add-hook 'window-setup-hook #'config-savehist)
+(add-hook 'wmaybe-first-input-hook #'config-savehist)
 
 
 ;; ###Package: `saveplace'
@@ -305,7 +396,7 @@
   
   (save-place-mode t))
 
-(add-hook 'window-setup-hook #'config-saveplace)
+(add-hook 'maybe-first-input-hook #'config-saveplace)
 
 
 ;; ###C Source Code: `display-fill-column-indicator-mode'
@@ -314,7 +405,7 @@
   (defvar enable-hook '(emacs-lisp-mode-hook))
   (dolist (hook enable-hook) (add-hook hook #'display-fill-column-indicator-mode)))
 
-(add-hook 'window-setup-hook #'config-fill-column-indicator)
+(add-hook 'maybe-first-buffer-hook #'config-fill-column-indicator)
 
 
 (provide 'maybe)
