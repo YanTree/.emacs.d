@@ -1,6 +1,14 @@
+[include]
+	path = config/borgconfig
 [submodule "borg"]
 	path = packages/borg
 	url = git@github.com:emacscollective/borg.git
 [submodule "gcmh"]
 	path = packages/gcmh
 	url = git@github.com:emacsmirror/gcmh.git
+[submodule "compat"]
+	path = packages/compat
+	url = git@github.com:emacs-compat/compat.git
+[submodule "vertico"]
+	path = packages/vertico
+	url = git@github.com:minad/vertico.git

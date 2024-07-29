@@ -34,10 +34,6 @@
       tool-bar-mode nil    ; Disable icon button at menus
       scroll-bar-mode nil) ; Disable scroll bar
 
-;; Add config to load path
-(add-to-list 'load-path
-             (expand-file-name "config/" (file-name-directory load-file-name)))
-
 
 ;; Local Variables:
 ;; no-byte-compile: t

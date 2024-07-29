@@ -366,14 +366,9 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
   ;; Redirect to `DATA' folder.
   (setq recentf-save-file (concat maybe-data-dir "recentf"))
 
-  (setq recentf-auto-cleanup nil    ; We will handle cleanup
-        recentf-max-saved-items 200); Increase limit 20 to 200
-
-  ;; The most sensible time to clean up your recent files list is when you quit
-  ;; Emacs (unless this is a long-running daemon session).
-  (setq recentf-auto-cleanup (if (daemonp) 300))
-  (add-hook 'kill-emacs-hook #'recentf-cleanup)
-  
+  (setq recentf-max-saved-items 200        ; Increase limit 20 to 200
+        recentf-exclude `("/tmp/" "/ssh:")); These files don't put to `recentf'
+ 
   (recentf-mode t))
 
 (add-hook 'maybe-first-input-hook #'config-recentf)
@@ -386,7 +381,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
   (savehist-mode t))
 
-(add-hook 'wmaybe-first-input-hook #'config-savehist)
+(add-hook 'maybe-first-input-hook #'config-savehist)
 
 
 ;; ###Package: `saveplace'
@@ -406,6 +401,15 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
   (dolist (hook enable-hook) (add-hook hook #'display-fill-column-indicator-mode)))
 
 (add-hook 'maybe-first-buffer-hook #'config-fill-column-indicator)
+
+
+;;
+;;; Third packages
+
+;; ###Package: `vertico'
+;; Show completion candiantes vertically(M-x + ...)
+(with-eval-after-load 'savehist
+  (vertico-mode t)) ; Vertico sorts by save history
 
 
 (provide 'maybe)

@@ -8,7 +8,12 @@
 (setq process-adaptive-read-buffering nil)
 ;; Increase how much is read from processes in a single chunk (default is 4kb).
 ;; This is further increased elsewhere, where needed (like our LSP module).
-(setq read-process-output-max (* 256 1024))  ; 256kb
+;; https://emacs-lsp.github.io/lsp-mode/page/performance/#increase-the-amount-of-data-which-emacs-reads-from-the-process
+(setq read-process-output-max (* 1024 1024))  ; 1mb
+
+;; Add all config files to `load-path'
+(add-to-list 'load-path
+             (expand-file-name "config/" (file-name-directory load-file-name)))
 
 ;; Load heart of configs
 (require 'maybe)
