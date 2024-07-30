@@ -15,3 +15,6 @@
 [submodule "doom-themes"]
 	path = packages/doom-themes
 	url = git@github.com:doomemacs/themes.git
+[submodule "orderless"]
+	path = packages/orderless
+	url = git@github.com:oantolin/orderless.git

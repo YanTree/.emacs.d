@@ -148,7 +148,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
 (defun maybe-init-theme()
   (doom-themes-visual-bell-config) ; Flashing mode-line on errors
-  (load-theme 'doom-one t))        ; load one theme of doom-themes
+  (load-theme 'doom-tomorrow-night t))        ; load one theme of doom-themes
 
 (defun maybe-init-ui()
   ;; Initialize `maybe-switch-window-hook' and `maybe-switch-frame-hook'
@@ -396,7 +396,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
   (savehist-mode t))
 
-(add-hook 'maybe-first-input-hook #'config-savehist)
+(add-hook 'maybe-first-buffer-hook #'config-savehist)
 
 
 ;; ###Package: `saveplace'
@@ -425,6 +425,13 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; Show completion candiantes vertically(M-x + ...)
 (with-eval-after-load 'savehist
   (vertico-mode t)) ; Vertico sorts by save history
+
+
+;; ###Package: `orderless'
+;; Fuzzy search by type a space, compatible with vertico
+(with-eval-after-load 'vertico
+  (setq completion-styles '(orderless basic)
+        completion-category-overrides '((file (styles basic partial-completion)))))
 
 
 (provide 'maybe)
