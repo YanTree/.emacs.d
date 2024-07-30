@@ -33,3 +33,6 @@
 [submodule "move-dup"]
 	path = packages/move-dup
 	url = git@github.com:wyuenho/move-dup.git
+[submodule "hungry-delete"]
+	path = packages/hungry-delete
+	url = git@github.com:nflath/hungry-delete.git

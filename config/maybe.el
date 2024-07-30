@@ -535,4 +535,15 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; Mark lines, then move up/down or duplicate then move up/down
 
 
+;;;###package `hungry-delete'
+;; Hungryly to delete space between two char or string
+(defun config-hungry-delete()
+  (setq hungry-delete-except-modes
+        '(help-mode minibuffer-mode minibuffer-inactive-mode calc-mode))
+
+  (global-hungry-delete-mode t))
+
+(add-hook 'maybe-first-input-hook #'config-hungry-delete)
+
+
 (provide 'maybe)
