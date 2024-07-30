@@ -520,4 +520,15 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (add-hook 'maybe-first-input-hook #'config-diff-hl)
 
 
+;;;###package `which-key'
+;; Popup a window show keybindings of around pressed key
+(defun config-which-key()
+  (setq which-key-sort-uppercase-first nil
+        which-key-add-column-padding 1)
+
+  (which-key-mode t))
+
+(add-hook 'maybe-first-input-hook #'config-which-key)
+
+
 (provide 'maybe)

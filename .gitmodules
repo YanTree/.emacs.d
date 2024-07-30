@@ -27,3 +27,6 @@
 [submodule "diff-hl"]
 	path = packages/diff-hl
 	url = git@github.com:dgutov/diff-hl.git
+[submodule "which-key"]
+	path = packages/which-key
+	url = git@github.com:justbur/emacs-which-key.git
