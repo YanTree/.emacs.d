@@ -458,6 +458,11 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; Transient is the library used to implement the keyboard-driven “menus” in Magit.
 
 
+;; ###Package: `with-editor'
+;; This library makes it possible to reliably use the Emacsclient as the $EDITOR
+;; of child processes.
+
+
 ;; ###Package: `vertico'
 ;; Show completion candiantes vertically(M-x + ...)
 (with-eval-after-load 'savehist

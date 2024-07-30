@@ -45,3 +45,6 @@
 [submodule "transient"]
 	path = packages/transient
 	url = git@github.com:magit/transient.git
+[submodule "with-editor"]
+	path = packages/with-editor
+	url = git@github.com:magit/with-editor.git
