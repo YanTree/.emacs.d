@@ -531,4 +531,8 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (add-hook 'maybe-first-input-hook #'config-which-key)
 
 
+;;;###package `move-dup'
+;; Mark lines, then move up/down or duplicate then move up/down
+
+
 (provide 'maybe)

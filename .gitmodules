@@ -30,3 +30,6 @@
 [submodule "which-key"]
 	path = packages/which-key
 	url = git@github.com:justbur/emacs-which-key.git
+[submodule "move-dup"]
+	path = packages/move-dup
+	url = git@github.com:wyuenho/move-dup.git

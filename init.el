@@ -17,13 +17,14 @@
 
 ;; Load heart of configs
 (require 'maybe)
+(require 'maybe-keybindings)
 
 ;; Awesome builtin light theme
 ; (load-theme 'leuven)
 
 
 ;;
-;;; Core 
+;;; Core
 
 ;; ###Package: `borg'
 ;; Manage packages, download, build, add to load-path
