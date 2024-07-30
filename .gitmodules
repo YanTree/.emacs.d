@@ -36,3 +36,6 @@
 [submodule "hungry-delete"]
 	path = packages/hungry-delete
 	url = git@github.com:nflath/hungry-delete.git
+[submodule "cape"]
+	path = packages/cape
+	url = git@github.com:minad/cape.git

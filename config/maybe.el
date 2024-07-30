@@ -546,4 +546,19 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (add-hook 'maybe-first-input-hook #'config-hungry-delete)
 
 
+;;;###package `cape'
+;; Unite a "interface" complete with additionally backends
+(with-eval-after-load 'corfu
+  ; TODO:
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  ; completion file name like: .emacs.d/config/maybe.el('/')
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  ; TODO:
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+  ; TODO:
+  (add-to-list 'completion-at-point-functions #'cape-history)
+  ; TODO:
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
+
+
 (provide 'maybe)
