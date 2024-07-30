@@ -447,6 +447,12 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
   (add-hook hook #'config-trailing-whitespace))
 
 
+;; ###Package: `isearch'
+;; Search on file.
+(with-eval-after-load 'isearch
+  (setq isearch-lazy-count t))
+
+
 ;;
 ;;; Third packages
 
