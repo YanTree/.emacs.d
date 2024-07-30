@@ -48,3 +48,6 @@
 [submodule "with-editor"]
 	path = packages/with-editor
 	url = git@github.com:magit/with-editor.git
+[submodule "magit"]
+	path = packages/magit
+	url = git@github.com:magit/magit.git

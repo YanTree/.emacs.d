@@ -530,9 +530,14 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
   ; don't block Emacs when updating vc gutter
   (setq diff-hl-update-async t)
 
-  (add-hook 'find-file-hook #'diff-hl-mode)
-  (add-hook 'dired-mode-hook #'diff-hl-dired-mode)
-  (add-hook 'diff-hl-mode-hook #'diff-hl-flydiff-mode))
+  (add-hook 'find-file-hook    #'diff-hl-mode)
+  (add-hook 'dired-mode-hook   #'diff-hl-dired-mode)
+  (add-hook 'diff-hl-mode-hook #'diff-hl-flydiff-mode)
+
+  ;; Integration with magit
+  (with-eval-after-load 'magit
+    (add-hook 'magit-pre-refresh-hook  #'diff-hl-magit-pre-refresh)
+    (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
 
 (add-hook 'maybe-first-input-hook #'config-diff-hl)
 
@@ -576,6 +581,15 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
   (add-to-list 'completion-at-point-functions #'cape-history)
   ; TODO:
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
+
+
+;;;###package `magit'
+;; A Git Porcelain inside Emacs.
+(with-eval-after-load 'magit
+  (magit-add-section-hook 'magit-status-sections-hook
+                          'magit-insert-modules
+                          'magit-insert-stashes
+                          'append))
 
 
 (provide 'maybe)
