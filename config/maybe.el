@@ -450,6 +450,10 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;;
 ;;; Third packages
 
+;; ###Package: `dash'
+;; A modern list API for Emacs. No 'cl required.
+
+
 ;; ###Package: `vertico'
 ;; Show completion candiantes vertically(M-x + ...)
 (with-eval-after-load 'savehist

@@ -39,3 +39,6 @@
 [submodule "cape"]
 	path = packages/cape
 	url = git@github.com:minad/cape.git
+[submodule "dash"]
+	path = packages/dash
+	url = git@github.com:magnars/dash.el.git
