@@ -21,3 +21,6 @@
 [submodule "corfu"]
 	path = packages/corfu
 	url = git@github.com:minad/corfu.git
+[submodule "rainbow-delimiters"]
+	path = packages/rainbow-delimiters
+	url = git@github.com:Fanael/rainbow-delimiters.git

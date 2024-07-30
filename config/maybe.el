@@ -471,4 +471,17 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (add-hook 'maybe-first-input-hook #'config-corfu)
 
 
+;;;###package `rainbow-delimiters'
+;; Helps us distinguish stacked delimiter pairs, especially in parentheses-drunk
+;; languages like Lisp.
+(defun config-rainbow-delimiters()
+  ; reduce the complexity of the font-lock keyword and hopefully buy us a few ms
+  ; of performance.
+  (setq rainbow-delimiters-max-face-count 4)
+
+  (rainbow-delimiters-mode t))
+
+(add-hook 'prog-mode-hook #'config-rainbow-delimiters)
+
+
 (provide 'maybe)
