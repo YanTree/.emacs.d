@@ -24,3 +24,6 @@
 [submodule "rainbow-delimiters"]
 	path = packages/rainbow-delimiters
 	url = git@github.com:Fanael/rainbow-delimiters.git
+[submodule "diff-hl"]
+	path = packages/diff-hl
+	url = git@github.com:dgutov/diff-hl.git

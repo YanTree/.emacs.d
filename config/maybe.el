@@ -496,4 +496,28 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (add-hook 'prog-mode-hook #'config-rainbow-delimiters)
 
 
+;;;###package `diff-hl'
+;; Show different base on VERSION control(git, svn...)
+  ; `diff-hl-diff-goto-hunk'     C-x v =
+  ; `diff-hl-revert-hunk'        C-x v n
+  ; `diff-hl-previous-hunk'      C-x v [
+  ; `diff-hl-next-hunk'          C-x v ]
+  ; `diff-hl-show-hunk'          C-x v *
+  ; `diff-hl-stage-current-hunk' C-x v S
+  ; `diff-hl-set-reference-rev'
+  ; `diff-hl-reset-reference-rev'
+  ; `diff-hl-unstage-file'
+(defun config-diff-hl()
+  ; A slightly faster algorithm for diffing.
+  (setq vc-git-diff-switches '("--histogram"))
+  ; don't block Emacs when updating vc gutter
+  (setq diff-hl-update-async t)
+
+  (add-hook 'find-file-hook #'diff-hl-mode)
+  (add-hook 'dired-mode-hook #'diff-hl-dired-mode)
+  (add-hook 'diff-hl-mode-hook #'diff-hl-flydiff-mode))
+
+(add-hook 'maybe-first-input-hook #'config-diff-hl)
+
+
 (provide 'maybe)
