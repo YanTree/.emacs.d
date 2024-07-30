@@ -54,3 +54,6 @@
 [submodule "git-timemachine"]
 	path = packages/git-timemachine
 	url = git@github.com:emacsmirror/git-timemachine.git
+[submodule "git-modes"]
+	path = packages/git-modes
+	url = git@github.com:magit/git-modes.git
