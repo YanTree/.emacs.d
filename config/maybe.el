@@ -144,7 +144,24 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (setq inhibit-compacting-font-caches t)
 
 ;; Config font/theme/ui
-(defun maybe-init-font())  ; TODO:
+(defun maybe-init-font()
+  (defvar default-font-properties '("Maple Mono SC NF" 10 "regular")
+    "Font property: default font + size + weight.")
+
+  (let ((default-font (format "%s-%s:%s" (car default-font-properties)
+                              (cadr default-font-properties)
+                              (caddr default-font-properties))))
+    ; default font
+    (add-to-list 'default-frame-alist (cons 'font default-font))
+    ; set default font
+    (set-frame-font default-font)
+      ; Specify font for Chinese characters
+    (set-fontset-font t 'han default-font))
+
+  ; Specify font for all unicode characters
+  (set-fontset-font t 'symbol (font-spec :family "Segoe UI Symbol") nil 'prepend)
+  ; emoji
+  (set-fontset-font t 'emoji (font-spec :family "Segoe UI Emoji") nil 'prepend))
 
 (defun maybe-init-theme()
   (doom-themes-visual-bell-config) ; Flashing mode-line on errors
