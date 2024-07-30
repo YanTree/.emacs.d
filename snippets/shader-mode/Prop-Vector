@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Prop-Vector
+# key: Prop-Vector
+# --
+_${1:Vectorname}("$1", Vector) = (1.0, 1.0, 1.0, 1.0)

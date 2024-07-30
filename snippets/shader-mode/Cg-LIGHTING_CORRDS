@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Cg-LIGHTING_COORDS
+# key: CgLIGHTING_COORDS
+# --
+LIGHTING_COORDS(4, 5)

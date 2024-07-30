@@ -57,3 +57,6 @@
 [submodule "git-modes"]
 	path = packages/git-modes
 	url = git@github.com:magit/git-modes.git
+[submodule "yasnippet"]
+	path = packages/yasnippet
+	url = git@github.com:joaotavora/yasnippet.git

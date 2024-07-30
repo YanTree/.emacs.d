@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Cg-Sample2D
+# key: CgSample2D
+# --
+sampler2D _${1:TexName};
+float4 _$1_ST;

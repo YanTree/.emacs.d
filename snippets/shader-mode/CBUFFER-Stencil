@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: CBUFFER-Stencil
+# key: CBUFFER-Stencil
+# --
+Stencil
+{
+    Ref [_Stencil]
+    Comp [_StencilComp]
+    ReadMask [_StencilReadMask]
+    WriteMask [_StencilWriteMask]
+    Pass [_StencilPass]
+    Fail [_StencilFail]
+    ZFail [_StencilZFail]
+}

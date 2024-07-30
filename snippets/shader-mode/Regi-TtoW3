@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Regi-TtoW3
+# key: RegiTtoW3
+# --
+float4 TtoW0:TEXCOORD1;
+float4 TtoW1:TEXCOORD2;
+float4 TtoW2:TEXCOORD3;

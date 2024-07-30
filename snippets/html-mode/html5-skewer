@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: HTML5-skewer
+# --
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="http://localhost:8080/skewer"></script>
+  </body>
+</html>

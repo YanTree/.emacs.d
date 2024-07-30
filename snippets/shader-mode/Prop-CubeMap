@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Prop-CubeMap
+# key: PropCubeMap
+# --
+_${1:CubeName}("$1", Cube) = "white" {}

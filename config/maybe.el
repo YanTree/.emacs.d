@@ -613,4 +613,12 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
   (setq git-timemachine-show-minibuffer-details t))
 
 
+;;;###package `yasnippet'
+;; A template system for Emacs
+(defun config-yasnippet()
+  (yas-global-mode t))
+
+(add-hook 'maybe-first-input-hook #'config-yasnippet)
+
+
 (provide 'maybe)

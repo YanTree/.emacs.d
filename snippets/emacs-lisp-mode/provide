@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: provide
+# key: pv
+# --
+
+(provide '`(replace-regexp-in-string "\.el$" "" (buffer-name))`)
+;;; `(buffer-name)` ends here

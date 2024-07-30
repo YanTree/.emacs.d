@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Prop-ColorBlack
+# key: PropColorBlack
+# --
+_${1:ColName}("$1", Color) = (0.0,0.0,0.0,0.0)
