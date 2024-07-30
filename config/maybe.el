@@ -483,9 +483,9 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
 ;; ###Package: `corfu'
 ;; Completion at the position of cursor
-  ; M-space fuzzy search
-  ; M-h     popup doc
-  ; M-g     popup location
+  ; `M-space' fuzzy search
+  ; `M-h'     popup doc
+  ; `M-g'     popup location
 (defun config-corfu()
   (setq corfu-auto t
         corfu-auto-prefix 2
@@ -590,6 +590,21 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
                           'magit-insert-modules
                           'magit-insert-stashes
                           'append))
+
+
+;;;###package `git-timemachine'
+;; Through file history base on git.
+  ; `p' Visit previous historic version
+  ; `n' Visit next historic version
+  ; `w' Copy the abbreviated hash of the current historic version
+  ; `W' Copy the full hash of the current historic version
+  ; `g' Goto nth revision
+  ; `t' Goto revision by selected commit message
+  ; `q' Exit the time machine.
+  ; `b' Run magit-blame on the currently visited revision (if magit available).
+  ; `c' Show current commit using magit (if magit available).
+(with-eval-after-load 'git-timemachine
+  (setq git-timemachine-show-minibuffer-details t))
 
 
 (provide 'maybe)

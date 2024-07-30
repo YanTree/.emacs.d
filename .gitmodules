@@ -51,3 +51,6 @@
 [submodule "magit"]
 	path = packages/magit
 	url = git@github.com:magit/magit.git
+[submodule "git-timemachine"]
+	path = packages/git-timemachine
+	url = git@github.com:emacsmirror/git-timemachine.git
