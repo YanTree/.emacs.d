@@ -104,7 +104,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;;
 ;;; Startup optimizations
 
-;; Don't resize Emacs frame appears to impact startup time dramatically. The 
+;; Don't resize Emacs frame appears to impact startup time dramatically. The
 ;; larger the delta, the greater the delay.
 (setq frame-inhibit-implied-resize t)
 
@@ -328,7 +328,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; Put server.el file to `DATA/server/' folder
 (setq server-auth-dir (file-name-concat maybe-data-dir "server/"))
 
-;; Redirect eln-cache folder to `DATA/eln-cache/' 
+;; Redirect eln-cache folder to `DATA/eln-cache/'
 (startup-redirect-eln-cache (expand-file-name "eln-cache/" maybe-data-dir))
 
 ;; User themes should live in packages/doom-themes/themes, not ~/.emacs.d
@@ -400,7 +400,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
   (setq recentf-max-saved-items 200        ; Increase limit 20 to 200
         recentf-exclude `("/tmp/" "/ssh:")); These files don't put to `recentf'
- 
+
   (recentf-mode t))
 
 (add-hook 'maybe-first-input-hook #'config-recentf)
@@ -420,7 +420,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; Persistent cursor point location in buffers
 (defun config-saveplace()
   (setq save-place-file (concat maybe-data-dir "places"))
-  
+
   (save-place-mode t))
 
 (add-hook 'maybe-first-input-hook #'config-saveplace)
@@ -433,6 +433,18 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
   (dolist (hook enable-hook) (add-hook hook #'display-fill-column-indicator-mode)))
 
 (add-hook 'maybe-first-buffer-hook #'config-fill-column-indicator)
+
+
+;; ###C Source Code: `trailing-whitespace'
+;; Empty space on buffer, usually it's annoying, we remove it before save.
+;; Don't show trailing whitespace by default
+(setq-default show-trailing-whitespace nil)
+(defun config-trailing-whitespace()
+  (setq show-trailing-whitespace t)
+  (add-hook 'before-save-hook #'delete-trailing-whitespace))
+
+(dolist (hook '(prog-mode-hook conf-mode-hook))
+  (add-hook hook #'config-trailing-whitespace))
 
 
 ;;
