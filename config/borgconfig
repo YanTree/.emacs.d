@@ -12,3 +12,6 @@
 [submodule "vertico"]
 	load-path = .
 	load-path = extensions
+[submodule "doom-themes"]
+	load-path = .
+	load-path = extensions

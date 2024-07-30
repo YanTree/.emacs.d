@@ -33,6 +33,9 @@
 (defconst maybe-config-dir (file-name-directory load-file-name)
   "The root directory of Maybe's core files. Must end with a slash.")
 
+(defconst maybe-packages-dir (expand-file-name "packages/" maybe-emacs-dir)
+  "The root directory of Maybe's packages files. Must end with a slash.")
+
 (defvar maybe-data-dir (expand-file-name
                         (format "_emacs%s.%s_data/"
                                 emacs-major-version
@@ -142,7 +145,11 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
 ;; Config font/theme/ui
 (defun maybe-init-font())  ; TODO:
-(defun maybe-init-theme()) ; TODO:
+
+(defun maybe-init-theme()
+  (doom-themes-visual-bell-config) ; Flashing mode-line on errors
+  (load-theme 'doom-one t))        ; load one theme of doom-themes
+
 (defun maybe-init-ui()
   ;; Initialize `maybe-switch-window-hook' and `maybe-switch-frame-hook'
   (add-hook 'window-selection-change-functions #'maybe-run-switch-window-or-frame-hooks)
@@ -306,6 +313,14 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
 ;; Redirect eln-cache folder to `DATA/eln-cache/' 
 (startup-redirect-eln-cache (expand-file-name "eln-cache/" maybe-data-dir))
+
+;; User themes should live in packages/doom-themes/themes, not ~/.emacs.d
+(setq custom-theme-directory (concat maybe-packages-dir "doom-themes/themes"))
+
+;; doom-themes put first at `custom-theme-load-path'
+(setq custom-theme-load-path
+      (cons 'custom-theme-directory
+            (delq 'custom-theme-directory custom-theme-load-path)))
 
 
 ;;

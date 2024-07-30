@@ -18,7 +18,8 @@
 ;; Load heart of configs
 (require 'maybe)
 
-(load-theme 'leuven)
+;; Awesome builtin light theme
+; (load-theme 'leuven)
 
 
 ;;
