@@ -42,3 +42,6 @@
 [submodule "dash"]
 	path = packages/dash
 	url = git@github.com:magnars/dash.el.git
+[submodule "transient"]
+	path = packages/transient
+	url = git@github.com:magit/transient.git

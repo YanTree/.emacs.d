@@ -454,6 +454,10 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; A modern list API for Emacs. No 'cl required.
 
 
+;; ###Package: `transient'
+;; Transient is the library used to implement the keyboard-driven “menus” in Magit.
+
+
 ;; ###Package: `vertico'
 ;; Show completion candiantes vertically(M-x + ...)
 (with-eval-after-load 'savehist
