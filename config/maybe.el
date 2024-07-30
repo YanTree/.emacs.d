@@ -456,6 +456,10 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
 ;; ###Package: `transient'
 ;; Transient is the library used to implement the keyboard-driven “menus” in Magit.
+(with-eval-after-load 'transient
+  (setq transient-history-file (concat maybe-data-dir "transient/history.el")
+        transient-levels-file  (concat maybe-data-dir "transient/levels.el")
+        transient-values-file  (concat maybe-data-dir "transient/values.el")))
 
 
 ;; ###Package: `with-editor'
