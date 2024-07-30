@@ -15,3 +15,6 @@
 [submodule "doom-themes"]
 	load-path = .
 	load-path = extensions
+[submodule "corfu"]
+	load-path = .
+	load-path = extensions

@@ -431,7 +431,27 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; Fuzzy search by type a space, compatible with vertico
 (with-eval-after-load 'vertico
   (setq completion-styles '(orderless basic)
-        completion-category-overrides '((file (styles basic partial-completion)))))
+        completion-category-defaults nil
+        completion-category-overrides nil))
+
+
+;; ###Package: `corfu'
+;; Completion at the position of cursor
+  ; M-space fuzzy search
+  ; M-h     popup doc
+  ; M-g     popup location
+(defun config-corfu()
+  (setq corfu-auto t
+        corfu-auto-prefix 2
+        corfu-auto-delay 0.1)
+
+  (global-corfu-mode t)
+  (corfu-popupinfo-mode t) ; Popup a window instead of split window
+
+  (with-eval-after-load 'eshell
+    (add-hook 'eshell-mode-hook (lambda ()(setq-local corfu-auto nil)))))
+
+(add-hook 'maybe-first-input-hook #'config-corfu)
 
 
 (provide 'maybe)
