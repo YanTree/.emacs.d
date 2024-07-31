@@ -60,3 +60,6 @@
 [submodule "yasnippet"]
 	path = packages/yasnippet
 	url = git@github.com:joaotavora/yasnippet.git
+[submodule "consult"]
+	path = packages/consult
+	url = git@github.com:minad/consult.git

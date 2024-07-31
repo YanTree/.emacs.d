@@ -496,7 +496,25 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; ###Package: `vertico'
 ;; Show completion candiantes vertically(M-x + ...)
 (with-eval-after-load 'savehist
+  (setq vertico-count 17
+        vertico-cycle t)
+
   (vertico-mode t)) ; Vertico sorts by save history
+
+
+;; ###Package: `consult'
+;; Consult provides search and navigation commands based on the Emacs completion
+;; function completing-read.
+(with-eval-after-load 'consult
+  (setq consult-async-min-input 2
+        consult-async-refresh-delay 0.15
+        consult-fd-args
+        '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
+          "--color=never"
+          ;; https://github.com/sharkdp/fd/issues/839
+          "--full-path --absolute-path"
+          "--hidden --exclude .git"
+          (if system-windows-p "--path-separator=/"))))
 
 
 ;; ###Package: `orderless'
@@ -635,6 +653,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
 ;;;###package `yasnippet'
 ;; A template system for Emacs
+  ; `yas-insert-snippet' insert snippet
 (defun config-yasnippet()
   (yas-global-mode t))
 
