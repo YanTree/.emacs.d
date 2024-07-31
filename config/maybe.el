@@ -171,9 +171,9 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
   ;; Initialize `maybe-switch-window-hook' and `maybe-switch-frame-hook'
   (add-hook 'window-selection-change-functions #'maybe-run-switch-window-or-frame-hooks)
   ;; Initialize `maybe-switch-buffer-hook'
-  (add-hook 'window-buffer-change-functions #'maybe-run-switch-buffer-hooks)
+  (add-hook 'window-buffer-change-functions    #'maybe-run-switch-buffer-hooks)
   ;; `window-buffer-change-functions' doesn't trigger for files visited via the server.
-  (add-hook 'server-visit-hook #'maybe-run-switch-buffer-hooks))
+  (add-hook 'server-visit-hook                 #'maybe-run-switch-buffer-hooks))
 
 ;; Apply font, theme then ui
 (add-hook 'after-init-hook   #'maybe-init-font -100)
@@ -451,6 +451,26 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; Search on file.
 (with-eval-after-load 'isearch
   (setq isearch-lazy-count t))
+
+
+;; ###Package: `dired'
+;; Emacs builtin file system
+(defun config-dired()
+  ; Sort by directory first.
+  (setq dired-listing-switches "-alGhv --group-directories-first --no-group")
+
+  ; Copy all files at current folder without asking.
+  ; Delete all files at current folder with asking.
+  (setq dired-recursive-copies 'always
+        dired-recursive-deletes 'top)
+
+  ; Avoid open too many dired buffer
+  (put 'dired-find-alternate-file 'disabled nil)
+
+  ; Dired guess default directory.
+  (setq-default dired-dwim-target t))
+
+(add-hook 'maybe-first-buffer-hook #'config-dired)
 
 
 ;;

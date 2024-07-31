@@ -35,10 +35,8 @@
       scroll-bar-mode nil) ; Disable scroll bar
 
 ;; Set frame position and size.
-(setq initial-frame-alist '((top . 0.5)
-                            (left . 0.5)
-                            (width . 0.628)
-                            (height . 0.8)
+(setq initial-frame-alist '((top   . 0.5)   (left   . 0.5)
+                            (width . 0.628) (height . 0.8)
                             (fullscreen)))
 
 
