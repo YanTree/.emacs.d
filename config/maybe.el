@@ -680,4 +680,26 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (add-hook 'maybe-first-input-hook #'config-yasnippet)
 
 
+;;;###package `wgrep'
+;; Wgrep allows you to edit a grep buffer and apply those changes to the file
+;; buffer like sed interactively.
+  ; `C-cC-e' Apply the changes to file buffers.
+  ; `C-cC-u' All changes are unmarked and ignored.
+  ; `C-cC-d' Mark as delete to current line (including newline).
+  ; `C-cC-r' Remove the changes in the region (these changes are not applied to
+  ;          the files. Of course, the remaining changes can still be applied to
+  ;          the files.)
+  ; `C-cC-p' Toggle read-only area.
+  ; `C-cC-k' Discard all changes and exit.
+  ; `C-xC-q' Exit wgrep mode.
+
+
+;;;###package `rg'
+;; Use ripgrep in Emacs.
+(defun config-rg()
+  (rg-enable-default-bindings))
+
+(add-hook 'maybe-first-input-hook #'config-rg)
+
+
 (provide 'maybe)

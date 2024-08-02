@@ -63,3 +63,9 @@
 [submodule "consult"]
 	path = packages/consult
 	url = git@github.com:minad/consult.git
+[submodule "wgrep"]
+	path = packages/wgrep
+	url = git@github.com:mhayashi1120/Emacs-wgrep.git
+[submodule "rg"]
+	path = packages/rg
+	url = git@github.com:dajva/rg.el.git

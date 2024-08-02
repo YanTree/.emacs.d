@@ -12,7 +12,8 @@
            ("C-M-<down>" . move-dup-duplicate-down))
 
 ;;;###package `consult'
-;;
+;; Consult provides search and navigation commands based on the Emacs completion
+;; function completing-read.
 (bind-keys ([remap bookmark-jump]       . consult-bookmark)
            ([remap goto-line]           . consult-goto-line)
            ([remap imenu]               . consult-imenu)
