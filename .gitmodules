@@ -69,3 +69,6 @@
 [submodule "rg"]
 	path = packages/rg
 	url = git@github.com:dajva/rg.el.git
+[submodule "beacon"]
+	path = packages/beacon
+	url = git@github.com:Malabarba/beacon.git

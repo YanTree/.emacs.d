@@ -703,4 +703,12 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (add-hook 'maybe-first-input-hook #'config-rg)
 
 
+;;;###package `beacon'
+;; Add a long trail highlight for cursor when scroll down/up ...
+(defun config-beacon()
+  (beacon-mode t))
+
+(add-hook 'maybe-first-buffer-hook #'config-beacon)
+
+
 (provide 'maybe)
