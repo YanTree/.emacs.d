@@ -328,6 +328,26 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; Put server.el file to `DATA/server/' folder
 (setq server-auth-dir (file-name-concat maybe-data-dir "server/"))
 
+;; Reset tramp tmp file to `DATA/tramp' folder
+(setq tramp-auto-save-directory (concat maybe-data-dir "tramp/auto-save/")
+      tramp-persistency-file-name (concat maybe-data-dir "tramp/persistency"))
+
+;; Put url file to `DATA' folder
+(setq url-configuration-directory (concat maybe-data-dir "url/")
+      url-cache-directory (concat maybe-data-dir "url/cache/")
+      url-history-file (concat maybe-data-dir "url/history")
+      url-cookie-file (concat maybe-data-dir "url/cookies"))
+
+;; Put projects file to `DATA' folder
+(setq project-list-file (concat maybe-data-dir "projects"))
+
+;; Put files about `eshell' to `DATA/eshell/' folder
+(with-eval-after-load 'eshell
+  (setq eshell-directory-name (concat maybe-data-dir "eshell/")
+        eshell-aliases-file   (concat maybe-data-dir "eshell/alias")
+        eshell-login-script   (concat maybe-data-dir "eshell/login")
+        eshell-rc-script      (concat maybe-data-dir "eshell/profile")))
+
 ;; Redirect eln-cache folder to `DATA/eln-cache/'
 (startup-redirect-eln-cache (expand-file-name "eln-cache/" maybe-data-dir))
 
