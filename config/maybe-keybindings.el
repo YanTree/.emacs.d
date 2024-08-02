@@ -28,4 +28,11 @@
            ([remap yank-pop]           . consult-yank-pop))
 
 
+;;;###Builtin `keybinding'
+;;
+(bind-keys ("C-h C-f" . find-function)
+           ("C-h C-v" . find-variable )
+           ("C-h C-k" . find-function-on-key))
+
+
 (provide 'maybe-keybindings)

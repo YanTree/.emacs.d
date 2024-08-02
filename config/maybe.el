@@ -696,6 +696,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
 ;;;###package `rg'
 ;; Use ripgrep in Emacs.
+;; https://rgel.readthedocs.io/en/latest/usage.html#installation
 (defun config-rg()
   (rg-enable-default-bindings))
 
