@@ -558,6 +558,19 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (add-hook 'maybe-first-buffer-hook #'config-dired)
 
 
+;; ###Package: `winner'
+;; Restore opened buffer or window
+(add-hook 'maybe-first-buffer-hook #'winner-mode)
+
+(with-eval-after-load 'winner
+  ;; Not restore below buffers
+  (setq winner-boring-buffers '("*Completions*"   "*Compile-Log*"
+                                "*inferior-lisp*" "*Fuzzy Completions*"
+                                "*Apropos*"       "*Help*"
+                                "*cvs*"           "*Buffer List*"
+                                "*Ibuffer*"       "*esh command on file*")))
+
+
 ;;
 ;;; Third packages
 
