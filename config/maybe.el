@@ -485,6 +485,32 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (add-hook 'maybe-first-input-hook #'config-saveplace)
 
 
+;; ###Package: `so-long'
+;; Improve performance, the file only with a long long single line
+(add-hook 'maybe-first-file-hook #'global-so-long-mode)
+
+(with-eval-after-load 'so-long
+  ;; Emacs 29 introduced faster long-line detection, so they can afford a much
+  ;; larger `so-long-threshold' and its default `so-long-predicate'.
+  (if (fboundp 'buffer-line-statistics)
+      (unless (featurep 'native-compile)
+        (setq so-long-threshold 5000))
+    ;; reduce false positives w/ larger threshold
+    (setq so-long-threshold 400))
+
+    (defun maybe-buffer-has-long-lines-p ()
+      (unless (bound-and-true-p visual-line-mode)
+        (let ((so-long-skip-leading-comments
+               ;; HACK Fix #2183: `so-long-detected-long-line-p' calls
+               ;;   `comment-forward' which tries to use comment syntax, which
+               ;;   throws an error if comment state isn't initialized, leading
+               ;;   to a wrong-type-argument: stringp error.
+               ;; DEPRECATED Fixed in Emacs 28.
+               (bound-and-true-p comment-use-syntax)))
+          (so-long-detected-long-line-p))))
+    (setq so-long-predicate #'maybe-buffer-has-long-lines-p))
+
+
 ;; ###C Source Code: `display-fill-column-indicator-mode'
 ;; Show one vertical line at `fill-column' position.
 (defun config-fill-column-indicator()
