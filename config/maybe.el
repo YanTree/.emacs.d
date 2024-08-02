@@ -406,6 +406,45 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; Hightlight the line of current cursor positon.
 (add-hook 'maybe-first-buffer-hook #'global-hl-line-mode)
 
+(defvar global-hl-line-modes
+  '(prog-mode text-mode conf-mode special-mode
+    org-agenda-mode dired-mode)
+  "What modes to enable `hl-line-mode' in.")
+
+(with-eval-after-load 'hl-line
+  ;; Reimplement `global-hl-line-mode' so we can white/blacklist modes in
+  ;; `global-hl-line-modes' _and_ so we can use `global-hl-line-mode',
+  ;; which users expect to control hl-line in Emacs.
+  (define-globalized-minor-mode global-hl-line-mode hl-line-mode
+    (lambda ()
+      (and (cond (hl-line-mode nil)
+                 ((null global-hl-line-modes) nil)
+                 ((eq global-hl-line-modes t))
+                 ((eq (car global-hl-line-modes) 'not)
+                  (not (derived-mode-p global-hl-line-modes)))
+                 ((apply #'derived-mode-p global-hl-line-modes)))
+           (hl-line-mode +1))))
+
+  ;; Temporarily disable `hl-line' when selection is active, since it doesn't
+  ;; serve much purpose when the selection is so much more visible.
+  (defvar maybe--hl-line-mode nil)
+
+  (add-hook 'hl-line-mode-hook
+    (defun maybe-truly-disable-hl-line-h ()
+      (unless hl-line-mode
+        (setq-local maybe--hl-line-mode nil))))
+
+  (add-hook 'activate-mark-hook
+    (defun maybe-disable-hl-line-h ()
+      (when hl-line-mode
+        (hl-line-mode -1)
+        (setq-local maybe--hl-line-mode t))))
+
+  (add-hook 'deactivate-mark-hook
+    (defun maybe-enable-hl-line-maybe-h ()
+      (when maybe--hl-line-mode
+        (hl-line-mode +1)))))
+
 
 ;; ###Package: `autorevert'
 ;; Sync file state when edit at another editor.
