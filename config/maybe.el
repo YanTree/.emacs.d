@@ -213,8 +213,20 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 ;; Middle-click paste at point of cursor, not at point of mouse click pos.
 (setq mouse-yank-at-point t)
 
-(setq hscroll-margin 7  ; Keep 7 column will touch to left/right edge
-      scroll-margin 7)  ; Keep 7 row will touch to top/bottom edge
+;; Vertical/horizontal scroll
+(setq scroll-step 1   ; Scrolling always be a line at a time instead of centered
+                      ; after it moves off frame
+      scroll-margin 7 ; Keep 7 row will touch to top/bottom edge
+      scroll-conservatively 101 ; Redisplay will never recenter point, but will
+                                ; always scroll just enough text to bring to view
+      scroll-up-aggressively   0.01
+      scroll-down-aggressively 0.01
+      auto-window-vscroll nil
+      fast-but-imprecise-scrolling nil
+      ; Horizontal scroll
+      hscroll-step 1
+      hscroll-margin 7; Keep 7 column will touch to left/right edge
+      )
 
 
 ;;
