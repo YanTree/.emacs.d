@@ -72,3 +72,6 @@
 [submodule "beacon"]
 	path = packages/beacon
 	url = git@github.com:Malabarba/beacon.git
+[submodule "markdown-mode"]
+	path = packages/markdown-mode
+	url = git@github.com:jrblevin/markdown-mode.git

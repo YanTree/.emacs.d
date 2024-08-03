@@ -166,7 +166,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
 (defun maybe-init-theme()
   (doom-themes-visual-bell-config) ; Flashing mode-line on errors
-  (load-theme 'doom-tomorrow-night t))        ; load one theme of doom-themes
+  (load-theme 'doom-one t))        ; load one theme of doom-themes
 
 (defun maybe-init-ui()
   ;; Initialize `maybe-switch-window-hook' and `maybe-switch-frame-hook'
@@ -475,7 +475,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
   (recentf-mode t))
 
-(add-hook 'maybe-first-input-hook #'config-recentf)
+(add-hook 'maybe-first-buffer-hook #'config-recentf)
 
 
 ;; ###Package: `savehist'
@@ -485,7 +485,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
   (savehist-mode t))
 
-(add-hook 'maybe-first-buffer-hook #'config-savehist)
+(add-hook 'maybe-first-input-hook #'config-savehist)
 
 
 ;; ###Package: `saveplace'
@@ -495,7 +495,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
   (save-place-mode t))
 
-(add-hook 'maybe-first-input-hook #'config-saveplace)
+(add-hook 'maybe-first-buffer-hook #'config-saveplace)
 
 
 ;; ###Package: `so-long'
@@ -694,7 +694,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
     (add-hook 'magit-pre-refresh-hook  #'diff-hl-magit-pre-refresh)
     (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
 
-(add-hook 'maybe-first-input-hook #'config-diff-hl)
+(add-hook 'maybe-first-buffer-hook #'config-diff-hl)
 
 
 ;;;###package `which-key'
@@ -705,7 +705,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
   (which-key-mode t))
 
-(add-hook 'maybe-first-input-hook #'config-which-key)
+(add-hook 'maybe-first-buffer-hook #'config-which-key)
 
 
 ;;;###package `move-dup'
@@ -720,7 +720,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 
   (global-hungry-delete-mode t))
 
-(add-hook 'maybe-first-input-hook #'config-hungry-delete)
+(add-hook 'maybe-first-buffer-hook #'config-hungry-delete)
 
 
 ;;;###package `cape'
@@ -768,7 +768,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (defun config-yasnippet()
   (yas-global-mode t))
 
-(add-hook 'maybe-first-input-hook #'config-yasnippet)
+(add-hook 'maybe-first-buffer-hook #'config-yasnippet)
 
 
 ;;;###package `wgrep'
@@ -791,7 +791,7 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
 (defun config-rg()
   (rg-enable-default-bindings))
 
-(add-hook 'maybe-first-input-hook #'config-rg)
+(add-hook 'maybe-first-buffer-hook #'config-rg)
 
 
 ;;;###package `beacon'
@@ -800,6 +800,16 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
   (beacon-mode t))
 
 (add-hook 'maybe-first-buffer-hook #'config-beacon)
+
+
+;;;###package `markdown-mode'
+;; markdown-mode is a major mode for editing Markdown-formatted text.
+  ; `markdown-do'
+;; Major mode for editing GitHub Flavored Markdown files
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+;; Major mode for editing Markdown files
+(add-to-list 'auto-mode-alist
+             '("\\.\\(?:md\\|markdown\\|mkd\\|mdown\\|mkdn\\|mdwn\\)\\'" . markdown-mode))
 
 
 (provide 'maybe)
