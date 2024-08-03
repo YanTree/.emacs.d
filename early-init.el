@@ -8,6 +8,11 @@
 ;;
 ;;; Code:
 
+
+;; This will be set back to normal at the end of the init file
+(defvar maybe-file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+
 ;; Garbage collection is a big contributor to startup times. This fends it
 ;; off, but will be reset later by `gcmh-mode'. Not resetting it later causes
 ;; stuttering/freezes.
@@ -22,11 +27,11 @@
 ;; `package.el' to install package.
 (setq package-enable-at-startup nil)
 
-;; HACK: I intentionally avoid calling `menu-bar-mode', `tool-bar-mode', and
-;;   `scroll-bar-mode' because their manipulation of frame parameters can
-;;   trigger/queue a superfluous (and expensive, depending on the window system)
-;;   frame redraw at startup. The variables must be set to `nil' as well so
-;;   users don't have to call the functions twice to re-enable them.
+;; I intentionally avoid calling `menu-bar-mode', `tool-bar-mode', and
+;; `scroll-bar-mode' because their manipulation of frame parameters can
+;; trigger/queue a superfluous (and expensive, depending on the window system)
+;; frame redraw at startup. The variables must be set to `nil' as well so
+;; users don't have to call the functions twice to re-enable them.
 ;; (push '(menu-bar-lines . 0) default-frame-alist)   ; Disable menus
 (push '(tool-bar-lines . 0) default-frame-alist)   ; Disable icon button at menus
 (push '(vertical-scroll-bars) default-frame-alist) ; Disable scroll bar

@@ -44,7 +44,10 @@
 ;; Garbage collection is a big contributor to startup times. This fends it off,
 ;; but will be reset later to normal by gcmh. (16mb)
 (add-hook 'maybe-first-input-hook
-          (lambda () (setq gc-cons-threshold (* 16 1024 1024))))
+          (lambda ()
+            (setq file-name-handler-alist maybe-file-name-handler-alist)
+            ; Reset garbage collection
+            (setq gc-cons-threshold (* 16 1024 1024)))) ; 16mb
 
 ;;
 (defun config-gcmh()

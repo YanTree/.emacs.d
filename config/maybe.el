@@ -8,6 +8,7 @@
 ;;; Encodings
 
 ;; Perfer utf-8 encoding for file saving.
+;; https://www.reddit.com/r/emacs/comments/siuvpu/isnt_there_a_better_way_to_set_utf8/
 (when (fboundp 'set-charset-priority)
   (set-charset-priority 'unicode))
 (prefer-coding-system 'utf-8)
@@ -27,7 +28,7 @@
 ;;
 ;;; Data directory variables
 
-(defvar maybe-emacs-dir user-emacs-directory
+(defconst maybe-emacs-dir user-emacs-directory
   "The path to the currently loaded .emacs.d directory. Must end with a slash.")
 
 (defconst maybe-config-dir (file-name-directory load-file-name)
@@ -36,7 +37,7 @@
 (defconst maybe-packages-dir (expand-file-name "packages/" maybe-emacs-dir)
   "The root directory of Maybe's packages files. Must end with a slash.")
 
-(defvar maybe-data-dir (expand-file-name
+(defconst maybe-data-dir (expand-file-name
                         (format "_emacs%s.%s_data/"
                                 emacs-major-version
                                 emacs-minor-version)
