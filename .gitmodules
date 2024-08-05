@@ -75,3 +75,6 @@
 [submodule "markdown-mode"]
 	path = packages/markdown-mode
 	url = git@github.com:jrblevin/markdown-mode.git
+[submodule "embark"]
+	path = packages/embark
+	url = git@github.com:oantolin/embark.git
