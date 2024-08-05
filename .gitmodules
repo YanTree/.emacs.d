@@ -78,3 +78,6 @@
 [submodule "embark"]
 	path = packages/embark
 	url = git@github.com:oantolin/embark.git
+[submodule "rust-mode"]
+	path = packages/rust-mode
+	url = git@github.com:rust-lang/rust-mode.git
