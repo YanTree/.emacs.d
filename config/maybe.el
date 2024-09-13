@@ -362,7 +362,14 @@ TRIGGER-HOOK is a list of quoted hooks and/or sharp-quoted functions."
         eshell-rc-script      (concat maybe-data-dir "eshell/profile")))
 
 ;; Redirect eln-cache folder to `DATA/eln-cache/'
-(startup-redirect-eln-cache (expand-file-name "eln-cache/" maybe-data-dir))
+(when (featurep 'native-compile)
+
+    (when (fboundp 'startup-redirect-eln-cache)
+        (startup-redirect-eln-cache (convert-standard-filename 
+                                        (expand-file-name "native-eln-cache/"
+                                            maybe-data-dir))))
+
+    (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" maybe-data-dir)))
 
 ;; User themes should live in packages/doom-themes/themes, not ~/.emacs.d
 (setq custom-theme-directory (concat maybe-packages-dir "doom-themes/themes"))
